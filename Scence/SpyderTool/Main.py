@@ -1,5 +1,5 @@
 from multiprocessing import Pool
-from SpyderTool.Function import DataBaseInit
+from SpyderTool.Function.ScenceFunction import ScenceFunction
 import pymysql
 from SpyderTool.setting import *
 if __name__ == "__main__":
@@ -13,7 +13,7 @@ if __name__ == "__main__":
         cursor.execute(sql)
     except Exception as e:
         print("error:%s" % e)
-    d = DataBaseInit()
+    d = ScenceFunction()
     PeoplePidList = []
     WeatherPidList = []
     CityCodeList = []
@@ -24,8 +24,8 @@ if __name__ == "__main__":
     CityCodeList = list(set(CityCodeList))
     WeatherPidList = list(set(WeatherPidList))
 
-    pool.apply_async(func=d.PeopleFlow, args=(PeoplePidList, ))
-    pool.apply_async(func=d.Weather, args=(WeatherPidList,))
+    # pool.apply_async(func=d.PeopleFlow, args=(PeoplePidList, ))
+    # pool.apply_async(func=d.Weather, args=(WeatherPidList,))
     pool.apply_async(func=d.Traffic, args=(CityCodeList,))
     pool.close()
     pool.join()

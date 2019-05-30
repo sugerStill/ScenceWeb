@@ -1,10 +1,11 @@
-from SpyderTool.PeopleFlow import ScencePeopleFlow
-from SpyderTool.Weather import Weather
-from SpyderTool.Traffic import BaiduTraffic, GaodeTraffic
+from SpyderTool.Tool.PeopleFlow import ScencePeopleFlow
+from SpyderTool.Tool.Weather import Weather
+from SpyderTool.Tool.BaiduTraffic import BaiduTraffic
+from SpyderTool.Tool.GaodeTraffic import GaodeTraffic
 import pymysql, time, csv
 from concurrent.futures import ThreadPoolExecutor
 from SpyderTool.setting import *
-class DataBaseInit:
+class ScenceFunction:
     # 待更改为信号量来实现多线程操作数据库
     instance = None
     db = pymysql.connect(host=host, user=user, password=password, database=database,
@@ -205,20 +206,23 @@ class DataBaseInit:
             detailTime = item['detailTime']
             sql = "insert into  traffic(pid_id,date,TrafficIndex,detailTime) values('%d','%s','%s','%s');" % (
                 CityTableCode, date, index, detailTime)
-            self.LoadDatabase(sql)
+            self.LoadDatabase(mysql,sql)
 
         print("success")
         mysql.close()
 
     #写入数据库
-    def LoadDatabase(self, sql):
-        cursor = self.db.cursor()
+    def LoadDatabase(self,mysql, sql):
+        cursor = mysql.cursor()
         try:
             cursor.execute(sql)
-            self.db.commit()
+            mysql.commit()
         except Exception as e:
+
             print("error:%s" % e)
-            self.db.rollback()
+            mysql.rollback()
+            return False
+        return True
     def __DealWithTraffic(self, info, mysql, Pid, today, yesterday):
 
         lis = []
