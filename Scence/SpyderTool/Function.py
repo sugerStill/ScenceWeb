@@ -203,11 +203,22 @@ class DataBaseInit:
             date = item['date']
             index = float(item['index'])
             detailTime = item['detailTime']
-            traffic.LoadDatabase(CityTableCode, date, index, detailTime)
+            sql = "insert into  traffic(pid_id,date,TrafficIndex,detailTime) values('%d','%s','%s','%s');" % (
+                CityTableCode, date, index, detailTime)
+            self.LoadDatabase(sql)
 
         print("success")
         mysql.close()
 
+    #写入数据库
+    def LoadDatabase(self, sql):
+        cursor = self.db.cursor()
+        try:
+            cursor.execute(sql)
+            self.db.commit()
+        except Exception as e:
+            print("error:%s" % e)
+            self.db.rollback()
     def __DealWithTraffic(self, info, mysql, Pid, today, yesterday):
 
         lis = []

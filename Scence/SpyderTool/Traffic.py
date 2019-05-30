@@ -2,7 +2,7 @@ import requests
 import json
 import time
 from urllib.parse import urlencode
-
+from SpyderTool.MulThread import MulitThread
 
 def deco(func):
     def Load(self, cityCode):
@@ -48,19 +48,103 @@ class GaodeTraffic(object):
             dic['index'] = float(item[1])
             dic['detailTime'] = detailTime
             yield dic
+    def RoadManager(self,cityCode):
+        dic=self.Roads(cityCode) #道路基本信息
+        dataList = self.__realTimeRoad(dic, cityCode) #获取数据
 
-    def LoadDatabase(self, CityTableCode, date, index, detailTime):
-        cursor = self.db.cursor()
+        for item, data in zip(dic['route'], dataList['data']):
 
-        sql = "insert into  traffic(pid_id,date,TrafficIndex,detailTime) values('%d','%s','%s','%s');" % (
-            CityTableCode, date, index, detailTime)
+            print(item)
+            print(data)
+            # b = Base()
+            # b.date = date
+            # b.DetailTime = DetailTime
+            # b.name = item["name"]
+            # b.speed = float(item["speed"])
+            # b.data = json.dumps(data)
+            # b.direction = item['dir']
+            # b.bounds = json.dumps({"coords": item['coords']})
+            # b.save()
+
+
+
+    def Roads(self, cityCode):
+
+        req = {
+            "roadType": 0,
+            "timeType": 0,
+            "cityCode": cityCode
+        }
+        url = "https://report.amap.com/ajax/roadRank.do?" + urlencode(req)
+        data = self.s.get(url=url, headers=self.headers)
+        date = time.strftime("%Y-%m-%d", time.localtime())
+        DetailTime = time.strftime("%H:%M", time.localtime())
 
         try:
-            cursor.execute(sql)
-            self.db.commit()
-        except Exception as e:
-            print("error:%s" % e)
-            self.db.rollback()
+            Route = json.loads(data.text)  # 道路信息包
+        except Exception:
+            return None
+        listId = []  # 记录道路pid
+        listRoadName = []  # 记录道路名
+        listDir = []  # 记录道路方向
+        listSpeed = []  # 记录速度
+        for item in Route["tableData"]:
+            listRoadName.append(item["name"])  # 道路名
+            listDir.append(item["dir"])  # 方向
+            listSpeed.append(item["speed"])  # 速度
+            listId.append(item["id"])  # 道路pid
+        dic = {} #存放所有数据
+        dic["route"] = Route['tableData']
+        dic["listId"] = listId
+        dic["listRoadName"] = listRoadName
+        dic["listDir"] = listDir
+        dic["listSpeed"] = listSpeed
+
+        return dic
+
+    # 某条路实时路况
+    def __realTimeRoad(self, dic, cityCode):
+        req = {
+            "roadType": 0,
+            "timeType": 0,
+            "cityCode": cityCode,
+            'lineCode': ''
+
+        }
+        url = "https://report.amap.com/ajax/roadDetail.do?" + urlencode(req)
+        threadlist = []
+        data = []
+        for id, i in zip(dic["listId"],
+                         range(0, (dic["listId"]).__len__())):
+            RoadUrl = url + str(id)
+            t = MulitThread(target=self.__RealTimeRoadData, args=(RoadUrl, i,))  # i表示排名
+            t.start()
+            threadlist.append(t)
+        for t in threadlist:
+            t.join()
+            if t.get_result is not None:
+                data.append(t.get_result)
+
+        ##排好序列
+        if len(data) > 0:
+            sorted(data, key=lambda x: ["num"])
+
+        return {"data": data}
+
+    def __RealTimeRoadData(self, RoadUrl, i):
+        data = self.s.get(url=RoadUrl, headers=self.headers)
+        try:
+            g = json.loads(data.text)  # 拥堵指数
+        except Exception:
+            return None
+        l = []  # 拥堵指数
+        t = []  # 时间
+        for item in g:
+            t.append(time.strftime("%H:%M", time.strptime(time.ctime(int(item[0] / 1000 + 3600 * 8)))))
+            l.append(item[1])
+        # {排名，时间，交通数据}
+        realData = {"num": i, "time": t, "data": l}
+        return realData
 
 
 class BaiduTraffic(object):
@@ -104,15 +188,5 @@ class BaiduTraffic(object):
             dic['detailTime'] = item['time']
             yield dic
 
-    def LoadDatabase(self, CityTableCode, date, index, detailTime):
-        cursor = self.db.cursor()
 
-        sql = "insert into  traffic(pid_id,date,TrafficIndex,detailTime) values('%d','%s','%s','%s');" % (
-            CityTableCode, date, index, detailTime)
-        try:
-            cursor.execute(sql)
-            self.db.commit()
-        except Exception as e:
-            print("error:%s" % e)
-            self.db.rollback()
-        cursor.close()
+GaodeTraffic(None).RoadManager("654000")

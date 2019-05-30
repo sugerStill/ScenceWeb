@@ -26,7 +26,8 @@ class AuthRouter:
     def allow_migrate(self, db, app_label, model_name=None, **hints):
 
         if app_label == 'TrafficView':
-            return db == 'trafficdatabase'
-        if app_label == 'ScenceView' or db == 'WebData':
+            return  'trafficdatabase'
+        elif app_label == 'ScenceView' or db == 'WebData':
             return 'WebData'
+
         return None

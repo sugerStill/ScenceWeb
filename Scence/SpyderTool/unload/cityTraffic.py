@@ -1,6 +1,6 @@
 import requests
 import json
-from SpyderTool.unload.MyThread import MulitThread
+from SpyderTool.MulThread import MulitThread
 import time
 import re
 from urllib.parse import urlencode
