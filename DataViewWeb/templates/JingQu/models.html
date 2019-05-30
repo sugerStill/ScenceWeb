@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8" name="keywords"/>
+    <title></title>
+    <link rel="stylesheet" href="{% static '/JingQuEffect/JingQucss/JingQu.css' %}"/>
+    <script type="text/javascript" src="{% static 'echarts.min.js' %}"></script>
+    <script type="text/javascript" src="{% static "/JingQuEffect/JingQujs/Animate.js" %}"></script>
+    <script type="text/javascript" src="{% static '/JingQuEffect/JingQujs/AreaChart.js' %}"></script>
+    <script type="text/javascript" src="{% static "/JingQuEffect/JingQujs/radarChart.js" %}"></script>
+    <script type="text/javascript" src="{% static 'Request.js' %}"></script>
+    <script type="text/javascript" src="{% static '/JingQuEffect/JingQujs/BarChart.js' %}"></script>
+    <script type="text/javascript" src="{% static '/JingQuEffect/JingQujs/RequestTraffic.js' %}"></script>
+
+    <script type="text/javascript" src="{% static '/JingQuEffect/JingQujs/CityTraffic.js' %}"></script>
+    <script type="text/javascript" src="{% static '/JingQuEffect/JingQujs/RealTimeWeather.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jquery-3.3.1.min.js' %}"></script>
+</head>
+<body style="width: 1900px">
+
+<div class="top">
+    <div class="title_left ">
+        <div class="title_left1"></div>
+        <div class="title_left2"></div>
+        <div class="title_left3 "></div>
+
+    </div>
+
+    <div class="title_tag">
+        <h1>大数据统计显示大屏</h1></div>
+
+    <div class="title_right">
+        <div class="title_right1"></div>
+        <div class="title_right2 "></div>
+        <div class="title_right3"></div>
+    </div>
+</div>
+<div style="margin:20px;">
+    <div id="navdiv" style="z-index: auto;margin-left: 5%">
+        <h4 id="nav">站点导航</h4>
+        <ul style="position: absolute;z-index: 998">
+            <li>
+                <div>
+                    <a href="{% url 'jingqu' %}">景区监测</a>
+                </div>
+            </li>
+            {#            <li>#}
+            {#                <div>#}
+            {#                    <a href="{% url 'traffic' %}">交通监测</a></div>#}
+            {#            </li>#}
+            {#            <li>#}
+            {#                <div><a href="{% url 'WeatherFirst' %}">天气情况</a></div>#}
+            {#            </li>#}
+
+
+        </ul>
+    </div>
+    <button id="btn"
+            style=" margin-left: 10%; width: 50px;height: 50px;border-radius: 50%;background-color: aqua;">
+        景区导航
+        <ul id="JingQuList" style="margin-left: 12%;">
+            <li><a href="{% url  'Scence'  1378 %}">嵩山</a></li>
+            <li><a href="{% url  'Scence'  1174 %}">平遥古城</a></li>
+            <li><a href="{% url  'Scence'  1376 %}">五台山</a></li>
+            <li><a href="{% url  'Scence'  1343 %}">西湖</a></li>
+            <li><a href="{% url  'Scence'  402 %}">千岛湖</a></li>
+            <li><a href="{% url  'Scence'  1375 %}">泰山</a></li>
+            <li><a href="{% url  'Scence'  1356 %}">崂山</a></li>
+            <li><a href="{% url  'Scence'  1352 %}">庐山</a></li>
+            <li><a href="{% url  'Scence'  1364 %}">汕头南澳岛</a></li>
+            <li><a href="{% url  'Scence'  1377 %}">张家界武陵源</a></li>
+            <li><a href="{% url  'Scence'  1222 %}">玄武湖公园</a></li>
+            <li><a href="{% url  'Scence'  405 %}">周庄</a></li>
+            <li><a href="{% url  'Scence'  248 %}">瘦西湖</a></li>
+            <li><a href="{% url  'Scence'  1349 %}">同里古镇游览区</a></li>
+            <li><a href="{% url  'Scence'  516 %}">灵山胜境</a></li>
+            <li><a href="{% url  'Scence'  1347 %}">明孝陵景区</a></li>
+            <li><a href="{% url  'Scence'  1348 %}">苏州太湖园博园</a></li>
+            <li><a href="{% url  'Scence'  232 %}">常州中华恐龙园</a></li>
+            <li><a href="{% url  'Scence'  1350 %}">中山陵园</a></li>
+            <li><a href="{% url  'Scence'  1346 %}">花果山风景区</a></li>
+            <li><a href="{% url  'Scence'  1395 %}">香河第一城</a></li>
+            <li><a href="{% url  'Scence'  1396 %}">蔚县暖泉古镇</a></li>
+            <li><a href="{% url  'Scence'  1399 %}">太舞滑雪场</a></li>
+            <li><a href="{% url  'Scence'  1398 %}">万龙滑雪场</a></li>
+            <li><a href="{% url  'Scence'  1381 %}">正定隆兴寺</a></li>
+            <li><a href="{% url  'Scence'  1409 %}">吴桥杂技大世界</a></li>
+            <li><a href="{% url  'Scence'  1397 %}">长城岭滑雪场</a></li>
+            <li><a href="{% url  'Scence'  123 %}">南湖公园</a></li>
+            <li><a href="{% url  'Scence'  98 %}">净月潭</a></li>
+            <li><a href="{% url  'Scence'  1441 %}">长春公园</a></li>
+            <li><a href="{% url  'Scence'  1435 %}">胜利公园</a></li>
+            <li><a href="{% url  'Scence'  1445 %}">儿童公园</a></li>
+            <li><a href="{% url  'Scence'  1444 %}">庙香山</a></li>
+            <li><a href="{% url  'Scence'  1436 %}">莲花山</a></li>
+            <li><a href="{% url  'Scence'  199 %}">宽窄巷子</a></li>
+            <li><a href="{% url  'Scence'  105 %}">武侯祠</a></li>
+            <li><a href="{% url  'Scence'  1319 %}">人民公园</a></li>
+            <li><a href="{% url  'Scence'  1320 %}">天府广场</a></li>
+            <li><a href="{% url  'Scence'  1314 %}">宝资山森林公园</a></li>
+            <li><a href="{% url  'Scence'  80 %}">成都欢乐谷</a></li>
+            <li><a href="{% url  'Scence'  1321 %}">幸福梅林景区</a></li>
+            <li><a href="{% url  'Scence'  287 %}">杜甫草堂</a></li>
+            <li><a href="{% url  'Scence'  32 %}">大熊猫繁育研究基地</a></li>
+            <li><a href="{% url  'Scence'  332 %}">成都动物园</a></li>
+            <li><a href="{% url  'Scence'  222 %}">圆明园</a></li>
+            <li><a href="{% url  'Scence'  189 %}">天坛</a></li>
+            <li><a href="{% url  'Scence'  1310 %}">古北水镇</a></li>
+            <li><a href="{% url  'Scence'  1414 %}">陶然亭公园</a></li>
+            <li><a href="{% url  'Scence'  54 %}">故宫</a></li>
+            <li><a href="{% url  'Scence'  12 %}">北京动物园</a></li>
+            <li><a href="{% url  'Scence'  1411 %}">玉渊潭公园</a></li>
+            <li><a href="{% url  'Scence'  185 %}">天安门广场</a></li>
+            <li><a href="{% url  'Scence'  10 %}">北海公园</a></li>
+            <li><a href="{% url  'Scence'  1412 %}">龙潭公园</a></li>
+            <li><a href="{% url  'Scence'  214 %}">颐和园</a></li>
+            <li><a href="{% url  'Scence'  2 %}">奥林匹克森林公园</a></li>
+            <li><a href="{% url  'Scence'  79 %}">北京欢乐谷</a></li>
+            <li><a href="{% url  'Scence'  206 %}">香山</a></li>
+            <li><a href="{% url  'Scence'  217 %}">雍和宫</a></li>
+            <li><a href="{% url  'Scence'  1413 %}">龙庆峡</a></li>
+            <li><a href="{% url  'Scence'  69 %}">洪崖洞</a></li>
+            <li><a href="{% url  'Scence'  18 %}">朝天门广场</a></li>
+            <li><a href="{% url  'Scence'  22 %}">磁器口</a></li>
+            <li><a href="{% url  'Scence'  1428 %}">仙女山</a></li>
+            <li><a href="{% url  'Scence'  1380 %}">金石滩</a></li>
+            <li><a href="{% url  'Scence'  1328 %}">大连森林动物园</a></li>
+            <li><a href="{% url  'Scence'  208 %}">星海公园</a></li>
+            <li><a href="{% url  'Scence'  107 %}">老虎滩海洋公园</a></li>
+            <li><a href="{% url  'Scence'  1327 %}">劳动公园</a></li>
+            <li><a href="{% url  'Scence'  202 %}">西溪湿地</a></li>
+            <li><a href="{% url  'Scence'  316 %}">清河坊</a></li>
+            <li><a href="{% url  'Scence'  178 %}">宋城</a></li>
+            <li><a href="{% url  'Scence'  344 %}">龙门古镇</a></li>
+            <li><a href="{% url  'Scence'  1339 %}">杭州动物园</a></li>
+            <li><a href="{% url  'Scence'  398 %}">杭州野生动物世界</a></li>
+            <li><a href="{% url  'Scence'  1345 %}">浙西大峡谷</a></li>
+            <li><a href="{% url  'Scence'  5 %}">广州白云山</a></li>
+            <li><a href="{% url  'Scence'  57 %}">广州塔</a></li>
+            <li><a href="{% url  'Scence'  227 %}">广州长隆欢乐世界</a></li>
+            <li><a href="{% url  'Scence'  56 %}">广州动物园</a></li>
+            <li><a href="{% url  'Scence'  228 %}">长隆野生动物世界</a></li>
+            <li><a href="{% url  'Scence'  1265 %}">上海迪士尼度假区</a></li>
+            <li><a href="{% url  'Scence'  1181 %}">上海东方明珠</a></li>
+            <li><a href="{% url  'Scence'  1360 %}">上海人民公园</a></li>
+            <li><a href="{% url  'Scence'  1357 %}">上海城隍庙</a></li>
+            <li><a href="{% url  'Scence'  78 %}">上海欢乐谷</a></li>
+            <li><a href="{% url  'Scence'  158 %}">上海动物园</a></li>
+            <li><a href="{% url  'Scence'  457 %}">上海科技馆</a></li>
+            <li><a href="{% url  'Scence'  1361 %}">泰晤士小镇</a></li>
+            <li><a href="{% url  'Scence'  220 %}">豫园</a></li>
+            <li><a href="{% url  'Scence'  472 %}">上海野生动物园</a></li>
+            <li><a href="{% url  'Scence'  173 %}">世界之窗</a></li>
+            <li><a href="{% url  'Scence'  1371 %}">莲花山公园</a></li>
+            <li><a href="{% url  'Scence'  386 %}">大梅沙</a></li>
+            <li><a href="{% url  'Scence'  205 %}">仙湖植物园</a></li>
+            <li><a href="{% url  'Scence'  1368 %}">欢乐海岸</a></li>
+            <li><a href="{% url  'Scence'  495 %}">深圳野生动物园</a></li>
+            <li><a href="{% url  'Scence'  1373 %}">中国民俗文化村</a></li>
+            <li><a href="{% url  'Scence'  1365 %}">东部华侨城</a></li>
+            <li><a href="{% url  'Scence'  77 %}">深圳欢乐谷</a></li>
+            <li><a href="{% url  'Scence'  1366 %}">凤凰山</a></li>
+
+
+        </ul>
+
+    </button>
+</div>
+
+
+<br/>
+<br/>
+<h1 style="clear: both;color: cyan;text-align: center;padding: 10px">{{ data.JingQuName }}景区检测平台</h1>
+
+<h3 style="margin-left: 5%">景区实时客流量</h3>
+<div id="JingQu" style="z-index: 2">
+    <div id="JingQuData"></div>
+    <div id="descriton">
+
+        <h3>说明</h3>
+        <p>景区数据是针对景区实时客流量的一款免费研究平台。
+            通过大数据挖掘计算所得，通用算法与理论保证了其合理性与科学性。此报告客观地从多维度反映景区客流量状况，力争做到精准、精细、精确，为公众交通出行、机构研究、政府决策提供有价值的理论参考依据。
+        </p>
+    </div>
+</div>
+
+<h3 style="margin-left: 5%">景区特征</h3>
+<div class="GuageChart">
+    <div class="radar">
+        <div id="evaluate"></div>
+        <div id="keyword"></div>
+    </div>
+
+    <div id="compare"></div>
+
+</div>
+<h3 style="margin-left: 5%">景区介绍</h3>
+
+
+<div id="JingQuDesc" style="margin-left: 5%;max-height: 800px;width:90%;">
+    <div class="txt" style="width:100%">
+        <h4 style="color: white">景点介绍
+        </h4>
+        <br/>
+        <p style="width: 99%">
+            {% block content %}
+
+            {% endblock %}
+        </p>
+    </div>
+</div>
+
+<div class="Pic">
+    <h3 style="color: white">实时交通情况</h3>
+    <div id="Citytraffic"></div>
+    <br>
+    <br>
+    //天气
+    <h3 style="color: white">天气情况</h3>
+
+    <div id="today" style="width: 100%;height: 500px;">
+        <ul id="someDayNav" style="width: 100%;">
+            <li style="width: 30%;margin-left: 5%;">
+                <button id="now" style="width: 30%;background-color:lightskyblue;border-radius: 20%">今天</button>
+            </li>
+            <li style="width: 30%">
+                <button id="day7" style="width:30%;background-color: gray;border-radius: 20%">7天</button>
+            </li>
+
+
+        </ul>
+
+        <div id="weatherPanel" style="width: 90%;">
+            {#            <h2 style="color: white">天气情况</h2>#}
+
+            //天气预报列表
+            <table id="weatherTable" style="width:50%;float: left">
+                <thead>
+                <tr>
+                    <th>
+                        日期
+                    </th>
+                    <th>时段</th>
+                    <th>
+                        天气状态
+                    </th>
+
+                    <th>
+                        气温
+                    </th>
+
+                    <th>
+                        风力风向
+                    </th>
+
+
+                </tr>
+                </thead>
+
+                <tbody id="weatherlist">
+
+                </tbody>
+            </table>
+            //天气预报可视化图表
+            <div id="realtime" style="width: 50%;height: 400px;float: left"></div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        //请求客流量监测
+        new request_server("{% url  'getdata'   data.pid%}");
+        trafficId ={{data.cityCode }};
+        if (trafficId > 0) {  //请求交通数据库
+            url = "{% url 'getTrafficData'  data.cityCode %}";
+            new RequestTrafficHttp(url, "Citytraffic");
+        }
+
+
+    });
+    //景区特征对比图
+    new Animate();
+    new drawBar();
+
+    $(document).ready(() => {
+        new drawRadar();
+        setInterval(() => {
+            $("i").text(new Date().toLocaleTimeString());
+        }, 1000);
+    });
+    req = new XMLHttpRequest();
+
+    req.open("GET", "{% url 'ForcestWeatherOneDay'  data.WeatherPid %}");
+    req.responseType = "json";
+    req.onload = function () {
+        dataList = req.response['weather'];
+
+        var tbody = document.getElementById('weatherlist');
+        tbody.innerHTML = '';
+        result = [];
+        for (let weather of dataList) {
+            result.push(weather);
+            var tr = document.createElement('tr');
+            for (let value of Object.values(weather)) {
+                td = document.createElement('td');
+                td.innerHTML = value;
+                tr.appendChild(td);
+
+            }
+
+            tbody.appendChild(tr);
+
+        }
+        //天气预报图像
+        new Weather('realtime', result);
+    };
+    req.send();
+
+    day7 = new XMLHttpRequest();
+    day7.open("GET", "{% url 'ForcestWeatherLongDay' data.WeatherPid %}");
+    day7.responseType = "json";
+    day7.onload = function () {
+
+    };
+    day7.send();
+
+    //今日天气
+    $('#now').click(function () {
+
+        $(this).css({'background-color': 'lightskyblue'});
+        $("#day7").css({'background-color': 'gray'});
+
+        LoadWeatherDdata(req.response);
+
+    });
+    //最近8天天气
+    $('#day7').click(function () {
+        console.log(day7.response);
+
+        $(this).css({'background-color': 'lightskyblue'});
+        $("#now").css({'background-color': 'gray'});
+        LoadWeatherDdata(day7.response);
+
+    });
+
+</script>
+
+<script>
+    function LoadWeatherDdata(response) {
+        dataList = response['weather'];
+        var tbody = document.getElementById('weatherlist');
+        tbody.innerHTML = '';
+        result = [];
+        for (let weather of dataList) {
+            result.push(weather);
+            var tr = document.createElement('tr');
+            for (let value of Object.values(weather)) {
+                td = document.createElement('td');
+                td.innerHTML = value;
+                tr.appendChild(td);
+
+            }
+
+            tbody.appendChild(tr);
+
+        }
+        //天气预报图像
+        new Weather('realtime', result);
+
+
+    }
+
+
+</script>
+</body>
+
+</html>

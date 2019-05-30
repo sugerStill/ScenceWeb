@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static  '/Weather/WeatherCSS/Weather.css' %}">
+    <link rel="stylesheet" href="{% static  '/Weather/WeatherCSS/CityList.css' %}">
+    <link rel="stylesheet" href="{% static 'Weather/WeatherCSS/WeatherLishi.css' %}"/>
+
+    <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'Weather/WeatherJS/Animate.js' %}"></script>
+
+</head>
+<body style="background-image: url('{% static 'img/ChinaMap.png' %}') ;background-size:100% 100% ">
+<div class="top">
+    <div class="title_left ">
+        <div class="title_left1"></div>
+        <div class="title_left2"></div>
+        <div class="title_left3 "></div>
+
+    </div>
+
+    <div class="title_tag">
+        <h1>大数据统计显示大屏</h1></div>
+
+    <div class="title_right">
+        <div class="title_right1"></div>
+        <div class="title_right2 "></div>
+        <div class="title_right3"></div>
+    </div>
+</div>
+
+
+<div class="navList" style="height: 5%">
+    <ul>
+        <li>
+            <div id="navdiv">
+                <h4>站点导航</h4>
+                <ul style="position: absolute;z-index: 998">
+                    <li>
+                        <div><a href="">天气情况</a></div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'jingqu' %}">景区监测</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'traffic' %}">交通监测</a></div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li><a href="{% url 'WeatherFirst' %}">天气首页</a></li>
+        <li><a href="{% url 'WeatherHistoryFirst' %}">历史天气</a></li>
+        <li><a href="{% url 'predictFirst' %}">天气预报</a></li>
+        <li><a href="{% url 'AQIFirst' %}">空气质量</a></li>
+
+
+    </ul>
+</div>
+<div style="width: 90%;   margin-left: 5%;height: auto;
+    margin-right: 5%;margin-top: 25px">
+    <div class=leftmenu" style="border: 1px solid gray;width: 60%; float:left;text-align: center;">
+        <div id="content" style="clear: left">
+            <h1>历史天气历史查询 </h1>
+
+            <h2>2011年历史天气查询</h2>
+            <div class="box">
+
+                <ul>
+                    <li>第一季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201101 %}" title="2011年01月天气">2011年1月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201102 %}" title="2011年02月天气">2011年2月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201103 %}" title="2011年03月天气">2011年3月天气</a></li>
+                </ul>
+                <ul>
+                    <li>第二季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201104 %}" title="2011年04月天气">2011年4月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201105 %}" title="2011年05月天气">2011年5月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201106 %}" title="2011年06月天气">2011年6月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第三季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201107 %}" title="2011年07月天气">2011年7月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201108 %}" title="2011年08月天气">2011年8月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201109 %}" title="2011年09月天气">2011年9月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第四季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201110 %}" title="2011年10月天气">2011年10月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201111 %}" title="2011年11月天气">2011年11月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201112 %}" title="2011年12月天气">2011年12月天气</a></li>
+
+                </ul>
+            </div>
+
+            <h2>2012年历史天气查询</h2>
+            <div class="box">
+
+                <ul>
+                    <li>第一季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201201 %}" title="2012年01月天气">2012年1月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201202 %}" title="2012年02月天气">2012年2月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201203 %}" title="2012年03月天气">2012年3月天气</a></li>
+                </ul>
+                <ul>
+                    <li>第二季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201204 %}" title="2012年04月天气">2012年4月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201205 %}" title="2012年05月天气">2012年5月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201206 %}" title="2012年06月天气">2012年6月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第三季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201207 %}" title="2012年07月天气">2012年7月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201208 %}" title="2012年08月天气">2012年8月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201209 %}" title="2012年09月天气">2012年9月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第四季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201210 %}" title="2012年10月天气">2012年10月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201211 %}" title="2012年11月天气">2012年11月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201212 %}" title="2012年12月天气">2012年12月天气</a></li>
+
+                </ul>
+            </div>
+
+            <h2>2013年历史天气查询</h2>
+            <div class="box">
+
+                <ul>
+                    <li>第一季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201301 %}" title="2013年01月天气">2013年1月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201302 %}" title="2013年02月天气">2013年2月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201303 %}" title="2013年03月天气">2013年3月天气</a></li>
+                </ul>
+                <ul>
+                    <li>第二季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201304 %}" title="2013年04月天气">2013年4月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201305 %}" title="2013年05月天气">2013年5月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201306 %}" title="2013年06月天气">2013年6月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第三季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201307 %}" title="2013年07月天气">2013年7月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201308 %}" title="2013年08月天气">2013年8月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201309 %}" title="2013年09月天气">2013年9月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第四季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201310 %}" title="2013年10月天气">2013年10月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201311 %}" title="2013年11月天气">2013年11月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201312 %}" title="2013年12月天气">2013年12月天气</a></li>
+
+                </ul>
+            </div>
+
+            <h2>2014年历史天气查询</h2>
+            <div class="box">
+
+                <ul>
+                    <li>第一季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201401 %}" title="2014年01月天气">2014年1月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201402 %}" title="2014年02月天气">2014年2月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201403 %}" title="2014年03月天气">2014年3月天气</a></li>
+                </ul>
+                <ul>
+                    <li>第二季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201404 %}" title="2014年04月天气">2014年4月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201405 %}" title="2014年05月天气">2014年5月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201406 %}" title="2014年06月天气">2014年6月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第三季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201407 %}" title="2014年07月天气">2014年7月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201408 %}" title="2014年08月天气">2014年8月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201409 %}" title="2014年09月天气">2014年9月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第四季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201410 %}" title="2014年10月天气">2014年10月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201411 %}" title="2014年11月天气">2014年11月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201412 %}" title="2014年12月天气">2014年12月天气</a></li>
+
+                </ul>
+            </div>
+
+            <h2>2015年历史天气查询</h2>
+            <div class="box">
+
+                <ul>
+                    <li>第一季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201501 %}" title="2015年01月天气">2015年1月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201502 %}" title="2015年02月天气">2015年2月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201503 %}" title="2015年03月天气">2015年3月天气</a></li>
+                </ul>
+                <ul>
+                    <li>第二季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201504 %}" title="2015年04月天气">2015年4月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201505 %}" title="2015年05月天气">2015年5月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201506 %}" title="2015年06月天气">2015年6月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第三季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201507 %}" title="2015年07月天气">2015年7月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201508 %}" title="2015年08月天气">2015年8月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201509 %}" title="2015年09月天气">2015年9月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第四季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201510 %}" title="2015年10月天气">2015年10月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201511 %}" title="2015年11月天气">2015年11月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201512 %}" title="2015年12月天气">2015年12月天气</a></li>
+
+                </ul>
+            </div>
+
+            <h2>2016年历史天气查询</h2>
+            <div class="box">
+
+                <ul>
+                    <li>第一季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201601 %}">2016年1月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201602 %}">2016年2月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201603 %}">2016年3月天气</a></li>
+                </ul>
+                <ul>
+                    <li>第二季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201604 %}">2016年4月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201605 %}">2016年5月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201606 %}">2016年6月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第三季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201607 %}">2016年7月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201608 %}">2016年8月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201609 %}">2016年9月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第四季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201610 %}">2016年10月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201611 %}">2016年11月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201612 %}">2016年12月天气</a></li>
+
+                </ul>
+            </div>
+            <h2>2017年历史天气查询</h2>
+            <div class="box">
+
+                <ul>
+                    <li>第一季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid  201701 %}">2017年1月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201702 %}">2017年2月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201703 %}">2017年3月天气</a></li>
+                </ul>
+                <ul>
+                    <li>第二季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201704 %}">2017年4月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201705 %}">2017年5月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201706 %}">2017年6月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第三季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201707 %}">2017年7月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201708 %}">2017年8月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201709 %}">2017年9月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第四季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201710 %}">2017年10月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201711 %}">2017年11月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201712 %}">2017年12月天气</a></li>
+
+                </ul>
+            </div>
+            <h2>2018年历史天气查询</h2>
+            <div class="box">
+
+                <ul>
+                    <li>第一季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201801 %}">2018年1月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201802 %}">2018年2月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201803 %}">2018年3月天气</a></li>
+                </ul>
+                <ul>
+                    <li>第二季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201804 %}">2018年4月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201805 %}">2018年5月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201806 %}">2018年6月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第三季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201807 %}">2018年7月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201808 %}">2018年8月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201809 %}">2018年9月天气</a></li>
+
+                </ul>
+                <ul>
+                    <li>第四季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201810 %}">2018年10月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201811 %}">2018年11月天气</a></li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201812 %}">2018年12月天气</a></li>
+
+                </ul>
+            </div>
+
+            <h2>2019年历史天气查询</h2>
+            <div class="box">
+
+                <ul>
+                    <li>第一季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201901 %}" title="2019年01月天气预报">2019年1月天气</a></li>&nbsp;&nbsp;&nbsp;<li>
+                    <a href="{% url 'HistoryDetail'  cityPid 201902 %}" title="2019年02月天气预报">2019年2月天气</a></li>&nbsp;&nbsp;&nbsp;<li>
+                    <a href="{% url 'HistoryDetail'  cityPid 201903 %}" title="2019年03月天气预报">2019年3月天气</a></li>&nbsp;&nbsp;&nbsp;
+                </ul>
+                <ul>
+                    <li>第二季度:</li>
+                    <li><a href="{% url 'HistoryDetail'  cityPid 201904 %}" title="2019年04月天气预报">2019年4月天气</a></li>&nbsp;&nbsp;&nbsp;
+                </ul>
+            </div>
+
+        </div>
+        <div class="boxProvince"><h2>省份历史天气查询</h2>
+            <ul>
+                <li class="t" style="height: 10em;">省份
+                </li>
+                <li><a href="{% url 'province' 122 %}">安徽</a></li>
+                <li><a href="{% url 'province' 123 %}">福建</a></li>
+                <li><a href="{% url 'province' 138 %}">甘肃</a></li>
+                <li><a href="{% url 'province' 129 %}">广东</a></li>
+                <li><a href="{% url 'province' 113 %}">广西</a></li>
+                <li><a href="{% url 'province' 134 %}">贵州</a></li>
+                <li><a href="{% url 'province' 131 %}">海南</a></li>
+                <li><a href="{% url 'province' 113 %}">河北</a></li>
+                <li><a href="{% url 'province' 126 %}">河南</a></li>
+                <li><a href="{% url 'province' 118 %}">黑龙江</a></li>
+                <li><a href="{% url 'province' 127 %}">湖北</a></li>
+                <li><a href="{% url 'province' 128 %}">湖南</a></li>
+                <li><a href="{% url 'province' 117 %}">吉林</a></li>
+                <li><a href="{% url 'province' 120 %}">江苏</a></li>
+                <li><a href="{% url 'province' 124 %}">江西</a></li>
+                <li><a href="{% url 'province' 116 %}">辽宁</a></li>
+                <li><a href="{% url 'province' 115 %}">内蒙古</a></li>
+                <li><a href="{% url 'province' 140 %}">宁夏</a></li>
+                <li><a href="{% url 'province' 139 %}">青海</a></li>
+                <li><a href="{% url 'province' 125 %}">山东</a></li>
+                <li><a href="{% url 'province' 114 %}">山西</a></li>
+                <li><a href="{% url 'province' 137 %}">陕西</a></li>
+                <li><a href="{% url 'province' 133 %}">四川</a></li>
+                <li><a href="{% url 'province' 136 %}">西藏</a></li>
+                <li><a href="{% url 'province' 141 %}">新疆</a></li>
+                <li><a href="{% url 'province' 135 %}">云南</a></li>
+                <li><a href="{% url 'province' 121 %}">浙江</a></li>
+            </ul>
+            <ul>
+                <li class="t" style="height: 2em;">直辖市</li>
+                <li><a href="{% url 'province' 111 %}">北京</a></li>
+                <li><a href="{% url 'province' 119 %}">上海</a></li>
+                <li><a href="{% url 'province' 112 %}">天津</a></li>
+                <li><a href="{% url 'province' 132 %}">重庆</a></li>
+            </ul>
+            <ul>
+                <li class="t" style="    height:2em;">港澳台</li>
+                <li><a href="{% url 'province' 143 %}">香港</a></li>
+                <li><a href="{% url 'province' 144 %}">澳门</a></li>
+                <li><a href="{% url 'province' 142 %}">台湾</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="rightmenu"
+         style="border:1px solid gray;float: left;width: 30% ;height:15%;margin-left: 5%;margin-bottom: 100px">
+        <h2 style="background-color: gray;margin: 0px auto;text-align: left">主要城市历史天气</h2>
+
+        <ul style=" line-height: 26px;margin: 10px auto">
+            <li><a href="{% url 'History' 1111 %}" title="北京历史天气查询">北京 </a></li>
+            <li><a href="{% url 'History' 1191 %}" title="上海历史天气查询">上海 </a></li>
+            <li><a href="{% url 'History' 1121 %}" title="天津历史天气查询">天津 </a></li>
+            <li><a href="{% url 'History' 1321 %}" title="重庆历史天气查询">重庆 </a></li>
+            <li><a href="{% url 'History' 1181 %}" title="哈尔滨历史天气查询">哈尔滨 </a></li>
+            <li><a href="{% url 'History' 1171 %}" title="长春历史天气查询">长春 </a></li>
+            <li><a href="{% url 'History' 1161 %}" title="沈阳历史天气查询">沈阳 </a></li>
+            <li><a href="{% url 'History' 1151 %}" title="呼和浩特历史天气查询">呼和浩特 </a></li>
+            <li><a href="{% url 'History' 1131 %}" title="石家庄历史天气查询">石家庄 </a></li>
+            <li><a href="{% url 'History' 1141 %}" title="太原历史天气查询">太原 </a></li>
+            <li><a href="{% url 'History' 1371 %}" title="西安历史天气查询">西安 </a></li>
+            <li><a href="{% url 'History' 1251 %}" title="济南历史天气查询">济南 </a></li>
+            <li><a href="{% url 'History' 1421 %}" title="乌鲁木齐历史天气查询">乌鲁木齐 </a></li>
+            <li><a href="{% url 'History' 1361 %}" title="拉萨历史天气查询">拉萨 </a></li>
+            <li><a href="{% url 'History' 1391 %}" title="西宁历史天气查询">西宁 </a></li>
+            <li><a href="{% url 'History' 1381 %}" title="兰州历史天气查询">兰州 </a></li>
+            <li><a href="{% url 'History' 1401 %}" title="银川历史天气查询">银川 </a></li>
+            <li><a href="{% url 'History' 1261 %}" title="郑州历史天气查询">郑州 </a></li>
+            <li><a href="{% url 'History' 1201 %}" title="南京历史天气查询">南京 </a></li>
+            <li><a href="{% url 'History' 1271 %}" title="武汉历史天气查询">武汉 </a></li>
+            <li><a href="{% url 'History' 1211 %}" title="杭州历史天气查询">杭州 </a></li>
+            <li><a href="{% url 'History' 1221 %}" title="合肥历史天气查询">合肥 </a></li>
+            <li><a href="{% url 'History' 1231 %}" title="福州历史天气查询">福州 </a></li>
+            <li><a href="{% url 'History' 1241 %}" title="南昌历史天气查询">南昌 </a></li>
+            <li><a href="{% url 'History' 1281 %}" title="长沙历史天气查询">长沙 </a></li>
+            <li><a href="{% url 'History' 1341 %}" title="贵阳历史天气查询">贵阳 </a></li>
+            <li><a href="{% url 'History' 1331 %}" title="成都历史天气查询">成都 </a></li>
+            <li><a href="{% url 'History' 1291 %}" title="广州历史天气查询">广州 </a></li>
+            <li><a href="{% url 'History' 1351 %}" title="昆明历史天气查询">昆明 </a></li>
+            <li><a href="{% url 'History' 1301 %}" title="南宁历史天气查询">南宁 </a></li>
+            <li><a href="{% url 'History' 1311 %}" title="海口历史天气查询">海口 </a></li>
+            <li><a href="{% url 'History' 1421 %}" title="台北历史天气查询">台北 </a></li>
+        </ul>
+    </div>
+</div>
+</body>

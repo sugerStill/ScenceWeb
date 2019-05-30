@@ -1,0 +1,71 @@
+body {
+    min-height: 1000px;
+}
+
+.box {
+    border: 1px solid gray;
+    height: 200px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+
+}
+
+.box ul {
+    clear: both;
+    width: 100%;
+    line-height: 26px;
+    list-style: none;
+
+
+}
+
+.box ul li {
+    display: list-item;
+    float: left;
+    padding-right: 10px;
+    /*font-size: 13px;*/
+    width: auto;
+}
+
+.box ul li a {
+    width: auto;
+    text-align: left;
+
+
+}
+
+h2 {
+    color: white;
+    clear: left;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 20px;
+
+}
+
+.box ul {
+    margin-left: 20px;
+
+}
+
+.boxProvince {
+}
+
+.boxProvince .t {
+    width: 60px;
+    font-weight: 500;
+
+}
+
+.boxProvince ul {
+    clear: left;
+    border: 1px solid gray;
+    border-style: dot-dash;
+}
+
+.boxProvince ul li {
+    float: left;
+    width: 100px;
+    padding-right: 15px;
+    /*line-height: 28px;*/
+}

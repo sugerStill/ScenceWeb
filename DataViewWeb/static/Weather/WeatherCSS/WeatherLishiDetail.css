@@ -1,0 +1,14 @@
+.boxProvince ul{
+    clear: left;
+}
+h3 {
+    clear: left;
+    display: block;
+
+    border-bottom: 2px #319ee4 solid;
+    color: white;
+    font-size: 20px;
+    padding-bottom: 15px;
+    padding-left: 38px;
+    /*padding: 0px 5px;*/
+}

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static  '/Weather/WeatherCSS/Weather.css' %}">
+    <link rel="stylesheet" href="{% static 'Weather/WeatherCSS/WeatherLishi.css' %}"/>
+    <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'Weather/WeatherJS/Animate.js' %}"></script>
+</head>
+<body style="background-image: url('{% static 'img/ChinaMap.png' %}') ;background-size:100% 100% ">
+<div class="top">
+    <div class="title_left ">
+        <div class="title_left1"></div>
+        <div class="title_left2"></div>
+        <div class="title_left3 "></div>
+
+    </div>
+
+    <div class="title_tag">
+        <h1>大数据统计显示大屏</h1></div>
+
+    <div class="title_right">
+        <div class="title_right1"></div>
+        <div class="title_right2 "></div>
+        <div class="title_right3"></div>
+    </div>
+</div>
+
+<div class="navList" style="height: 5%">
+    <ul>
+        <li>
+            <div id="navdiv" style="position: absolute;">
+                <h4>站点导航</h4>
+                <ul style="position: absolute;z-index: 998">
+                    <li>
+                        <div><a href="">天气情况</a></div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'jingqu' %}">景区监测</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'traffic' %}">交通监测</a></div>
+                    </li>
+
+                </ul>
+            </div>
+        </li>
+        <li><a href="{% url 'WeatherFirst' %}">天气首页</a></li>
+        <li><a href="{% url 'WeatherHistoryFirst' %}">历史天气</a></li>
+        <li><a href="{% url 'predictFirst' %}">天气预报</a></li>
+        <li><a href="{% url 'AQIFirst' %}">空气质量</a></li>
+    </ul>
+</div>
+
+<div style="clear:both;width: 90%;    margin-left: 5%;
+    margin-right: 5%;margin-top: 25px">
+    <div class="left_menus" style="width:65%;float: left">
+        <h1>全国空气质量查询</h1>
+        <div>
+            <form target="_blank" style="text-align: right;margin-bottom: 10px">
+                <input type="text" name="search">
+                <input type="submit" value="搜索">
+            </form>
+        </div>
+        <div>
+            <dl>
+                <dt><a href="{% url 'province' 111 %}" title="北京空气质量预报"><b>北京</b></a></dt>
+                <dd><a href="{% url 'AQI'  1111 %}" title="北京空气质量查询">北京 </a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 112 %}" title="天津空气质量预报"><b>天津</b></a></dt>
+                <dd><a href="{% url 'AQI'  1121 %}" title="天津空气质量查询">天津 </a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 113 %}" title="河北空气质量预报"><b>河北</b></a></dt>
+                <dd><a href="{% url 'AQI' 1131 %}">石家庄</a>
+                    <a href="{% url 'AQI' 11318 %}">唐山</a>
+                    <a href="{% url 'AQI' 11330 %}">秦皇岛</a>
+                    <a href="{% url 'AQI' 11369 %}">保定</a>
+                    <a href="{% url 'AQI' 11388 %}">张家口</a>
+                    <a href="{% url 'AQI' 11336 %}">邯郸</a>
+                    <a href="{% url 'AQI' 11352 %}">邢台</a>
+                    <a href="{% url 'AQI' 113102 %}">承德</a>
+                    <a href="{% url 'AQI' 113111 %}">沧州</a>
+                    <a href="{% url 'AQI' 113125 %}">廊坊</a>
+                    <a href="{% url 'AQI' 113134 %}">衡水</a>
+                    <wbr>
+                </dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 114 %}" title="山西空气质量预报"><b>山西</b></a></dt>
+                <dd><<a href="{% url 'AQI' 1141 %}">太原</a>
+                    <a href="{% url 'AQI' 1145 %}">大同</a>
+                    <a href="{% url 'AQI' 11413 %}">阳泉</a>
+                    <a href="{% url 'AQI' 11416 %}">长治</a>
+                    <a href="{% url 'AQI' 11476 %}">临汾</a>
+                    <a href="{% url 'AQI' 11427 %}">晋城</a>
+                    <a href="{% url 'AQI' 11432 %}">朔州</a>
+                    <a href="{% url 'AQI' 11448 %}">运城</a>
+                    <a href="{% url 'AQI' 11461 %}">忻州</a>
+                    <a href="{% url 'AQI' 11493 %}">吕梁</a>
+                    <a href="{% url 'AQI' 11438 %}">晋中</a>
+                    <wbr>
+                </dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 115 %}" title="内蒙古空气质量预报"><b>内蒙古</b></a></dt>
+                <dd><a href="{% url 'AQI' 1151 %}">呼和浩特</a>
+                    <a href="{% url 'AQI' 1157 %}">包头</a>
+                    <a href="{% url 'AQI' 11541 %}">鄂尔多斯</a>
+                    <a href="{% url 'AQI' 11514 %}">乌海</a>
+                    <a href="{% url 'AQI' 11515 %}">赤峰</a>
+                    <a href="{% url 'AQI' 11530 %}">通辽</a>
+                    <a href="{% url 'AQI' 11569 %}">巴彦淖尔</a>
+                    <a href="{% url 'AQI' 11592 %}">兴安盟</a>
+                    <a href="{% url 'AQI' 115114 %}">阿拉善盟</a>
+                    <a href="{% url 'AQI' 11552 %}">呼伦贝尔</a>
+                    <a href="{% url 'AQI' 115101 %}">二连浩特</a>
+                    <a href="{% url 'AQI' 115100 %}">锡林郭勒</a>
+                    <wbr>
+                    <a href="{% url 'AQI'  11512 %}" title="阿拉善盟空气质量查询">阿拉善盟 </a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 116 %}" title="辽宁空气质量预报"><b>辽宁</b></a></dt>
+                <dd><a href="{% url 'AQI' 1161 %}">沈阳</a>
+                    <a href="{% url 'AQI' 1166 %}">大连</a>
+                    <a href="{% url 'AQI' 11623 %}">丹东</a>
+                    <a href="{% url 'AQI' 11632 %}">营口</a>
+                    <a href="{% url 'AQI' 11641 %}">盘锦</a>
+                    <a href="{% url 'AQI' 11653 %}">葫芦岛</a>
+                    <a href="{% url 'AQI' 11613 %}">鞍山</a>
+                    <a href="{% url 'AQI' 11627 %}">锦州</a>
+                    <a href="{% url 'AQI' 11620 %}">本溪</a>
+                    <a href="{% url 'AQI' 11610 %}">瓦房店</a>
+                    <a href="{% url 'AQI' 11617 %}">抚顺</a>
+                    <a href="{% url 'AQI' 11638 %}">辽阳</a>
+                    <a href="{% url 'AQI' 11635 %}">阜新</a>
+                    <a href="{% url 'AQI' 11648 %}">朝阳</a>
+                    <a href="{% url 'AQI' 11645 %}">铁岭</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 117 %}" title="吉林空气质量预报"><b>吉林</b></a></dt>
+                <dd><a href="{% url 'AQI' 1171 %}">长春</a>
+                    <a href="{% url 'AQI' 1177 %}">吉林</a>
+                    <a href="{% url 'AQI' 11713 %}">四平</a>
+                    <a href="{% url 'AQI' 11718 %}">辽源</a>
+                    <a href="{% url 'AQI' 11726 %}">白山</a>
+                    <a href="{% url 'AQI' 11731 %}">松原</a>
+                    <a href="{% url 'AQI' 11736 %}">白城</a>
+                    <a href="{% url 'AQI' 11741 %}">延边</a>
+                    <a href="{% url 'AQI' 11720 %}">通化</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 118 %}" title="黑龙江空气质量预报"><b>黑龙江</b></a></dt>
+                <dd><a href="{% url 'AQI' 1181 %}">哈尔滨</a>
+                    <a href="{% url 'AQI' 11813 %}">齐齐哈尔</a>
+                    <a href="{% url 'AQI' 11823 %}">鸡西</a>
+                    <a href="{% url 'AQI' 11827 %}">鹤岗</a>
+                    <a href="{% url 'AQI' 11830 %}">双鸭山</a>
+                    <a href="{% url 'AQI' 11834 %}">大庆</a>
+                    <a href="{% url 'AQI' 11845 %}">佳木斯</a>
+                    <a href="{% url 'AQI' 11852 %}">七台河</a>
+                    <a href="{% url 'AQI' 11854 %}">牡丹江</a>
+                    <a href="{% url 'AQI' 11861 %}">黑河</a>
+                    <a href="{% url 'AQI' 11867 %}">绥化</a>
+                    <a href="{% url 'AQI' 11877 %}">大兴安岭</a>
+                    <a href="{% url 'AQI' 11840 %}">伊春</a>
+                    <a href="{% url 'AQI' 11817 %}">甘南</a>
+                </dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 119 %}" title="上海空气质量预报"><b>上海</b></a></dt>
+                <dd><a href="{% url 'AQI'  1191 %}" title="上海空气质量查询">上海 </a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 120 %}" title="江苏空气质量预报"><b>江苏</b></a></dt>
+                <dd><a href="{% url 'AQI' 1201 %}">南京</a>
+                    <a href="{% url 'AQI' 1207 %}">无锡</a>
+                    <a href="{% url 'AQI' 12010 %}">徐州</a>
+                    <a href="{% url 'AQI' 12016 %}">常州</a>
+                    <a href="{% url 'AQI' 12019 %}">苏州</a>
+                    <a href="{% url 'AQI' 12025 %}">南通</a>
+                    <a href="{% url 'AQI' 12031 %}">连云港</a>
+                    <a href="{% url 'AQI' 12036 %}">淮安</a>
+                    <a href="{% url 'AQI' 12041 %}">盐城</a>
+                    <a href="{% url 'AQI' 12049 %}">扬州</a>
+                    <a href="{% url 'AQI' 12054 %}">镇江</a>
+                    <a href="{% url 'AQI' 12058 %}">泰州</a>
+                    <a href="{% url 'AQI' 12063 %}">宿迁</a>
+                    <a href="{% url 'AQI' 12022 %}">昆山</a>
+                    <a href="{% url 'AQI' 12030 %}">海门</a>
+                    <a href="{% url 'AQI' 12024 %}">太仓</a>
+                    <a href="{% url 'AQI' 1208 %}">江阴</a>
+                    <a href="{% url 'AQI' 12017 %}">溧阳</a>
+                    <a href="{% url 'AQI' 12018 %}">金坛</a>
+                    <a href="{% url 'AQI' 1209 %}">宜兴</a>
+                    <a href="{% url 'AQI' 12057 %}">句容</a>
+                    <a href="{% url 'AQI' 12020 %}">常熟</a>
+                    <a href="{% url 'AQI' 12023 %}">吴江</a>
+                    <a href="{% url 'AQI' 12021 %}">张家港</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 121 %}" title="浙江空气质量预报"><b>浙江</b></a></dt>
+                <dd><a href="{% url 'AQI' 1211 %}">杭州</a>
+                    <a href="{% url 'AQI' 1218 %}">宁波</a>
+                    <a href="{% url 'AQI' 12117 %}">温州</a>
+                    <a href="{% url 'AQI' 12125 %}">嘉兴</a>
+                    <a href="{% url 'AQI' 12131 %}">湖州</a>
+                    <a href="{% url 'AQI' 12140 %}">金华</a>
+                    <a href="{% url 'AQI' 12147 %}">衢州</a>
+                    <a href="{% url 'AQI' 12152 %}">舟山</a>
+                    <a href="{% url 'AQI' 12157 %}">台州</a>
+                    <a href="{% url 'AQI' 12164 %}">丽水</a>
+                    <a href="{% url 'AQI' 12135 %}">绍兴</a>
+                    <a href="{% url 'AQI' 12144 %}">义乌</a>
+                    <a href="{% url 'AQI' 1216 %}">富阳</a>
+                    <a href="{% url 'AQI' 1217 %}">临安</a>
+                    <wbr>
+                </dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 122 %}" title="安徽空气质量预报"><b>安徽</b></a></dt>
+                <dd><a href="{% url 'AQI' 1221 %}">合肥</a>
+                    <a href="{% url 'AQI' 1225 %}">芜湖</a>
+                    <a href="{% url 'AQI' 1229 %}">蚌埠</a>
+                    <a href="{% url 'AQI' 12213 %}">淮南</a>
+                    <a href="{% url 'AQI' 12215 %}">马鞍山</a>
+                    <a href="{% url 'AQI' 12217 %}">淮北</a>
+                    <a href="{% url 'AQI' 12219 %}">铜陵</a>
+                    <a href="{% url 'AQI' 12220 %}">安庆</a>
+                    <a href="{% url 'AQI' 12229 %}">黄山</a>
+                    <a href="{% url 'AQI' 12236 %}">滁州</a>
+                    <a href="{% url 'AQI' 12243 %}">阜阳</a>
+                    <a href="{% url 'AQI' 12249 %}">宿州</a>
+                    <a href="{% url 'AQI' 12254 %}">巢湖</a>
+                    <a href="{% url 'AQI' 12259 %}">六安</a>
+                    <a href="{% url 'AQI' 12265 %}">亳州</a>
+                    <a href="{% url 'AQI' 12269 %}">池州</a>
+                    <a href="{% url 'AQI' 12275 %}">宣城</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 123 %}" title="福建空气质量预报"><b>福建</b></a></dt>
+                <dd><a href="{% url 'AQI' 1231 %}">福州</a>
+                    <a href="{% url 'AQI' 12310 %}">厦门</a>
+                    <a href="{% url 'AQI' 12327 %}">泉州</a>
+                    <a href="{% url 'AQI' 12312 %}">莆田</a>
+                    <a href="{% url 'AQI' 12316 %}">三明</a>
+                    <a href="{% url 'AQI' 12334 %}">漳州</a>
+                    <a href="{% url 'AQI' 12344 %}">南平</a>
+                    <a href="{% url 'AQI' 12354 %}">龙岩</a>
+                    <a href="{% url 'AQI' 12361 %}">宁德</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 124 %}" title="江西空气质量预报"><b>江西</b></a></dt>
+                <dd><a href="{% url 'AQI' 1241 %}">南昌</a>
+                    <a href="{% url 'AQI' 1246 %}">景德镇</a>
+                    <a href="{% url 'AQI' 1248 %}">萍乡</a>
+                    <a href="{% url 'AQI' 12421 %}">新余</a>
+                    <a href="{% url 'AQI' 12423 %}">鹰潭</a>
+                    <a href="{% url 'AQI' 12426 %}">赣州</a>
+                    <a href="{% url 'AQI' 12455 %}">宜春</a>
+                    <a href="{% url 'AQI' 12465 %}">抚州</a>
+                    <a href="{% url 'AQI' 12410 %}">九江</a>
+                    <a href="{% url 'AQI' 12476 %}">上饶</a>
+                    <a href="{% url 'AQI' 12443 %}">吉安</a>
+                    <wbr>
+                </dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 125 %}" title="山东空气质量预报"><b>山东</b></a></dt>
+                <dd><a href="{% url 'AQI' 1251 %}">济南</a>
+                    <a href="{% url 'AQI' 1257 %}">青岛</a>
+                    <a href="{% url 'AQI' 12514 %}">淄博</a>
+                    <a href="{% url 'AQI' 12522 %}">枣庄</a>
+                    <a href="{% url 'AQI' 12527 %}">东营</a>
+                    <a href="{% url 'AQI' 12532 %}">烟台</a>
+                    <a href="{% url 'AQI' 12543 %}">潍坊</a>
+                    <a href="{% url 'AQI' 12552 %}">济宁</a>
+                    <a href="{% url 'AQI' 12563 %}">泰安</a>
+                    <a href="{% url 'AQI' 12568 %}">威海</a>
+                    <a href="{% url 'AQI' 12573 %}">日照</a>
+                    <a href="{% url 'AQI' 12576 %}">莱芜</a>
+                    <a href="{% url 'AQI' 12577 %}">临沂</a>
+                    <a href="{% url 'AQI' 12587 %}">德州</a>
+                    <a href="{% url 'AQI' 12598 %}">聊城</a>
+                    <a href="{% url 'AQI' 125106 %}">滨州</a>
+                    <a href="{% url 'AQI' 125113 %}">菏泽</a>
+                    <a href="{% url 'AQI' 12571 %}">乳山</a>
+                    <a href="{% url 'AQI' 12570 %}">荣成</a>
+                    <a href="{% url 'AQI' 12569 %}">文登</a>
+                    <a href="{% url 'AQI' 1256 %}">章丘</a>
+                    <a href="{% url 'AQI' 12511 %}">平度</a>
+                    <a href="{% url 'AQI' 12538 %}">莱州</a>
+                    <a href="{% url 'AQI' 12540 %}">招远</a>
+                    <a href="{% url 'AQI' 12513 %}">莱西</a>
+                    <a href="{% url 'AQI' 1259 %}">胶州</a>
+                    <a href="{% url 'AQI' 12539 %}">蓬莱</a>
+                    <a href="{% url 'AQI' 12512 %}">胶南</a>
+                    <a href="{% url 'AQI' 12548 %}">寿光</a>
+                    <a href="{% url 'AQI' 12510 %}">即墨</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 126 %}" title="河南空气质量预报"><b>河南</b></a></dt>
+                <dd><a href="{% url 'AQI' 1261 %}">郑州</a>
+                    <a href="{% url 'AQI' 12613 %}">洛阳</a>
+                    <a href="{% url 'AQI' 12623 %}">平顶山</a>
+                    <a href="{% url 'AQI' 12635 %}">鹤壁</a>
+                    <a href="{% url 'AQI' 12646 %}">焦作</a>
+                    <a href="{% url 'AQI' 12664 %}">漯河</a>
+                    <a href="{% url 'AQI' 12667 %}">三门峡</a>
+                    <a href="{% url 'AQI' 12671 %}">南阳</a>
+                    <a href="{% url 'AQI' 12683 %}">商丘</a>
+                    <a href="{% url 'AQI' 12691 %}">信阳</a>
+                    <a href="{% url 'AQI' 126100 %}">周口</a>
+                    <a href="{% url 'AQI' 126110 %}">驻马店</a>
+                    <a href="{% url 'AQI' 12630 %}">安阳</a>
+                    <a href="{% url 'AQI' 1268 %}">开封</a>
+                    <a href="{% url 'AQI' 12654 %}">濮阳</a>
+                    <a href="{% url 'AQI' 12659 %}">许昌</a>
+                    <a href="{% url 'AQI' 12638 %}">新乡</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 127 %}" title="湖北空气质量预报"><b>湖北</b></a></dt>
+                <dd><a href="{% url 'AQI' 1271 %}">武汉</a>
+                    <a href="{% url 'AQI' 12711 %}">十堰</a>
+                    <a href="{% url 'AQI' 12718 %}">宜昌</a>
+                    <a href="{% url 'AQI' 12736 %}">鄂州</a>
+                    <a href="{% url 'AQI' 12737 %}">荆门</a>
+                    <a href="{% url 'AQI' 12740 %}">孝感</a>
+                    <a href="{% url 'AQI' 12752 %}">黄冈</a>
+                    <a href="{% url 'AQI' 12761 %}">咸宁</a>
+                    <a href="{% url 'AQI' 1278 %}">黄石</a>
+                    <a href="{% url 'AQI' 12769 %}">恩施</a>
+                    <a href="{% url 'AQI' 12729 %}">襄阳</a>
+                    <a href="{% url 'AQI' 12767 %}">随州</a>
+                    <a href="{% url 'AQI' 12746 %}">荆州</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 128 %}" title="湖南空气质量预报"><b>湖南</b></a></dt>
+                <dd><a href="{% url 'AQI' 1281 %}">长沙</a>
+                    <a href="{% url 'AQI' 1284 %}">株洲</a>
+                    <a href="{% url 'AQI' 1289 %}">湘潭</a>
+                    <a href="{% url 'AQI' 12837 %}">常德</a>
+                    <a href="{% url 'AQI' 12844 %}">张家界</a>
+                    <a href="{% url 'AQI' 12847 %}">益阳</a>
+                    <a href="{% url 'AQI' 12852 %}">郴州</a>
+                    <a href="{% url 'AQI' 12862 %}">永州</a>
+                    <a href="{% url 'AQI' 12874 %}">怀化</a>
+                    <a href="{% url 'AQI' 12885 %}">娄底</a>
+                    <a href="{% url 'AQI' 12821 %}">邵阳</a>
+                    <a href="{% url 'AQI' 12831 %}">岳阳</a>
+                    <a href="{% url 'AQI' 12890 %}">湘西</a>
+                    <a href="{% url 'AQI' 12812 %}">衡阳</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 129 %}" title="广东空气质量预报"><b>广东</b></a></dt>
+                <dd><a href="{% url 'AQI' 1291 %}">广州</a>
+                    <a href="{% url 'AQI' 1296 %}">韶关</a>
+                    <a href="{% url 'AQI' 12915 %}">深圳</a>
+                    <a href="{% url 'AQI' 12916 %}">珠海</a>
+                    <a href="{% url 'AQI' 12918 %}">汕头</a>
+                    <a href="{% url 'AQI' 12922 %}">佛山</a>
+                    <a href="{% url 'AQI' 12926 %}">江门</a>
+                    <a href="{% url 'AQI' 12943 %}">肇庆</a>
+                    <a href="{% url 'AQI' 12950 %}">惠州</a>
+                    <a href="{% url 'AQI' 12966 %}">河源</a>
+                    <a href="{% url 'AQI' 12973 %}">清远</a>
+                    <a href="{% url 'AQI' 12980 %}">东莞</a>
+                    <a href="{% url 'AQI' 12981 %}">中山</a>
+                    <a href="{% url 'AQI' 12932 %}">湛江</a>
+                    <a href="{% url 'AQI' 12938 %}">茂名</a>
+                    <a href="{% url 'AQI' 12955 %}">梅州</a>
+                    <a href="{% url 'AQI' 12963 %}">汕尾</a>
+                    <a href="{% url 'AQI' 12971 %}">阳江</a>
+                    <a href="{% url 'AQI' 12982 %}">潮州</a>
+                    <a href="{% url 'AQI' 12984 %}">揭阳</a>
+                    <a href="{% url 'AQI' 12988 %}">云浮</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 130 %}" title="广西空气质量预报"><b>广西</b></a></dt>
+                <dd><a href="{% url 'AQI' 1301 %}">南宁</a>
+                    <a href="{% url 'AQI' 1309 %}">柳州</a>
+                    <a href="{% url 'AQI' 13034 %}">北海</a>
+                    <a href="{% url 'AQI' 13016 %}">桂林</a>
+                    <a href="{% url 'AQI' 13029 %}">梧州</a>
+                    <a href="{% url 'AQI' 13037 %}">防城港</a>
+                    <a href="{% url 'AQI' 13041 %}">钦州</a>
+                    <a href="{% url 'AQI' 13044 %}">贵港</a>
+                    <a href="{% url 'AQI' 13047 %}">玉林</a>
+                    <a href="{% url 'AQI' 13052 %}">百色</a>
+                    <a href="{% url 'AQI' 13064 %}">贺州</a>
+                    <a href="{% url 'AQI' 13068 %}">河池</a>
+                    <a href="{% url 'AQI' 13078 %}">来宾</a>
+                    <a href="{% url 'AQI' 13083 %}">崇左</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 131 %}" title="海南空气质量预报"><b>海南</b></a></dt>
+                <dd><a href="{% url 'AQI' 1311 %}">海口</a>
+                    <a href="{% url 'AQI' 1313 %}">三亚</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 132 %}" title="重庆空气质量预报"><b>重庆</b></a></dt>
+                <dd><a href="{% url 'AQI'  1321 %}" title="重庆空气质量查询">重庆 </a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 133 %}" title="四川空气质量预报"><b>四川</b></a></dt>
+                <dd><a href="{% url 'AQI' 1331 %}">成都</a>
+                    <a href="{% url 'AQI' 13315 %}">自贡</a>
+                    <a href="{% url 'AQI' 13318 %}">攀枝花</a>
+                    <a href="{% url 'AQI' 13322 %}">泸州</a>
+                    <a href="{% url 'AQI' 13328 %}">德阳</a>
+                    <a href="{% url 'AQI' 13334 %}">绵阳</a>
+                    <a href="{% url 'AQI' 13342 %}">广元</a>
+                    <a href="{% url 'AQI' 13347 %}">遂宁</a>
+                    <a href="{% url 'AQI' 13354 %}">乐山</a>
+                    <a href="{% url 'AQI' 13362 %}">南充</a>
+                    <a href="{% url 'AQI' 13369 %}">眉山</a>
+                    <a href="{% url 'AQI' 13389 %}">达州</a>
+                    <a href="{% url 'AQI' 13396 %}">雅安</a>
+                    <a href="{% url 'AQI' 133104 %}">巴中</a>
+                    <a href="{% url 'AQI' 133108 %}">资阳</a>
+                    <a href="{% url 'AQI' 133124 %}">甘孜</a>
+                    <a href="{% url 'AQI' 13350 %}">内江</a>
+                    <a href="{% url 'AQI' 13375 %}">宜宾</a>
+                    <a href="{% url 'AQI' 13385 %}">广安</a>
+                    <a href="{% url 'AQI' 133112 %}">阿坝</a>
+                    <a href="{% url 'AQI' 133142 %}">凉山</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 134 %}" title="贵州空气质量预报"><b>贵州</b></a></dt>
+                <dd><a href="{% url 'AQI' 1341 %}">贵阳</a>
+                    <a href="{% url 'AQI' 1349 %}">六盘水</a>
+                    <a href="{% url 'AQI' 13413 %}">遵义</a>
+                    <a href="{% url 'AQI' 13426 %}">安顺</a>
+                    <a href="{% url 'AQI' 13451 %}">毕节</a>
+                    <a href="{% url 'AQI' 13432 %}">铜仁</a>
+                    <a href="{% url 'AQI' 13442 %}">黔西南</a>
+                    <a href="{% url 'AQI' 13476 %}">黔南</a>
+                    <a href="{% url 'AQI' 13459 %}">黔东南</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 135 %}" title="云南空气质量预报"><b>云南</b></a></dt>
+                <dd><a href="{% url 'AQI' 1351 %}">昆明</a>
+                    <a href="{% url 'AQI' 13522 %}">玉溪</a>
+                    <a href="{% url 'AQI' 13531 %}">保山</a>
+                    <a href="{% url 'AQI' 13536 %}">昭通</a>
+                    <a href="{% url 'AQI' 13546 %}">丽江</a>
+                    <a href="{% url 'AQI' 13561 %}">临沧</a>
+                    <a href="{% url 'AQI' 13599 %}">西双版纳</a>
+                    <a href="{% url 'AQI' 135115 %}">德宏</a>
+                    <a href="{% url 'AQI' 135121 %}">怒江</a>
+                    <a href="{% url 'AQI' 135103 %}">大理</a>
+                    <a href="{% url 'AQI' 13513 %}">曲靖</a>
+                    <a href="{% url 'AQI' 13569 %}">楚雄</a>
+                    <a href="{% url 'AQI' 13579 %}">红河</a>
+                    <a href="{% url 'AQI' 13551 %}">思茅</a>
+                    <a href="{% url 'AQI' 13591 %}">文山</a>
+                    <a href="{% url 'AQI' 13550 %}">普洱</a>
+                    <a href="{% url 'AQI' 135126 %}">迪庆</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 136 %}" title="西藏空气质量预报"><b>西藏</b></a></dt>
+                <dd><a href="{% url 'AQI' 1361 %}">拉萨</a>
+                    <a href="{% url 'AQI' 13632 %}">林芝</a>
+                    <a href="{% url 'AQI' 1369 %}">山南</a>
+                    <a href="{% url 'AQI' 1364 %}">昌都</a>
+                    <a href="{% url 'AQI' 13615 %}">日喀则</a>
+                    <a href="{% url 'AQI' 13628 %}">阿里</a>
+                    <a href="{% url 'AQI' 13622 %}">那曲</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 137 %}" title="陕西空气质量预报"><b>陕西</b></a></dt>
+                <dd><a href="{% url 'AQI' 1371 %}">西安</a>
+                    <a href="{% url 'AQI' 1378 %}">铜川</a>
+                    <a href="{% url 'AQI' 13711 %}">宝鸡</a>
+                    <a href="{% url 'AQI' 13722 %}">咸阳</a>
+                    <a href="{% url 'AQI' 13735 %}">渭南</a>
+                    <a href="{% url 'AQI' 13746 %}">延安</a>
+                    <a href="{% url 'AQI' 13759 %}">汉中</a>
+                    <a href="{% url 'AQI' 13770 %}">榆林</a>
+                    <a href="{% url 'AQI' 13782 %}">安康</a>
+                    <a href="{% url 'AQI' 13792 %}">商洛</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 138 %}" title="甘肃空气质量预报"><b>甘肃</b></a></dt>
+                <dd><a href="{% url 'AQI' 1381 %}">兰州</a>
+                    <a href="{% url 'AQI' 1385 %}">嘉峪关</a>
+                    <a href="{% url 'AQI' 13812 %}">天水</a>
+                    <a href="{% url 'AQI' 13819 %}">武威</a>
+                    <a href="{% url 'AQI' 13823 %}">张掖</a>
+                    <a href="{% url 'AQI' 13829 %}">平凉</a>
+                    <a href="{% url 'AQI' 13837 %}">酒泉</a>
+                    <a href="{% url 'AQI' 13843 %}">庆阳</a>
+                    <a href="{% url 'AQI' 13852 %}">定西</a>
+                    <a href="{% url 'AQI' 11817 %}">甘南</a>
+                    <a href="{% url 'AQI' 13870 %}">临夏</a>
+                    <a href="{% url 'AQI' 1388 %}">白银</a>
+                    <a href="{% url 'AQI' 1386 %}">金昌</a>
+                    <a href="{% url 'AQI' 13860 %}">陇南</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 139 %}" title="青海空气质量预报"><b>青海</b></a></dt>
+                <dd><a href="{% url 'AQI' 1391 %}">西宁</a>
+                    <a href="{% url 'AQI' 1395 %}">海东</a>
+                    <a href="{% url 'AQI' 13928 %}">果洛</a>
+                    <a href="{% url 'AQI' 13912 %}">海北</a>
+                    <a href="{% url 'AQI' 13922 %}">海南</a>
+                    <a href="{% url 'AQI' 13940 %}">海西</a>
+                    <a href="{% url 'AQI' 13935 %}">玉树</a>
+                    <a href="{% url 'AQI' 13917 %}">黄南</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 140 %}" title="宁夏空气质量预报"><b>宁夏</b></a></dt>
+                <dd><a href="{% url 'AQI' 1401 %}">银川</a>
+                    <a href="{% url 'AQI' 1405 %}">石嘴山</a>
+                    <a href="{% url 'AQI' 1409 %}">吴忠</a>
+                    <a href="{% url 'AQI' 14013 %}">固原</a>
+                    <a href="{% url 'AQI' 14019 %}">中卫</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="{% url 'province' 141 %}" title="新疆空气质量预报"><b>新疆</b></a></dt>
+                <dd><a href="{% url 'AQI' 1411 %}">乌鲁木齐</a>
+                    <a href="{% url 'AQI' 1416 %}">克拉玛依</a>
+                    <a href="{% url 'AQI' 14110 %}">哈密</a>
+                    <a href="{% url 'AQI' 14196 %}">石河子</a>
+                    <a href="{% url 'AQI' 14164 %}">和田</a>
+                    <a href="{% url 'AQI' 141101 %}">五家渠</a>
+                    <a href="{% url 'AQI' 14140 %}">阿克苏</a>
+                    <a href="{% url 'AQI' 14189 %}">阿勒泰</a>
+                    <a href="{% url 'AQI' 14154 %}">喀什</a>
+                    <a href="{% url 'AQI' 14127 %}">库尔勒</a>
+                    <a href="{% url 'AQI' 1417 %}">吐鲁番</a>
+                    <a href="{% url 'AQI' 14182 %}">塔城</a>
+                    <a href="{% url 'AQI' 14121 %}">博州</a>
+                    <a href="{% url 'AQI' 14113 %}">昌吉</a>
+                    <a href="{% url 'AQI' 14149 %}">克州</a></dd>
+            </dl>
+
+
+        </div>
+
+    </div>
+    <div class="right_menus" style="width: 25% ;float: right;">
+        <div style="clear: both;">
+            <table width="300px" border="0" class="b" cellpadding="1" cellspacing="1">
+                <tr>
+                    <td colspan="5">
+                        <b>景区空气质量实时排名</b> (03-27 17:00)
+                    </td>
+                </tr>
+                <tr>
+                    <td>排名</td>
+                    <td>城市</td>
+                    <td>AQI指数</td>
+                    <td>质量状况</td>
+                    <td>PM2.5</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>1</b></td>
+                    <td><a href="" title="哈密市空气质量指数"> 哈密</a></td>
+                    <td>500</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>74</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>2</b></td>
+                    <td><a href="" title="嘉峪关市空气质量指数"> 嘉峪关</a></td>
+                    <td>500</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>68</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>3</b></td>
+                    <td><a href="" title="张掖市空气质量指数"> 张掖</a></td>
+                    <td>436</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>105</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>4</b></td>
+                    <td><a href="" title="金昌市空气质量指数"> 金昌</a></td>
+                    <td>382</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>75</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv5"><b>5</b></td>
+                    <td><a href="" title="和田市空气质量指数"> 和田</a></td>
+                    <td>263</td>
+                    <td class="aqi-lv5">重度污染</td>
+                    <td>84</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv5"><b>6</b></td>
+                    <td><a href="" title="中卫市空气质量指数"> 中卫</a></td>
+                    <td>217</td>
+                    <td class="aqi-lv5">重度污染</td>
+                    <td>88</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv5"><b>7</b></td>
+                    <td><a href="" title="商丘市空气质量指数"> 商丘</a></td>
+                    <td>214</td>
+                    <td class="aqi-lv5">重度污染</td>
+                    <td>163</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv4"><b>8</b></td>
+                    <td><a href="" title="阿拉善盟市空气质量指数"> 阿拉善盟</a></td>
+                    <td>191</td>
+                    <td class="aqi-lv4">中度污染</td>
+                    <td>78</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv4"><b>9</b></td>
+                    <td><a href="" title="酒泉市空气质量指数"> 酒泉</a></td>
+                    <td>190</td>
+                    <td class="aqi-lv4">中度污染</td>
+                    <td>43</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv4"><b>10</b></td>
+                    <td><a href="" title="库尔勒市空气质量指数"> 库尔勒</a></td>
+                    <td>178</td>
+                    <td class="aqi-lv4">中度污染</td>
+                    <td>58</td>
+                </tr>
+            </table>
+
+        </div>
+
+
+        <div style="width: 100% ;clear:both;padding-top: 50px;">
+
+
+            <table width="300px" border="0" class="b" cellpadding="1" cellspacing="1">
+                <tr>
+                    <td colspan="5">
+                        <b>全国空气质量最好城市排名</b> (03-27 17:00)
+                    </td>
+                </tr>
+                <tr>
+                    <td>排名</td>
+                    <td>城市</td>
+                    <td>AQI指数</td>
+                    <td>质量状况</td>
+                    <td>PM2.5</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>1</b></td>
+                    <td><a href="" title="哈密市空气质量指数"> 哈密</a></td>
+                    <td>500</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>74</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>2</b></td>
+                    <td><a href="" title="嘉峪关市空气质量指数"> 嘉峪关</a></td>
+                    <td>500</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>68</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>3</b></td>
+                    <td><a href="" title="张掖市空气质量指数"> 张掖</a></td>
+                    <td>436</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>105</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>4</b></td>
+                    <td><a href="" title="金昌市空气质量指数"> 金昌</a></td>
+                    <td>382</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>75</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv5"><b>5</b></td>
+                    <td><a href="" title="和田市空气质量指数"> 和田</a></td>
+                    <td>263</td>
+                    <td class="aqi-lv5">重度污染</td>
+                    <td>84</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv5"><b>6</b></td>
+                    <td><a href="" title="中卫市空气质量指数"> 中卫</a></td>
+                    <td>217</td>
+                    <td class="aqi-lv5">重度污染</td>
+                    <td>88</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv5"><b>7</b></td>
+                    <td><a href="" title="商丘市空气质量指数"> 商丘</a></td>
+                    <td>214</td>
+                    <td class="aqi-lv5">重度污染</td>
+                    <td>163</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv4"><b>8</b></td>
+                    <td><a href="" title="阿拉善盟市空气质量指数"> 阿拉善盟</a></td>
+                    <td>191</td>
+                    <td class="aqi-lv4">中度污染</td>
+                    <td>78</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv4"><b>9</b></td>
+                    <td><a href="" title="酒泉市空气质量指数"> 酒泉</a></td>
+                    <td>190</td>
+                    <td class="aqi-lv4">中度污染</td>
+                    <td>43</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv4"><b>10</b></td>
+                    <td><a href="" title="库尔勒市空气质量指数"> 库尔勒</a></td>
+                    <td>178</td>
+                    <td class="aqi-lv4">中度污染</td>
+                    <td>58</td>
+                </tr>
+            </table>
+
+
+        </div>
+
+        <div style="clear:both;width: 100% ;padding-top: 50px;">
+
+            <table width="300px" border="0" class="b" cellpadding="1" cellspacing="1">
+                <tr>
+                    <td colspan="5">
+                        <b>全国空气质量最差城市排名</b> (03-27 17:00)
+                    </td>
+                </tr>
+                <tr>
+                    <td>排名</td>
+                    <td>城市</td>
+                    <td>AQI指数</td>
+                    <td>质量状况</td>
+                    <td>PM2.5</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>1</b></td>
+                    <td><a href="" title="哈密市空气质量指数"> 哈密</a></td>
+                    <td>500</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>74</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>2</b></td>
+                    <td><a href="" title="嘉峪关市空气质量指数"> 嘉峪关</a></td>
+                    <td>500</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>68</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>3</b></td>
+                    <td><a href="" title="张掖市空气质量指数"> 张掖</a></td>
+                    <td>436</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>105</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv6"><b>4</b></td>
+                    <td><a href="" title="金昌市空气质量指数"> 金昌</a></td>
+                    <td>382</td>
+                    <td class="aqi-lv6">严重污染</td>
+                    <td>75</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv5"><b>5</b></td>
+                    <td><a href="" title="和田市空气质量指数"> 和田</a></td>
+                    <td>263</td>
+                    <td class="aqi-lv5">重度污染</td>
+                    <td>84</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv5"><b>6</b></td>
+                    <td><a href="" title="中卫市空气质量指数"> 中卫</a></td>
+                    <td>217</td>
+                    <td class="aqi-lv5">重度污染</td>
+                    <td>88</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv5"><b>7</b></td>
+                    <td><a href="" title="商丘市空气质量指数"> 商丘</a></td>
+                    <td>214</td>
+                    <td class="aqi-lv5">重度污染</td>
+                    <td>163</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv4"><b>8</b></td>
+                    <td><a href="" title="阿拉善盟市空气质量指数"> 阿拉善盟</a></td>
+                    <td>191</td>
+                    <td class="aqi-lv4">中度污染</td>
+                    <td>78</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv4"><b>9</b></td>
+                    <td><a href="" title="酒泉市空气质量指数"> 酒泉</a></td>
+                    <td>190</td>
+                    <td class="aqi-lv4">中度污染</td>
+                    <td>43</td>
+                </tr>
+                <tr>
+                    <td class="aqi-lv4"><b>10</b></td>
+                    <td><a href="" title="库尔勒市空气质量指数"> 库尔勒</a></td>
+                    <td>178</td>
+                    <td class="aqi-lv4">中度污染</td>
+                    <td>58</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+<div style="margin-top: 40px;float: left;width: 60%;margin-left: 5%;margin-right: 5%">
+    <div>
+        <h2 style=" width:auto;color: white;background-color: #66ccff">天气常识</h2>
+        <p style="color: white ;text-align: left;padding-top: 20px"><b>PM2.5</b>：指环境空气中空气动力学当量直径小于等于 2.5 μm
+            （微米）的颗粒物，也称细颗粒物、细粒、细颗粒。这个值越高，就代表空气污染越严重。</p><br/>
+        <p style="color: white;text-align: left"><b>AQI</b>：空气质量指数（Air Quality
+            Index）是定量描述空气质量状况的指数，其数值越大说明空气污染状况越严重，对人体健康的危害也就越大。</p><br/>
+        <b style="color: white;text-align:left;padding: 0px">空气质量标准等级</b>：
+        <table style="width:100%; border:0; cellpadding:1; cellspacing:1">
+            <tbody>
+            <tr>
+                <th>AQI指数</th>
+                <th>等级(描述)</th>
+                <th>温馨提示</th>
+            </tr>
+            <tr>
+                <td>0-50</td>
+                <td>一级 <em class="aqi-lv1">优</em></td>
+                <td>可多参加户外活动呼吸新鲜空气</td>
+            </tr>
+            <tr>
+                <td>51-100</td>
+                <td>二级 <em class="aqi-lv2">良</em></td>
+                <td>除少数对某些污染物特别容易过敏的人群外，其他人群可以正常进行室外活动。</td>
+            </tr>
+            <tr>
+                <td>101-150</td>
+                <td>三级 <em class="aqi-lv3">轻度污染</em></td>
+                <td>敏感人群需减少体力消耗较大的户外活动</td>
+            </tr>
+            <tr>
+                <td>151-200</td>
+                <td>四级 <em class="aqi-lv4">中度污染</em></td>
+                <td>敏感人群应尽量减少外出，一般人群适当减少户外运动</td>
+            </tr>
+            <tr>
+                <td>201-300</td>
+                <td>五级 <em class="aqi-lv5">重度污染</em></td>
+                <td>敏感人群应停止户外运动，一般人群尽量减少户外运动</td>
+            </tr>
+            <tr>
+                <td>&gt;300</td>
+                <td>六级 <em class="aqi-lv6">严重污染</em></td>
+                <td>除有特殊需要的人群外，尽量不要留在室外</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<script>
+    new Animate();
+</script>
+</body>
+</html>

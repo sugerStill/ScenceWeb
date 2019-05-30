@@ -1,0 +1,52 @@
+{% extends 'Weather/Forecast/WeatherModels.html' %}
+{% block hrefContent %}
+    $("#now").attr('formaction', "{% url 'today' pid %}");
+
+    $("#day40").attr('formaction', "{% url 'day40' pid %}");
+{% endblock %}
+{% block Request %}
+    req.open("GET", "{% url 'ForcestWeatherLongDay' 105 %}");
+
+
+{% endblock %}
+{% block loaddata %}
+    req.onload = function () {
+
+    dataList = req.response["data"];
+    var tbody = document.getElementById('weatherlist');
+    tbody.innerHTML = '';
+    data = [];
+
+    for (let z = 0; z < dataList.length; z++) {
+    d = dataList[z];
+    for (let i = 0; i < d.length; i++) {
+    result = d[i];
+
+    array = result.split(',', 6);
+    array = [array[0], array[2], array[3], array[4] + "," + array[5]];
+    data.push(array);
+    var tr = document.createElement('tr');
+
+    for (let j = 0; j < 4; j++) {
+    td = document.createElement('td');
+    td.innerHTML = array[j];
+    tr.appendChild(td);
+
+    }
+    tbody.appendChild(tr);
+    }
+
+    }
+    new Weather('realtime', data);
+
+    };
+
+
+{% endblock %}
+
+{% block Effect %}
+    $("#now").css({'background-color': 'gray'});
+    $("#day8").css({'background-color': 'lightskyblue'});
+    $("#day40").css({'background-color': 'gray'});
+
+{% endblock %}

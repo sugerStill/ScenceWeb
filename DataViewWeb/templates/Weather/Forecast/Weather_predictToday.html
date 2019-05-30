@@ -1,0 +1,43 @@
+{% extends 'Weather/Forecast/WeatherModels.html' %}
+{% block hrefContent %}
+    $("#day8").attr('formaction', "{% url 'day8' pid %}");
+
+    $("#day40").attr('formaction', "{% url 'day40' pid %}");
+{% endblock %}
+{% block Request %}
+    req.open("GET", "{% url 'ForcestWeatherOneDay' 105 %}");
+{% endblock %}
+{% block loaddata %}
+    req.onload = function () {
+
+    dataList = req.response['data'];
+    var tbody = document.getElementById('weatherlist');
+    tbody.innerHTML = '';
+    data = [];
+    for (let i = 0; i < dataList.length; i++) {
+    var tr = document.createElement('tr');
+    d = dataList[i];
+    array = d.split(',', 6);
+    array = [array[0], array[2], array[3], array[4] + "," + array[5]];
+    data.push(array);
+    for (let j = 0; j < 4; j++) {
+    td = document.createElement('td');
+    td.innerHTML = array[j];
+    tr.appendChild(td);
+
+    }
+
+    tbody.appendChild(tr);
+
+    }
+    //天气预报图像
+    new Weather('realtime', data);
+    };
+{% endblock %}
+{% block Effect %}
+
+    $("#now").css({'background-color': 'lightskyblue'});
+    $("#day8").css({'background-color': 'gray'});
+    $("#day40").css({'background-color': 'gray'});
+
+{% endblock %}

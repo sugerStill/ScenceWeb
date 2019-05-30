@@ -1,0 +1,186 @@
+* {
+    font-style: normal;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    color: white;
+}
+
+.tooltip {
+    border-bottom: 1px solid red;
+    min-height: 200px;
+}
+
+.l_left_menu {
+    width: 50%;
+    padding-left: 5%;
+    border-right: 1px solid gray;
+    float: left;
+    max-height: 230px;
+
+}
+
+.num {
+    color: rgb(251, 209, 42);
+    display: inline-block;
+    font-family: Arial;
+    font-size: 80px;
+    height: 52px;
+    line-height: 52px;
+
+
+    text-align: left;
+}
+
+.pharse {
+    color: rgb(228, 243, 62);
+    display: block;
+    font-family: "宋体,Arial";
+    font-size: 12px;
+    height: 58px;
+    line-height: 21.6px;
+    position: relative;
+    left: 50px;
+    text-align: left;
+}
+
+.status {
+    color: rgb(251, 209, 42);
+
+    display: inline-block;
+    font-family: "Microsoft Yahei";
+    font-size: 40px;
+    height: 36px;
+    line-height: 36px;
+
+    text-align: left;
+
+}
+
+/*h4 {*/
+    /*color: rgb(38, 140, 234);*/
+    /*display: block;*/
+    /*font-family: " Microsoft Yahei";*/
+    /*font-size: 20px;*/
+    /*font-weight: 700;*/
+    /*height: 32px;*/
+    /*line-height: 32px;*/
+    /*margin-block-end: 0px;*/
+    /*margin-block-start: 12px;*/
+    /*margin-bottom: 0px;*/
+    /*margin-inline-end: 0px;*/
+    /*margin-inline-start: 0px;*/
+    /*margin-left: 0px;*/
+    /*margin-right: 0px;*/
+    /*margin-top: 12px;*/
+    /*padding-bottom: 0px;*/
+    /*padding-left: 0px;*/
+    /*padding-right: 0px;*/
+    /*padding-top: 0px;*/
+    /*text-align: center;*/
+    /*white-space: nowrap;*/
+
+/*}*/
+
+.panel {;
+    display: block;
+    font-size: 12px;
+    height: 40px;
+    line-height: 21.6px;
+    margin-left: 3px;
+    margin-right: 2px;
+
+    position: relative;
+    left: 10px;
+    text-align: left;
+}
+
+.op_pm25_level {
+    clear: both;
+    color: rgb(102, 102, 102);
+    display: block;
+    font-family: "宋体,Arial";
+    font-size: 15px;
+    height: 4px;
+    line-height: 21.6px;
+    display: block;
+    position: relative;
+    text-align: left;
+}
+
+.op_pm25_level1,
+.op_pm25_level2,
+.op_pm25_level3,
+.op_pm25_level3,
+.op_pm25_level4,
+.op_pm25_level5,
+.op_pm25_level6 {
+    display: inline-block;
+    background-color: rgb(67, 206, 23);
+    background-size: auto;
+    border-left-color: rgb(255, 255, 255);
+    border-left-style: solid;
+    border-left-width: 1px;
+    color: rgb(102, 102, 102);
+    display: block;
+    float: left;
+    height: 10px;
+    line-height: 21.6px;
+    text-align: right;
+    width: 70px;
+}
+
+.op_pm25_level2 {
+    background-color: rgb(239, 220, 49);
+}
+
+.op_pm25_level3 {
+    background-color: rgb(255, 170, 0);
+}
+
+.op_pm25_level4 {
+    background-color: rgb(255, 64, 26);
+}
+
+.op_pm25_level5 {
+    background-color: rgb(210, 0, 64);
+}
+
+.op_pm25_level6 {
+    background-color: rgb(156, 10, 78);
+}
+
+.op_pm25_levelint {
+    float: left;
+    width: 70px;
+    text-align: right;
+
+}
+
+.op_pm25_levelnum {
+    margin-top: 5px;
+}
+
+.op_pm25_level {
+    margin-top: 10px;
+}
+
+
+.l_right_menu {
+    width: 40%;
+    float: left;
+}
+
+.Detail ul li {
+    text-align: left;
+    width: 33%;
+    max-lines: 1;
+    line-height: 30px;
+}
+
+
+#histroyAQI ul li {
+    width: 165px;
+    height: 25px;
+    margin-top: 15px;
+    margin-left: 15px;
+    background-color: midnightblue
+}

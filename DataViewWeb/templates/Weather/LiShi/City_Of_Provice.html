@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static  '/Weather/WeatherCSS/Weather.css' %}">
+    <link rel="stylesheet" href="{% static  '/Weather/WeatherCSS/CityList.css' %}">
+
+    <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'Weather/WeatherJS/Animate.js' %}"></script>
+</head>
+<body style="background-image: url('{% static 'img/ChinaMap.png' %}') ;background-size:100% 100% ">
+<div class="top">
+    <div class="title_left ">
+        <div class="title_left1"></div>
+        <div class="title_left2"></div>
+        <div class="title_left3 "></div>
+
+    </div>
+
+    <div class="title_tag">
+        <h1>大数据统计显示大屏</h1></div>
+
+    <div class="title_right">
+        <div class="title_right1"></div>
+        <div class="title_right2 "></div>
+        <div class="title_right3"></div>
+    </div>
+</div>
+
+
+<div class="navList" style="height: 5%">
+    <ul>
+        <li>
+            <div id="navdiv">
+                <h4>站点导航</h4>
+                <ul style="position: absolute;z-index: 998">
+                    <li>
+                        <div><a href="">天气情况</a></div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'jingqu' %}">景区监测</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'traffic' %}">交通监测</a></div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li><a href="{% url 'WeatherFirst' %}">天气首页</a></li>
+        <li><a href="{% url 'WeatherHistoryFirst' %}">历史天气</a></li>
+        <li><a href="{% url 'predictFirst' %}">天气预报</a></li>
+        <li><a href="{% url 'AQIFirst' %}">空气质量</a></li>
+
+
+    </ul>
+</div>
+<div style="width: 90%;    margin-left: 5%;
+    margin-right: 5%;margin-top: 25px">
+    <div class=leftmenu" style="border: 1px solid gray;width: 60%; float:left;text-align: center;">
+        <h1>天气后报</h1>
+        <strong style="color: white">全国主要城市、县历史天气在线查询</strong>
+        <pre style="color: white">
+            本站目前可以查询涵盖 34 个省、市所属的 2290 个城市、县、地区历史天气历史信息，
+            主要指标包括每天最高气温、最低气温、天气状况、风向等。</pre>
+        <table style="width: 100%">
+            <tbody>
+            <tr>
+            </tr>
+            {% for item in lis %}
+                <tr>
+                    {% for key,value in  item.items %}
+                        <td style="height: 22px" align="center"><a href="{% url 'History'  value %}">{{ key }}</a>
+                        </td>
+
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+        <div class="boxProvince"><h2>省份历史天气查询</h2>
+            <ul>
+                <li class="t" style="height: 10em;">省份
+                </li>
+                <li><a href="{% url 'province' 122 %}">安徽</a></li>
+                <li><a href="{% url 'province' 123 %}">福建</a></li>
+                <li><a href="{% url 'province' 138 %}">甘肃</a></li>
+                <li><a href="{% url 'province' 129 %}">广东</a></li>
+                <li><a href="{% url 'province' 113 %}">广西</a></li>
+                <li><a href="{% url 'province' 134 %}">贵州</a></li>
+                <li><a href="{% url 'province' 131 %}">海南</a></li>
+                <li><a href="{% url 'province' 113 %}">河北</a></li>
+                <li><a href="{% url 'province' 126 %}">河南</a></li>
+                <li><a href="{% url 'province' 118 %}">黑龙江</a></li>
+                <li><a href="{% url 'province' 127 %}">湖北</a></li>
+                <li><a href="{% url 'province' 128 %}">湖南</a></li>
+                <li><a href="{% url 'province' 117 %}">吉林</a></li>
+                <li><a href="{% url 'province' 120 %}">江苏</a></li>
+                <li><a href="{% url 'province' 124 %}">江西</a></li>
+                <li><a href="{% url 'province' 116 %}">辽宁</a></li>
+                <li><a href="{% url 'province' 115 %}">内蒙古</a></li>
+                <li><a href="{% url 'province' 140 %}">宁夏</a></li>
+                <li><a href="{% url 'province' 139 %}">青海</a></li>
+                <li><a href="{% url 'province' 125 %}">山东</a></li>
+                <li><a href="{% url 'province' 114 %}">山西</a></li>
+                <li><a href="{% url 'province' 137 %}">陕西</a></li>
+                <li><a href="{% url 'province' 133 %}">四川</a></li>
+                <li><a href="{% url 'province' 136 %}">西藏</a></li>
+                <li><a href="{% url 'province' 141 %}">新疆</a></li>
+                <li><a href="{% url 'province' 135 %}">云南</a></li>
+                <li><a href="{% url 'province' 121 %}">浙江</a></li>
+            </ul>
+            <ul>
+                <li class="t" style="height: 2em;">直辖市</li>
+                <li><a href="{% url 'province' 111 %}">北京</a></li>
+                <li><a href="{% url 'province' 119 %}">上海</a></li>
+                <li><a href="{% url 'province' 112 %}">天津</a></li>
+                <li><a href="{% url 'province' 132 %}">重庆</a></li>
+            </ul>
+            <ul>
+                <li class="t" style="    height:2em;">港澳台</li>
+                <li><a href="{% url 'province' 143 %}">香港</a></li>
+                <li><a href="{% url 'province' 144 %}">澳门</a></li>
+                <li><a href="{% url 'province' 142 %}">台湾</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="rightmenu"
+         style="border:1px solid gray;float: left;width: 30% ;height:15%;margin-left: 5%;margin-bottom: 100px">
+        <h2 style="background-color: gray;margin: 0px auto;text-align: left">主要城市历史天气</h2>
+
+        <ul style=" line-height: 26px;margin: 10px auto">
+            <li><a href="{% url 'History' 1111 %}" title="北京历史天气查询">北京 </a></li>
+            <li><a href="
+                            {% url 'History' 1191 %}" title="上海历史天气查询">上海 </a></li>
+            <li><a href="{% url 'History' 1121 %}" title="天津历史天气查询">天津 </a></li>
+            <li><a href="
+                            {% url 'History' 1321 %}" title="重庆历史天气查询">重庆 </a></li>
+            <li><a href="{% url 'History' 1181 %}" title="哈尔滨历史天气查询">哈尔滨 </a></li>
+            <li><a href="
+                            {% url 'History' 1171 %}" title="长春历史天气查询">长春 </a></li>
+            <li><a href="{% url 'History' 1161 %}" title="沈阳历史天气查询">沈阳 </a></li>
+            <li><a href="
+                            {% url 'History' 1151 %}" title="呼和浩特历史天气查询">呼和浩特 </a></li>
+            <li><a href="{% url 'History' 1131 %}" title="石家庄历史天气查询">石家庄 </a></li>
+            <li><a href="
+                            {% url 'History' 1141 %}" title="太原历史天气查询">太原 </a></li>
+            <li><a href="{% url 'History' 1371 %}" title="西安历史天气查询">西安 </a></li>
+            <li><a href="
+                            {% url 'History' 1251 %}" title="济南历史天气查询">济南 </a></li>
+            <li><a href="{% url 'History' 1421 %}" title="乌鲁木齐历史天气查询">乌鲁木齐 </a></li>
+            <li><a href="
+                            {% url 'History' 1361 %}" title="拉萨历史天气查询">拉萨 </a></li>
+            <li><a href="{% url 'History' 1391 %}" title="西宁历史天气查询">西宁 </a></li>
+            <li><a href="
+                            {% url 'History' 1381 %}" title="兰州历史天气查询">兰州 </a></li>
+            <li><a href="{% url 'History' 1401 %}" title="银川历史天气查询">银川 </a></li>
+            <li><a href="
+                            {% url 'History' 1261 %}" title="郑州历史天气查询">郑州 </a></li>
+            <li><a href="{% url 'History' 1201 %}" title="南京历史天气查询">南京 </a></li>
+            <li><a href="
+                            {% url 'History' 1271 %}" title="武汉历史天气查询">武汉 </a></li>
+            <li><a href="{% url 'History' 1211 %}" title="杭州历史天气查询">杭州 </a></li>
+            <li><a href="
+                            {% url 'History' 1221 %}" title="合肥历史天气查询">合肥 </a></li>
+            <li><a href="{% url 'History' 1231 %}" title="福州历史天气查询">福州 </a></li>
+            <li><a href="
+                            {% url 'History' 1241 %}" title="南昌历史天气查询">南昌 </a></li>
+            <li><a href="{% url 'History' 1281 %}" title="长沙历史天气查询">长沙 </a></li>
+            <li><a href="
+                            {% url 'History' 1341 %}" title="贵阳历史天气查询">贵阳 </a></li>
+            <li><a href="{% url 'History' 1331 %}" title="成都历史天气查询">成都 </a></li>
+            <li><a href="
+                            {% url 'History' 1291 %}" title="广州历史天气查询">广州 </a></li>
+            <li><a href="{% url 'History' 1351 %}" title="昆明历史天气查询">昆明 </a></li>
+            <li><a href="
+                            {% url 'History' 1301 %}" title="南宁历史天气查询">南宁 </a></li>
+            <li><a href="{% url 'History' 1311 %}" title="海口历史天气查询">海口 </a></li>
+            <li><a href="
+                            {% url 'History' 1421 %}" title="台北历史天气查询">台北 </a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    new Animate();
+</script>
+</body>
+</html>

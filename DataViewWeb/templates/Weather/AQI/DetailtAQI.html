@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static  'Weather/WeatherCSS/Weather.css' %}">
+    <link rel="stylesheet" href="{% static 'Weather/WeatherCSS/WeatherLishi.css' %}"/>
+    <link rel="stylesheet" href="{% static 'Weather/WeatherCSS/AQI.css' %}"/>
+    <script src="{% static 'echarts.min.js' %}"></script>
+    <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'Weather/WeatherJS/Animate.js' %}"></script>
+    <script src="{% static 'Weather/WeatherJS/Air_element.js' %}"></script>
+    <script src="{% static 'Weather/WeatherJS/Month_AQI.js' %}"></script>
+
+</head>
+<body style="background-image: url('{% static 'img/ChinaMap.png' %}') ;background-size:100% 100% ">
+<div class="top">
+    <div class="title_left ">
+        <div class="title_left1"></div>
+        <div class="title_left2"></div>
+        <div class="title_left3 "></div>
+
+    </div>
+
+    <div class="title_tag">
+        <h1>大数据统计显示大屏</h1></div>
+
+    <div class="title_right">
+        <div class="title_right1"></div>
+        <div class="title_right2 "></div>
+        <div class="title_right3"></div>
+    </div>
+</div>
+
+
+<div class="navList" style="height: 5%">
+    <ul>
+        <li style="height: 100%">
+            <div id="navdiv" style="position: absolute;">
+                <h4 style="color: cyan;">站点导航</h4>
+                <ul style="position: absolute;z-index: 998">
+                    <li>
+                        <div><a href="">天气情况</a></div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'jingqu' %}">景区监测</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'traffic' %}">交通监测</a></div>
+                    </li>
+
+                </ul>
+            </div>
+        </li>
+        <li><a href="{% url 'WeatherFirst' %}">天气首页</a></li>
+        <li><a href="{% url 'WeatherHistoryFirst' %}">历史天气</a></li>
+        <li><a href="{% url 'predictFirst' %}">天气预报</a></li>
+        <li><a href="{% url 'AQIFirst' %}">空气质量</a></li>
+
+
+    </ul>
+</div>
+
+<div style="clear:both;width: 90%;    margin-left: 5%;
+    margin-right: 5%;margin-top: 25px">
+    <div class="left_menus" style="width:65%;float: left;border: 1px solid midnightblue">
+        <h1>{{ AQI.city }}空气质量指数(AQI)-PM2.5查询</h1>
+        <div>
+            <p class="loge" style="float: left;color: white;">数据更新时间: {{ AQI.date }} (每小时实时更新)</p>
+            <a href="#" style="color: red;text-decoration: none;float: left;margin-left: 20px">全国空气质量排名</a>
+        </div>
+        <hr style="clear: left"/>
+        <div class="tooltip">
+            <div class="l_left_menu">
+                <h2 style="color: white">
+                    {{ AQI.city }}空气质量指数</h2>
+                <div class="pharse">
+
+                    <div class="num">
+                        {{ AQI.num }}
+                    </div>
+
+                    <div class="status">
+                        {{ AQI.state }}
+                    </div>
+                </div>
+                <div>
+                    （数值越大，污染越严重）
+                </div>
+                <div class="progess">
+                    <div class="panel">
+                        <div class="op_pm25_level">
+                            <div class="op_pm25_level1"></div>
+                            <div class="op_pm25_level2"></div>
+                            <div class="op_pm25_level3"></div>
+                            <div class="op_pm25_level4"></div>
+                            <div class="op_pm25_level5"></div>
+                            <div class="op_pm25_level6"></div>
+                        </div>
+                        <div class="op_pm25_levelnum" style="clear: left">
+                            <div class="op_pm25_levelint"><span style=" float: left;margin-left: 1px;">0</span>50</div>
+                            <div class="op_pm25_levelint">100</div>
+                            <div class="op_pm25_levelint">150</div>
+                            <div class="op_pm25_levelint">200</div>
+                            <div class="op_pm25_levelint">300</div>
+                            <div class="op_pm25_levelint">>500</div>
+                        </div>
+                        <div class="op_pm25_levelnum" style="clear: left">
+                            <div class="op_pm25_levelint">优</div>
+                            <div class="op_pm25_levelint">良</div>
+                            <div class="op_pm25_levelint">轻度</div>
+                            <div class="op_pm25_levelint">中度</div>
+                            <div class="op_pm25_levelint">重度</div>
+                            <div class="op_pm25_levelint">严重</div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="l_right_menu">
+                <p class="AirDecir"
+                   style="line-height: 30px;color: white">{{ AQI.city }}今日空气质量分析：{{ AQI.stateInfomation }}
+
+                </p>
+                <p class="tips" style="color: gray;line-height:40px ">温馨提示：{{ AQI.tips }}。</p>
+            </div>
+        </div>
+        <div id="Air_element" style="margin-top:20px;height: 300px;width: 50%;float: left;border-right: 1px solid gray">
+        </div>
+        <div class="Detail"
+             style="float: left;width: 45%;text-align: center;margin-left: 3%;margin-top:50px;height:200px;border: 1px solid midnightblue ">
+            <h2 style="color: white;">{{ AQI.city }}空气中主要污染物浓度：</h2>
+            <ul>
+                <li>PM2.5：<!--143--></li>
+                <li>一氧化碳：{{ AQI.data.0 }}</li>
+                <li>二氧化硫：{{ AQI.data.1 }}μg/m<sup>3</sup></li>
+
+                <li>PM10 ：{{ AQI.data.2 }}μg/m<sup>3</sup></li>
+
+                <li>臭氧：{{ AQI.data.3 }}</li>
+                <li>二氧化氮：{{ AQI.data.4 }}μg/m<sup>3</sup></li>
+                <li></li>
+            </ul>
+
+        </div>
+
+        <div class="tableTXT" style="width: 100%;text-align: center;clear: left">
+            <h4>各监测站点实时数据： 数值单位：μg/m<sup>3</sup>(CO为mg/m<sup>3</sup>)</h4>
+
+
+            <table width="100%" border="0" class="b" cellpadding="1" cellspacing="1">
+                <tbody>
+                <thead>
+                <td>
+                    <b>监测点</b></td>
+                <td>
+                    <b>AQI指数</b></td>
+
+                <td>
+                    <b>空气质量状况</b></td>
+
+                <td>
+                    <b>PM10</b></td>
+                <!-- <td>
+                     <b>PM2.5</b></td>-->
+                <td>
+                    <b>Co</b></td>
+                <td>
+                    <b>No2</b></td>
+                <td>
+                    <b>So2</b></td>
+                <td>
+                    <b>O3</b></td>
+                </thead>
+
+                {% for item in lis %}
+                    <tr>
+                        {# ['职工医院','78','良','105','0.5'，'44',17','74']#}
+                        {% for num in item %}
+                            <td>{{ num }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+
+
+
+                </tbody>
+            </table>
+        </div>
+        <div id="monthWeather" style="width: 100%;height: 400px;margin-top: 30px">
+
+        </div>
+        <hr/>
+        <div class="box_data" style="margin-top: 30px;width: 100%">
+            <h2>
+                石家庄空气质量指数历史数据查询</h2>
+            <div id="histroyAQI" style="width: 100%">
+                <ul>
+
+                    <li><a href="{% url 'AQIHistory'  cityPid 201401 %}">2014年1月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201402 %}">2014年2月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201403 %}">2014年3月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201404 %}">2014年4月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201405 %}">2014年5月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201406 %}">2014年6月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201407 %}">2014年7月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201408 %}">2014年8月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201409 %}">2014年9月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201410 %}">2014年10月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201411 %}">2014年11月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201412 %}">2014年12月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201501 %}">2015年1月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201502 %}">2015年2月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201503 %}">2015年3月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201504 %}">2015年4月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201505 %}">2015年5月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201506 %}">2015年6月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201507 %}">2015年7月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201508 %}">2015年8月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201509 %}">2015年9月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201510 %}">2015年10月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201511 %}">2015年11月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201512 %}">2015年12月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201601 %}">2016年1月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201602 %}">2016年2月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201603 %}">2016年3月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201604 %}">2016年4月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201605 %}">2016年5月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201606 %}">2016年6月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201607 %}">2016年7月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201608 %}">2016年8月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201609 %}">2016年9月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201610 %}">2016年10月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201611 %}">2016年11月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201612 %}">2016年12月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201701 %}">2017年1月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201702 %}">2017年2月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201703 %}">2017年3月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201704 %}">2017年4月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201705 %}">2017年5月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201706 %}">2017年6月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201707 %}">2017年7月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201708 %}">2017年8月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201709 %}">2017年9月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201710 %}">2017年10月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201711 %}">2017年11月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201712 %}">2017年12月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201801 %}">2018年1月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201802 %}">2018年2月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201803 %}">2018年3月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201804 %}">2018年4月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201805 %}">2018年5月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201806 %}">2018年6月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201807 %}">2018年7月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201808 %}">2018年8月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201809 %}">2018年9月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201810 %}">2018年10月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201811 %}">2018年11月天气</a></li>
+                    <li><a href="{% url 'AQIHistory'  cityPid 201812 %}">2018年12月天气</a></li>
+
+                </ul>
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="right_menus" style="width: 25% ;float: right;">
+        <div style="height: 220px;border: 1px solid gray">
+            <h2>
+                主要城市空气质量指数(AQI)</h2>
+            <ul id="AAQI">
+                <li><a href="{% url 'AQI' 1111 %}" title="北京空气质量查询">北京 </a></li>
+                <li><a href="{% url 'AQI' 1191 %}" title="上海空气质量查询">上海 </a></li>
+                <li><a href="{% url 'AQI' 1121 %}" title="天津空气质量查询">天津 </a></li>
+                <li><a href="{% url 'AQI' 1321 %}" title="重庆空气质量查询">重庆 </a></li>
+                <li><a href="{% url 'AQI' 1181 %}" title="哈尔滨空气质量查询">哈尔滨 </a></li>
+                <li><a href="{% url 'AQI' 1171 %}" title="长春空气质量查询">长春 </a></li>
+                <li><a href="{% url 'AQI' 1161 %}" title="沈阳空气质量查询">沈阳 </a></li>
+                <li><a href="{% url 'AQI' 1151 %}" title="呼和浩特空气质量查询">呼和浩特 </a></li>
+                <li><a href="{% url 'AQI' 1131 %}" title="石家庄空气质量查询">石家庄 </a></li>
+                <li><a href="{% url 'AQI' 1141 %}" title="太原空气质量查询">太原 </a></li>
+                <li><a href="{% url 'AQI' 1371 %}" title="西安空气质量查询">西安 </a></li>
+                <li><a href="{% url 'AQI' 1251 %}" title="济南空气质量查询">济南 </a></li>
+                <li><a href="{% url 'AQI' 1421 %}" title="乌鲁木齐空气质量查询">乌鲁木齐 </a></li>
+                <li><a href="{% url 'AQI' 1361 %}" title="拉萨空气质量查询">拉萨 </a></li>
+                <li><a href="{% url 'AQI' 1391 %}" title="西宁空气质量查询">西宁 </a></li>
+                <li><a href="{% url 'AQI' 1381 %}" title="兰州空气质量查询">兰州 </a></li>
+                <li><a href="{% url 'AQI' 1401 %}" title="银川空气质量查询">银川 </a></li>
+                <li><a href="{% url 'AQI' 1261 %}" title="郑州空气质量查询">郑州 </a></li>
+                <li><a href="{% url 'AQI' 1201 %}" title="南京空气质量查询">南京 </a></li>
+                <li><a href="{% url 'AQI' 1271 %}" title="武汉空气质量查询">武汉 </a></li>
+                <li><a href="{% url 'AQI' 1211 %}" title="杭州空气质量查询">杭州 </a></li>
+                <li><a href="{% url 'AQI' 1221 %}" title="合肥空气质量查询">合肥 </a></li>
+                <li><a href="{% url 'AQI' 1231 %}" title="福州空气质量查询">福州 </a></li>
+                <li><a href="{% url 'AQI' 1241 %}" title="南昌空气质量查询">南昌 </a></li>
+                <li><a href="{% url 'AQI' 1281 %}" title="长沙空气质量查询">长沙 </a></li>
+                <li><a href="{% url 'AQI' 1341 %}" title="贵阳空气质量查询">贵阳 </a></li>
+                <li><a href="{% url 'AQI' 1331 %}" title="成都空气质量查询">成都 </a></li>
+                <li><a href="{% url 'AQI' 1291 %}" title="广州空气质量查询">广州 </a></li>
+                <li><a href="{% url 'AQI' 1351 %}" title="昆明空气质量查询">昆明 </a></li>
+                <li><a href="{% url 'AQI' 1301 %}" title="南宁空气质量查询">南宁 </a></li>
+                <li><a href="{% url 'AQI' 1311 %}" title="海口空气质量查询">海口 </a></li>
+                <li><a href="{% url 'AQI' 1421 %}" title="台北空气质量查询">台北 </a></li>
+
+            </ul>
+
+        </div>
+        <div class="box_k">
+            <h2>天气常识</h2>
+            <b>PM2.5</b>：指环境空气中空气动力学当量直径小于等于 2.5 μm （微米）的颗粒物，也称细颗粒物、细粒、细颗粒。这个值越高，就代表空气污染越严重。<br>
+            <b>AQI</b>：空气质量指数（Air Quality Index）是定量描述空气质量状况的指数，其数值越大说明空气污染状况越严重，对人体健康的危害也就越大。<br>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    new Air_element();
+    new MonthChart('monthWeather').setData('');
+
+    new Animate();
+</script>
+</body>
+</html>

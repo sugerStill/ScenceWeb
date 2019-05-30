@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static  '/Weather/WeatherCSS/Today.css' %}">
+    <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'Weather/WeatherJS/Animate.js' %}"></script>
+    <script src="{% static 'Weather/WeatherJS/WeatherCharts.js' %}"></script>
+    <script src="{% static 'Weather/WeatherJS/Air_element.js' %}"></script>
+
+
+    <script src="{% static 'echarts.min.js' %}"></script>
+    <script language="javascript"
+            src="https://webapi.amap.com/maps?v=1.4.13&key=209b01c1d0a6f0270d5efb521e29f758&plugin=Map3D,AMap.DistrictLayer,AMap.Scale,AMap.ToolBar,AMap.Weather"></script>
+
+</head>
+<body style="background-image: url('{% static 'img/ChinaMap.png' %}') ;background-size:100% 100% ">
+<div class="top">
+    <div class="title_left ">
+        <div class="title_left1"></div>
+        <div class="title_left2"></div>
+        <div class="title_left3 "></div>
+
+    </div>
+
+    <div class="title_tag">
+        <h1>大数据统计显示大屏</h1></div>
+
+    <div class="title_right">
+        <div class="title_right1"></div>
+        <div class="title_right2 "></div>
+        <div class="title_right3"></div>
+    </div>
+</div>
+
+
+<div class="navList" style="height: 5%">
+    <ul>
+        <li>
+            <div id="navdiv" style="position: absolute;z-index: auto;">
+                <h4>站点导航</h4>
+                <ul style="position: absolute;z-index: 998">
+                    <li>
+                        <div><a href="">天气情况</a></div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'jingqu' %}">景区监测</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'traffic' %}">交通监测</a></div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li><a href="{% url 'WeatherFirst' %}">天气首页</a></li>
+        <li><a href="{% url 'WeatherHistoryFirst' %}">历史天气</a></li>
+        <li><a href="{% url 'predictFirst' %}">天气预报</a></li>
+        <li><a href="{% url 'AQIFirst' %}">空气质量</a></li>
+
+
+    </ul>
+</div>
+
+<div style="width: 90%;    margin-left: 5%;
+    margin-right: 5%;margin-top: 25px">
+    <div class=leftmenu" style="width: 60%; float:left;text-align: center;height: 500px">
+
+        <form style="height: 50px">
+            <button id="now" formaction="" style="height: 30px;width: 30%">今天</button>
+
+            <button id="day8" style="height: 30px;width: 30%">8天</button>
+            <button id="day40" style="height: 30px;width: 30%">40天</button>
+
+        </form>
+
+        <div id="realtime" style="width: 100%;height: 500px;"></div>
+        <br>
+        <br>
+        <div class="tableTXT">
+            <h2 style="color:white;">天气预报</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>
+                        时间
+                    </th>
+                    <th>
+                        天气状态
+                    </th>
+
+                    <th>
+                        气温
+                    </th>
+
+                    <th>
+                        风力风向
+                    </th>
+
+
+                </tr>
+                </thead>
+                <tbody id="weatherlist">
+                </tbody>
+            </table>
+
+        </div>
+        <br>
+        <br>
+
+        <h1>{{ AQI.city }}空气质量指数(AQI)-PM2.5查询</h1>
+        <div>
+            <p class="loge" style="float: left;color: white;">数据更新时间: {{ AQI.date }} (每小时实时更新)</p>
+            <a href="#" style="color: red;text-decoration: none;float: left;margin-left: 20px">全国空气质量排名</a>
+        </div>
+        <hr style="clear: left"/>
+        <div class="tooltip">
+            <div class="l_left_menu">
+                <h2 style="color: white">
+                    {{ AQI.city }}空气质量指数</h2>
+                <div class="pharse">
+
+                    <div class="num">
+                        {{ AQI.num }}
+                    </div>
+
+                    <div class="status">
+                        {{ AQI.state }}
+                    </div>
+                </div>
+                <div>
+                    （数值越大，污染越严重）
+                </div>
+                <div class="progess">
+                    <div class="panel">
+                        <div class="op_pm25_level">
+                            <div class="op_pm25_level1"></div>
+                            <div class="op_pm25_level2"></div>
+                            <div class="op_pm25_level3"></div>
+                            <div class="op_pm25_level4"></div>
+                            <div class="op_pm25_level5"></div>
+                            <div class="op_pm25_level6"></div>
+                        </div>
+                        <div class="op_pm25_levelnum" style="clear: left">
+                            <div class="op_pm25_levelint"><span style=" float: left;margin-left: 1px;">0</span>50</div>
+                            <div class="op_pm25_levelint">100</div>
+                            <div class="op_pm25_levelint">150</div>
+                            <div class="op_pm25_levelint">200</div>
+                            <div class="op_pm25_levelint">300</div>
+                            <div class="op_pm25_levelint">>500</div>
+                        </div>
+                        <div class="op_pm25_levelnum" style="clear: left">
+                            <div class="op_pm25_levelint">优</div>
+                            <div class="op_pm25_levelint">良</div>
+                            <div class="op_pm25_levelint">轻度</div>
+                            <div class="op_pm25_levelint">中度</div>
+                            <div class="op_pm25_levelint">重度</div>
+                            <div class="op_pm25_levelint">严重</div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="l_right_menu">
+                <p class="AirDecir"
+                   style="line-height: 30px;color: white">{{ AQI.city }}今日空气质量分析：{{ AQI.stateInfomation }}
+
+                </p>
+                <p class="tips" style="color: gray;line-height:40px ">温馨提示：{{ AQI.tips }}。</p>
+            </div>
+        </div>
+        <div id="Air_element" style="margin-top:20px;height: 300px;width: 50%;float: left;border-right: 1px solid gray">
+        </div>
+        <div class="Detail"
+             style="float: left;width: 45%;text-align: center;margin-left: 3%;margin-top:50px;height:200px;border: 1px solid midnightblue ">
+            <h2 style="color: white;">{{ AQI.city }}空气中主要污染物浓度：</h2>
+            <ul>
+                <li>PM2.5：<!--143--></li>
+                <li>一氧化碳：{{ AQI.data.0 }}</li>
+                <li>二氧化硫：{{ AQI.data.1 }}μg/m<sup>3</sup></li>
+
+                <li>PM10 ：{{ AQI.data.2 }}μg/m<sup>3</sup></li>
+
+                <li>臭氧：{{ AQI.data.3 }}</li>
+                <li>二氧化氮：{{ AQI.data.4 }}μg/m<sup>3</sup></li>
+                <li></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="rightmenu"
+         style="border:1px solid gray;float: left;width: 30% ;height:15%;margin-left: 5%;margin-bottom: 100px">
+        <h2 style="background-color: gray;margin: 0px auto;text-align: left">主要城市预测天气</h2>
+
+        <ul style=" line-height: 26px;margin: 10px auto">
+            <li><a href="{% url 'predict' 1111 %}" title="北京历史天气查询">北京 </a></li>
+            <li><a href="
+                            {% url 'predict' 1191 %}" title="上海历史天气查询">上海 </a></li>
+            <li><a href="{% url 'predict' 1121 %}" title="天津历史天气查询">天津 </a></li>
+            <li><a href="
+                            {% url 'predict' 1321 %}" title="重庆历史天气查询">重庆 </a></li>
+            <li><a href="{% url 'predict' 1181 %}" title="哈尔滨历史天气查询">哈尔滨 </a></li>
+            <li><a href="
+                            {% url 'predict' 1171 %}" title="长春历史天气查询">长春 </a></li>
+            <li><a href="{% url 'predict' 1161 %}" title="沈阳历史天气查询">沈阳 </a></li>
+            <li><a href="
+                            {% url 'predict' 1151 %}" title="呼和浩特历史天气查询">呼和浩特 </a></li>
+            <li><a href="{% url 'predict' 1131 %}" title="石家庄历史天气查询">石家庄 </a></li>
+            <li><a href="
+                            {% url 'predict' 1141 %}" title="太原历史天气查询">太原 </a></li>
+            <li><a href="{% url 'predict' 1371 %}" title="西安历史天气查询">西安 </a></li>
+            <li><a href="
+                            {% url 'predict' 1251 %}" title="济南历史天气查询">济南 </a></li>
+            <li><a href="{% url 'predict' 1421 %}" title="乌鲁木齐历史天气查询">乌鲁木齐 </a></li>
+            <li><a href="
+                            {% url 'predict' 1361 %}" title="拉萨历史天气查询">拉萨 </a></li>
+            <li><a href="{% url 'predict' 1391 %}" title="西宁历史天气查询">西宁 </a></li>
+            <li><a href="
+                            {% url 'predict' 1381 %}" title="兰州历史天气查询">兰州 </a></li>
+            <li><a href="{% url 'predict' 1401 %}" title="银川历史天气查询">银川 </a></li>
+            <li><a href="
+                            {% url 'predict' 1261 %}" title="郑州历史天气查询">郑州 </a></li>
+            <li><a href="{% url 'predict' 1201 %}" title="南京历史天气查询">南京 </a></li>
+            <li><a href="
+                            {% url 'predict' 1271 %}" title="武汉历史天气查询">武汉 </a></li>
+            <li><a href="{% url 'predict' 1211 %}" title="杭州历史天气查询">杭州 </a></li>
+            <li><a href="
+                            {% url 'predict' 1221 %}" title="合肥历史天气查询">合肥 </a></li>
+            <li><a href="{% url 'predict' 1231 %}" title="福州历史天气查询">福州 </a></li>
+            <li><a href="
+                            {% url 'predict' 1241 %}" title="南昌历史天气查询">南昌 </a></li>
+            <li><a href="{% url 'predict' 1281 %}" title="长沙历史天气查询">长沙 </a></li>
+            <li><a href="
+                            {% url 'predict' 1341 %}" title="贵阳历史天气查询">贵阳 </a></li>
+            <li><a href="{% url 'predict' 1331 %}" title="成都历史天气查询">成都 </a></li>
+            <li><a href="
+                            {% url 'predict' 1291 %}" title="广州历史天气查询">广州 </a></li>
+            <li><a href="{% url 'predict' 1351 %}" title="昆明历史天气查询">昆明 </a></li>
+            <li><a href="
+                            {% url 'predict' 1301 %}" title="南宁历史天气查询">南宁 </a></li>
+            <li><a href="{% url 'predict' 1311 %}" title="海口历史天气查询">海口 </a></li>
+            <li><a href="
+                            {% url 'predict' 1421 %}" title="台北历史天气查询">台北 </a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    {#console.log(window.location.host);#}
+    {#console.log(window.location.hostname);#}
+    {#console.log(window.location.href);#}
+    var url = document.location.toString();
+    var arrurl = url.split("/");
+    pid = arrurl[arrurl.length - 1];
+    {% block hrefContent %}
+        // 设置点击链接
+    {% endblock %}
+</script>
+
+<script>
+
+    new Animate();
+    new Air_element();
+
+</script>
+<script>
+    req = new XMLHttpRequest();
+    req.responseType = "json";
+    //改网址
+    {% block Request %}
+        // 设置请求链接
+    {% endblock %}
+    {%  block loaddata %}
+        //数据加载
+    {%  endblock %}
+
+    req.send();
+    {%  block Effect %}
+        //点击效果
+    {% endblock %}
+
+</script>
+
+</body>
+< /html>

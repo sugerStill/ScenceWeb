@@ -1,0 +1,102 @@
+dt, dd a {
+    float: left;
+    padding: 10px;
+    vertical-align: top;
+}
+
+dl {
+    clear: both;
+    text-align: center;
+    border-bottom: 1px solid gray;
+}
+
+a {
+    text-decoration: none;
+}
+
+dd {
+    padding-left: 80px;
+}
+
+#yubao, #AAQI {
+    width: 100%;
+}
+
+#yubao li, #AAQI li {
+    width: auto;
+    padding: 10px
+}
+
+#yubao li a, #AAQI li a {
+    width: auto;
+    text-decoration: none;
+    color: white;
+
+}
+
+#xinwen li {
+    text-align: left;
+    padding-left: 10px;
+    width: 100%;
+}
+
+#xinwen li a {
+    color: white;
+}
+
+
+#kongqi li {
+    width: auto;
+    padding: 10px
+}
+
+#kongqi li a {
+    width: auto;
+    text-decoration: none;
+}
+
+dt a {
+    color: white
+}
+
+dd a {
+    color: aqua
+}
+
+#kongqi li a {
+    color: white;
+}
+
+h2 {
+    color: white;
+    text-align: left;
+    padding-bottom: 10px;
+    background-color: #0c55a6;
+    opacity: 0.9
+}
+
+.right_menus {
+    width: 25%;
+    float: right;
+    /*position: fixed;*/
+    right: 5%;
+    height: 2000px;
+
+}
+
+.right_menus div {
+    margin-bottom: 50px;
+}
+
+.box_data {
+    clear: both;
+    height: 250px;
+
+}
+
+.box_k {
+    clear: left;
+    height: 200px;
+    border: 1px solid gray;
+
+}
