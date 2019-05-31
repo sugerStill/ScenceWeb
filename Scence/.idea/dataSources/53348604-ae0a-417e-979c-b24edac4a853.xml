@@ -1167,21 +1167,21 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="314" parent="284" name="data">
+    <column id="314" parent="284" name="pid_id">
       <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="315" parent="284" name="TrafficIndex">
+      <Position>4</Position>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="315" parent="284" name="time">
-      <Position>4</Position>
-      <DataType>varchar(16)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="316" parent="284" name="pid_id">
+    <column id="316" parent="284" name="detailTime">
       <Position>5</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>varchar(16)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

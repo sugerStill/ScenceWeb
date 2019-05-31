@@ -63,7 +63,7 @@ class YearCityTraffic(models.Model):
                             verbose_name='城市季度交通ip', to_field='cityCode', related_name="YearTraffic")
     date = models.DateField()
     city = models.CharField(max_length=32)
-    index = models.FloatField()
+    TrafficIndex = models.FloatField()
 
     class Meta:
         app_label = "TrafficView"
