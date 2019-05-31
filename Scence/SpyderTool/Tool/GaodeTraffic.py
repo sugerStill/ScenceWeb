@@ -141,7 +141,7 @@ class GaodeTraffic(Traffic):
         realData = {"num": i, "time": t, "data": l}
         return realData
 
-    def YearTraffic(self, cityCode, year):
+    def YearTraffic(self, cityCode:int, year:int,quarter:int):
 
         url = "http://report.amap.com/ajax/cityDailyQuarterly.do?"
 
@@ -149,7 +149,7 @@ class GaodeTraffic(Traffic):
         req = {
             "cityCode": cityCode,
             "year": year,  # 年份
-            "quarter": ''  # 第几季
+            "quarter": quarter  # 第几季
         }
         sql = "select   name from MainTrafficInfo where cityCode=" + str(cityCode)+";"
         cursor=self.db.cursor()
@@ -157,14 +157,17 @@ class GaodeTraffic(Traffic):
             cursor.execute(sql)
             self.db.commit()
         except Exception as e:
-            print("error:%s"%s)
+            print("error:%s"%e)
             self.db.rollback()
             return None
         city =cursor.fetchone()
-        for i in range(1, 3):
-            req["quarter"] = 1
-            url = url + urlencode(req)
-            data = self.s.get(url=url, headers=self.headers)
-            g = eval(data.text)
-            for date, index in zip(g["categories"], g['serieData']):
-                yield {"date": date, "index": index, "city": city}
+        url = url + urlencode(req)
+        data = requests.get(url=url, headers=self.headers)
+        g = eval(data.text)
+        for date, index in zip(g["categories"], g['serieData']):
+            yield {"date": date, "index": index, "city": city}  #{'date': '2019-01-01', 'index': 1.25, 'city': city}
+
+g = GaodeTraffic(None)
+# l = g.getLngLat(320500)
+# print(l)
+g.getLngLat("广州")
