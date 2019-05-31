@@ -8,7 +8,7 @@ from SpyderTool.setting import *
 class ScenceFunction:
     # 待更改为信号量来实现多线程操作数据库
     instance = None
-    db = pymysql.connect(host=host, user=user, password=password, database=database,
+    db = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
                          port=port)
 
     # 录入数据库景区数据库信息
@@ -53,7 +53,7 @@ class ScenceFunction:
             time.sleep(1800)
     def GetPeopleFlow(self, PeoplePid):
 
-        mysql = pymysql.connect(host=host, user=user, password=password, database=database,
+        mysql = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
                          port=port)
         sql = "select PeopleTablePid from ScenceInfoData where  PeoplePid=" + str(PeoplePid) + ";"
 
@@ -104,7 +104,7 @@ class ScenceFunction:
             cls.instance.__ProgrammerPool(cls.instance.GetWeather, WeatherPidList)
             time.sleep(4*3600)
     def GetWeather(self, WeatherPid):
-        mysql = pymysql.connect(host=host, user=user, password=password, database=database,
+        mysql = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
                          port=port)
         sql = "select WeatherTablePid from ScenceInfoData where  WeatherPid=" + "'" + WeatherPid + "';"
 
@@ -169,7 +169,7 @@ class ScenceFunction:
             cls.instance.__ProgrammerPool(cls.instance.GetTraffic, CityCodeList)
             time.sleep(350)
     def GetTraffic(self, CityCode):
-        mysql = pymysql.connect(host=host, user=user, password=password, database=database,
+        mysql = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
                          port=port)
 
         sql = "select CityTableCode from ScenceInfoData where  CityCode=" + "'" + str(CityCode) + "';"

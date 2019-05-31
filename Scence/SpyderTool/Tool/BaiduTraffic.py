@@ -3,7 +3,9 @@ import json
 import time
 from urllib.parse import urlencode
 from SpyderTool.MulThread import MulitThread
-class BaiduTraffic(object):
+from SpyderTool.Tool.Traffic import Traffic
+
+class BaiduTraffic(Traffic):
 
     def __init__(self, db):
         self.db = db

@@ -166,8 +166,3 @@ class GaodeTraffic(Traffic):
         g = eval(data.text)
         for date, index in zip(g["categories"], g['serieData']):
             yield {"date": date, "index": index, "city": city}  #{'date': '2019-01-01', 'index': 1.25, 'city': city}
-
-g = GaodeTraffic(None)
-# l = g.getLngLat(320500)
-# print(l)
-g.getLngLat("广州")

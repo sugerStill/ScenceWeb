@@ -4,7 +4,7 @@ import pymysql
 from SpyderTool.setting import *
 if __name__ == "__main__":
     pool = Pool(processes=3)
-    db = pymysql.connect(host=host, user=user, password=password, database=database,
+    db = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
                          port=port)
     db.connect()
     cursor = db.cursor()
@@ -24,8 +24,8 @@ if __name__ == "__main__":
     CityCodeList = list(set(CityCodeList))
     WeatherPidList = list(set(WeatherPidList))
 
-    # pool.apply_async(func=d.PeopleFlow, args=(PeoplePidList, ))
-    # pool.apply_async(func=d.Weather, args=(WeatherPidList,))
+    pool.apply_async(func=d.PeopleFlow, args=(PeoplePidList, ))
+    pool.apply_async(func=d.Weather, args=(WeatherPidList,))
     pool.apply_async(func=d.Traffic, args=(CityCodeList,))
     pool.close()
     pool.join()
