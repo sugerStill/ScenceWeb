@@ -1,32 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5bcbdd1d-7e36-49ea-b36e-ccb6d5a2c68f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScenceView/WebViewTool/City.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScenceView/WebViewTool/City.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScenceView/WebViewTool/DataBaseOperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScenceView/WebViewTool/DataBaseOperation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScenceView/WebViewTool/GetJingQUData.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScenceView/WebViewTool/GetJingQUData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScenceView/WebViewTool/MyThread.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScenceView/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScenceView/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScenceView/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScenceView/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScenceView/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScenceView/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScenceView/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScenceView/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Function/ScenceFunction.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/Function/ScenceFunction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Function/TrafficFunction.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/Function/TrafficFunction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/InitDataBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/InitDataBase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/MulThread.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/MulThread.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/BaiduTraffic.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/Tool/BaiduTraffic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/GaodeTraffic.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/Tool/GaodeTraffic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/PeopleFlow.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/Tool/PeopleFlow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/Traffic.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/Tool/Traffic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/Weather.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/Tool/Weather.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/SpyderTool/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TrafficView/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/TrafficView/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TrafficView/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/TrafficView/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TrafficView/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/TrafficView/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="5bcbdd1d-7e36-49ea-b36e-ccb6d5a2c68f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,23 +76,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ScenceView/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+            <state relative-caret-position="137">
+              <caret line="29" column="10" lean-forward="true" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
               <folding>
                 <element signature="e#0#58#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ScenceView/WebViewTool/City.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="32" lean-forward="true" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -247,13 +213,12 @@
             <path>
               <item name="Scence" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scence" type="462c0819:PsiDirectoryNode" />
-              <item name="ScenceView" type="462c0819:PsiDirectoryNode" />
+              <item name="Scence" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Scence" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scence" type="462c0819:PsiDirectoryNode" />
-              <item name="ScenceView" type="462c0819:PsiDirectoryNode" />
-              <item name="WebViewTool" type="462c0819:PsiDirectoryNode" />
+              <item name="SpyderTool" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -498,7 +463,7 @@
       <workItem from="1559233609596" duration="6892000" />
       <workItem from="1559289852263" duration="9654000" />
       <workItem from="1559303004750" duration="4854000" />
-      <workItem from="1559308830449" duration="15641000" />
+      <workItem from="1559308830449" duration="15887000" />
     </task>
     <servers />
   </component>
@@ -508,7 +473,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185150000" />
+    <option name="totallyTimeSpent" value="185396000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -527,7 +492,7 @@
       <window_info id="Structure" order="1" sideWeight="0.50252527" side_tool="true" weight="0.30048466" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32686085" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32686085" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4983845" weight="0.36731392" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39644012" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -552,35 +517,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/AuthRouter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SpyderTool/Tool.py" />
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2018.3/python_stubs/-246389911/time.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="234" column="11" selection-start-line="234" selection-start-column="8" selection-end-line="234" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://53348604-ae0a-417e-979c-b24edac4a853/schema/webdata/table/traffic">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://53348604-ae0a-417e-979c-b24edac4a853/schema/webdata/table/peopleFlow">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/PycharmProjects/DataViewWeb/venv/lib/python3.7/site-packages/pymysql/connections.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -709,16 +645,6 @@
             <element signature="e#4082#4296#0" />
             <element signature="e#6617#6824#0" />
             <element signature="e#6870#8299#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SpyderTool/Tool/BaiduTraffic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -914,20 +840,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ScenceView/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ScenceView/WebViewTool/City.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="32" lean-forward="true" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SpyderTool/unload/GetJingQUData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2443" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SpyderTool/unload/scenicInfo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="40" column="27" lean-forward="true" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SpyderTool/unload/WeatherForcest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-20">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SpyderTool/Tool/BaiduTraffic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scence/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="57" column="12" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SpyderTool/unload/People.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ScenceView/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="29" column="10" lean-forward="true" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#58#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
