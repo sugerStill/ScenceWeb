@@ -1346,7 +1346,7 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="345" parent="287" name="index">
+    <column id="345" parent="287" name="TrafficIndex">
       <Position>4</Position>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>

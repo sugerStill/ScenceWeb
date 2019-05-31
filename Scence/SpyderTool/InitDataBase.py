@@ -8,7 +8,7 @@ def initScenceDatabase():
     d._ScenceFunction__initDatabase()
 def initTraffivDatabase():
     t = TraffciFunction()
-    t._TraffciFunction__initDatabase()
+    t._TraffciFunction__initdatabase()
 
 '''初始化数据库'''
 if __name__ == "__main__":
