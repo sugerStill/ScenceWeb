@@ -12,9 +12,11 @@ class ScenceFunction:
                          port=port)
 
     # 录入数据库景区数据库信息
-    def __test_LoadIntoDatabase(self):
-
-        cursor = self.db.cursor()
+    def __initDatabase(self):
+        mysql = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
+                             port=port)
+        mysql.connect()
+        cursor=mysql.cursor()
         with open(Filepath, 'r') as f:
             reader = csv.reader(f)
             reader.__next__()  # 跳过表头
@@ -36,13 +38,13 @@ class ScenceFunction:
                     WeatherTablePid)
                 try:
                     cursor.execute(sql)
-                    self.db.commit()
-                    print("success")
+                    mysql.commit()
                 except Exception as e:
                     print("error:%s" % e)
-                    self.db.rollback()
-        self.db.close()
-
+                    mysql.rollback()
+        cursor.close()
+        mysql.close()
+        return True
 
     @classmethod
     def PeopleFlow(cls, PeoplePidList):
@@ -217,10 +219,12 @@ class ScenceFunction:
         try:
             cursor.execute(sql)
             mysql.commit()
+            cursor.close()
         except Exception as e:
 
             print("error:%s" % e)
             mysql.rollback()
+            cursor.close()
             return False
         return True
     def __DealWithTraffic(self, info, mysql, Pid, today, yesterday):
@@ -261,6 +265,7 @@ class ScenceFunction:
         except Exception as e:
             print("查询错误%s" % e)
             mysql.rollback()
+            cursor.close()
             return None
         return cursor
 

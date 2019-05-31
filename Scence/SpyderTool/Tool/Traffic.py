@@ -15,7 +15,7 @@ class Traffic(ABC):
         pass
 
     @abstractmethod
-    def YearTraffic(self, cityCode, year):
+    def YearTraffic(self, cityCode, year,quarter):
         pass
     #经纬度查询
     def getLngLat(self, City):

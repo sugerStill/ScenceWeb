@@ -53,7 +53,13 @@ class GaodeTraffic(Traffic):
     # 道路数据获取
     def RoadData(self, cityCode):
         dic = self.__Roads(cityCode)  # 道路基本信息
+        if not len(dic['route']):
+            print("参数不合法或者网络链接失败")
+            return None
+
         dataList = self.__realTimeRoad(dic, cityCode)  # 获取数据
+        if dataList is None:
+            return None
         for item, data in zip(dic['route'], dataList['data']):
             RoadName = item["name"]  # 路名
             Speed = float(item["speed"])  # 速度
@@ -119,11 +125,14 @@ class GaodeTraffic(Traffic):
             t.join()
             if t.get_result is not None:
                 data.append(t.get_result)
+            else:
+                continue
 
         ##排好序列
         if len(data) > 0:
             sorted(data, key=lambda x: ["num"])
-
+        else:
+            return None
         return {"data": data}
 
     def __RealTimeRoadData(self, RoadUrl, i):
@@ -141,8 +150,10 @@ class GaodeTraffic(Traffic):
         realData = {"num": i, "time": t, "data": l}
         return realData
 
-    def YearTraffic(self, cityCode:int, year:int,quarter:int):
-
+    def YearTraffic(self, cityCode:int, year:int=int(time.strftime("%Y",time.localtime())),quarter:int=int(time.strftime("%m",time.localtime()))/3):
+        if quarter-int(quarter)>0:
+            quarter=int(quarter)+1
+        print(quarter)
         url = "http://report.amap.com/ajax/cityDailyQuarterly.do?"
 
         # year键表示哪一年 的数据
@@ -156,11 +167,18 @@ class GaodeTraffic(Traffic):
         try:
             cursor.execute(sql)
             self.db.commit()
+
         except Exception as e:
-            print("error:%s"%e)
+            print("百度模块数据库执行出错:%s" % e)
             self.db.rollback()
+            cursor.close()
             return None
-        city =cursor.fetchone()
+
+        try:
+            city = cursor.fetchone()[0]
+        except TypeError:
+            print("高德交通信息数据库查不到相关信息")
+            return None
         url = url + urlencode(req)
         data = requests.get(url=url, headers=self.headers)
         g = eval(data.text)

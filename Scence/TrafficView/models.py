@@ -30,14 +30,14 @@ class MainCityTrafficDataBase(models.Model):
 class CityTraffic(models.Model):
     pid = models.ForeignKey(to='MainCityTrafficDataBase', on_delete=models.CASCADE,
                             verbose_name='城市交通ip',to_field='cityCode',related_name="CityTraffic")
-    date = models.DateField(max_length=32)  # 日期
-    data = models.FloatField()  # 拥堵指数
-    time = models.CharField(max_length=16)  # 具体时间
+    date = models.DateField(max_length=32, verbose_name="日期")  # 日期
+    TrafficIndex = models.FloatField(verbose_name="交通拥堵指数")
+    detailTime = models.CharField(max_length=16, verbose_name="时间点")
 
     class Meta:
         app_label = "TrafficView"
         db_table='CityTraffic'
-        ordering=['time']
+        ordering=['detailTime']
 
 
 class RoadTraffic(models.Model):
