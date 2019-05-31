@@ -21,7 +21,7 @@ class JingQuDatabase(models.Model):
 
     class Meta:
         db_table = "ScenceInfoData"
-        app_label='ScenceView'
+        app_label = 'ScenceView'
 
     @property
     def info(self):
@@ -48,7 +48,9 @@ class PeopleFlow(models.Model):
             models.Index(fields=['date'], name='Day')
         ]
 
-        app_label='ScenceView'
+        app_label = 'ScenceView'
+
+
 #
 class Traffic_Data(models.Model):
     pid = models.ForeignKey(to='JingQuDatabase', on_delete=models.CASCADE, to_field='CityTableCode',
@@ -82,11 +84,13 @@ class Weather_Data(models.Model):
 
     class Meta:
         db_table = "weather"
-        ordering = ['date','detailTime']
+        ordering = ['date', 'detailTime']
         indexes = [models.Index(fields=['pid'], name='景区pid'),
                    models.Index(fields=['date'], name='Day')]
 
         app_label = 'ScenceView'
+
+
 #
 # class ContrastDetail(models.Model):
 #     name = models.CharField(max_length=32)

@@ -1,5 +1,3 @@
-from django.db import models
-
 # Create your models here.
 from django.db import models
 
@@ -9,8 +7,6 @@ from django.db import models
 class DataBaseManager(models.Manager):
     def get_quertset(self):
         return super().get_queryset().filter()
-
-
 
 
 # 城市交通主数据库
@@ -29,15 +25,15 @@ class MainCityTrafficDataBase(models.Model):
 
 class CityTraffic(models.Model):
     pid = models.ForeignKey(to='MainCityTrafficDataBase', on_delete=models.CASCADE,
-                            verbose_name='城市交通ip',to_field='cityCode',related_name="CityTraffic")
+                            verbose_name='城市交通ip', to_field='cityCode', related_name="CityTraffic")
     date = models.DateField(max_length=32, verbose_name="日期")  # 日期
     TrafficIndex = models.FloatField(verbose_name="交通拥堵指数")
     detailTime = models.CharField(max_length=16, verbose_name="时间点")
 
     class Meta:
         app_label = "TrafficView"
-        db_table='CityTraffic'
-        ordering=['detailTime']
+        db_table = 'CityTraffic'
+        ordering = ['detailTime']
 
 
 class RoadTraffic(models.Model):
@@ -50,12 +46,12 @@ class RoadTraffic(models.Model):
     speed = models.FloatField()  # 速度
     data = models.TextField()  # 拥堵数据
     bounds = models.TextField()  # 卫星数据
-    flag=models.BooleanField()#判断数据是否失效，失效则用户无法访问
+    flag = models.BooleanField()  # 判断数据是否失效，失效则用户无法访问
 
     class Meta:
         app_label = "TrafficView"
         ordering = ['speed']
-        db_table='RoadTraffic'
+        db_table = 'RoadTraffic'
 
 
 class YearCityTraffic(models.Model):
@@ -67,5 +63,5 @@ class YearCityTraffic(models.Model):
 
     class Meta:
         app_label = "TrafficView"
-        db_table='YearCityTraffic'
-        ordering=['date']
+        db_table = 'YearCityTraffic'
+        ordering = ['date']

@@ -1,5 +1,6 @@
-import importlib, time, json, pickle
-from ScenceView.models import JingQuDatabase, PeopleFlow, Traffic_Data, Weather_Data
+import time
+import json
+from ScenceView.models import JingQuDatabase
 
 '''采用单例模式，同时采用数据内存驻留'''
 
@@ -26,53 +27,55 @@ class GetDataBase(object):
             print("init")
 
     # 获取今天客流数据
-    def PeopleFlowInformation(self, PeoplePid):
+    @staticmethod
+    def peopleflow_information(peoplepid):
 
-        GetDataBase.instance_time[str(PeoplePid)] = time.time()  # 记录访问时间
+        GetDataBase.instance_time[str(peoplepid)] = time.time()  # 记录访问时间
         date = time.strftime("%Y-%m-%d", time.localtime())
-        quertSet = JingQuDatabase.objects.get(PeoplePid=PeoplePid).Flow.filter(date=date).values("num", "detailTime")
+        quertset = JingQuDatabase.objects.get(PeoplePid=peoplepid).Flow.filter(date=date).values("num", "detailTime")
         data = []
-        Time = []
+        timelist = []
 
-        for item in quertSet:
+        for item in quertset:
             data.append(item['num'])
-            Time.append(item['detailTime'])
-        data = json.dumps({"data": data, "time": Time})
+            timelist.append(item['detailTime'])
+        data = json.dumps({"data": data, "time": timelist})
         return data
 
     # 获取今天交通数据
-    def TrafficIndex(self, pid):
+    @staticmethod
+    def trafficindex(pid):
 
-        GetDataBase.instance_time[pid] = time.time()  # 记录访问时间
         data = []
-        Time = []
+        timelist = []
         date = time.strftime("%Y-%m-%d", time.localtime())
-        quertSet = JingQuDatabase.objects.filter(CityCode=pid)[0].Traffic.filter(date=date).values("TrafficIndex",
+        quertset = JingQuDatabase.objects.filter(CityCode=pid)[0].Traffic.filter(date=date).values("TrafficIndex",
                                                                                                    'detailTime')
-        for item in quertSet:
+        for item in quertset:
             data.append(item['TrafficIndex'])
-            Time.append(item['detailTime'])
-        data = json.dumps({"data": data, "time": Time})
+            timelist.append(item['detailTime'])
+        data = json.dumps({"data": data, "time": timelist})
         return data
 
     # 获取以现在时刻-4小时为起点24小时内的天气预报数据
-    def getWeatherIndex(self, pid):
+    def getweatherindex(self, pid):
         # 一小时内
 
         date = time.strftime("%Y-%m-%d", time.localtime())
 
-        quertSet = JingQuDatabase.objects.filter(WeatherPid=pid)[0]. \
+        quertset = JingQuDatabase.objects.filter(WeatherPid=pid)[0]. \
             weather.filter(date=date). \
             values("date", 'detailTime',
                    'state', 'temperature',
                    'wind')
-        result = self.__Data(quertSet)
+        result = self.dealwith_data(quertset)
         return json.dumps(result)
 
-    def __Data(self, quertSet):
+    @staticmethod
+    def dealwith_data(quertset):
         data = []
-        for item in quertSet:
-            obj = {}
+        for item in quertset:
+            obj = dict()
             obj['date'] = str(item['date'])
             obj['detailTime'] = item['detailTime']
             obj['state'] = item['state']
@@ -82,12 +85,12 @@ class GetDataBase(object):
         result = {"weather": data}
         return result
 
-    def getWeather7dIndex(self, pid):
+    def getweather_7dindex(self, pid):
         date = time.strftime("%Y-%m-%d", time.localtime())
-        quertSet = JingQuDatabase.objects.filter(WeatherPid=pid)[0]. \
+        quertset = JingQuDatabase.objects.filter(WeatherPid=pid)[0]. \
             weather.filter(date__gte=date). \
             values("date", 'detailTime',
                    'state', 'temperature',
                    'wind')
-        result = self.__Data(quertSet)
+        result = self.dealwith_data(quertset)
         return json.dumps(result)

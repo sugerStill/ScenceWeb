@@ -1,3 +1,4 @@
+
 import requests
 import json
 import time
@@ -13,25 +14,26 @@ class GaodeTraffic(Traffic):
         self.s = requests.Session()
         self.headers = {
             'Host': 'report.amap.com',
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) '
+                          'Chrome/71.0.3578.98 Safari/537.36'
 
         }
 
-    def deco(func):
-        def Load(self, cityCode):
-            data = func(self, cityCode)
-            return data
-
-        return Load
-
-    @deco
-    def CityTraffic(self, cityCode):
-        url = "http://report.amap.com/ajax/cityHourly.do?cityCode=" + str(cityCode)
+    # def deco(func):
+    #     def load(self, cityCode):
+    #         data = func(self, cityCode)
+    #         return data
+    #
+    #     return load
+    #
+    # @deco
+    def citytraffic(self, citycode):
+        url = "http://report.amap.com/ajax/cityHourly.do?cityCode=" + str(citycode)
         data = self.s.get(url=url, headers=self.headers)
         try:
             g = json.loads(data.text)
         except Exception as e:
-            print("编号%d--网络链接error:%s" % (cityCode, e))
+            print("编号%d--网络链接error:%s" % (citycode, e))
             print(data)
 
             return None
@@ -42,83 +44,82 @@ class GaodeTraffic(Traffic):
         # 含有24小时的数据
         dic = {}
         for item in g:
-            detailTime = time.strftime("%H:%M", time.localtime(int(item[0]) / 1000))
-            if detailTime == '00:00':
+            detailtime = time.strftime("%H:%M", time.localtime(int(item[0]) / 1000))
+            if detailtime == '00:00':
                 date = today
             dic['date'] = date
             dic['index'] = float(item[1])
-            dic['detailTime'] = detailTime
+            dic['detailTime'] = detailtime
             yield dic
 
     # 道路数据获取
-    def RoadData(self, cityCode):
-        dic = self.__Roads(cityCode)  # 道路基本信息
+    def roaddata(self, citycode):
+        dic = self.__roads(citycode)  # 道路基本信息
         if not len(dic['route']):
             print("参数不合法或者网络链接失败")
             return None
 
-        dataList = self.__realTimeRoad(dic, cityCode)  # 获取数据
-        if dataList is None:
+        datalist = self.__realtimeroad(dic, citycode)  # 获取数据
+        if datalist is None:
             return None
-        for item, data in zip(dic['route'], dataList['data']):
-            RoadName = item["name"]  # 路名
-            Speed = float(item["speed"])  # 速度
+        for item, data in zip(dic['route'], datalist['data']):
+            roadname = item["name"]  # 路名
+            speed = float(item["speed"])  # 速度
             data = json.dumps(data)  # 数据包
-            Direction = item['dir']  # 道路方向
-            Bounds = json.dumps({"coords": item['coords']})  # 道路经纬度数据
+            direction = item['dir']  # 道路方向
+            bounds = json.dumps({"coords": item['coords']})  # 道路经纬度数据
 
-            yield {"RoadName": RoadName, "Speed": Speed, "Direction": Direction, "Bounds": Bounds, 'Data': data}
+            yield {"RoadName": roadname, "Speed": speed, "Direction": direction, "Bounds": bounds, 'Data': data}
 
-    def __Roads(self, cityCode):
+    def __roads(self, citycode):
 
         req = {
             "roadType": 0,
             "timeType": 0,
-            "cityCode": cityCode
+            "cityCode": citycode
         }
         url = "https://report.amap.com/ajax/roadRank.do?" + urlencode(req)
         data = self.s.get(url=url, headers=self.headers)
-        date = time.strftime("%Y-%m-%d", time.localtime())
-        DetailTime = time.strftime("%H:%M", time.localtime())
 
         try:
-            Route = json.loads(data.text)  # 道路信息包
-        except Exception:
+            route = json.loads(data.text)  # 道路信息包
+        except Exception as e:
+            print(e)
             return None
-        listId = []  # 记录道路pid
-        listRoadName = []  # 记录道路名
-        listDir = []  # 记录道路方向
-        listSpeed = []  # 记录速度
-        for item in Route["tableData"]:
-            listRoadName.append(item["name"])  # 道路名
-            listDir.append(item["dir"])  # 方向
-            listSpeed.append(item["speed"])  # 速度
-            listId.append(item["id"])  # 道路pid
-        dic = {}  # 存放所有数据
-        dic["route"] = Route['tableData']
-        dic["listId"] = listId
-        dic["listRoadName"] = listRoadName
-        dic["listDir"] = listDir
-        dic["listSpeed"] = listSpeed
+        list_id = []  # 记录道路pid
+        list_roadname = []  # 记录道路名
+        list_dir = []  # 记录道路方向
+        list_speed = []  # 记录速度
+        for item in route["tableData"]:
+            list_roadname.append(item["name"])  # 道路名
+            list_dir.append(item["dir"])  # 方向
+            list_speed.append(item["speed"])  # 速度
+            list_id.append(item["id"])  # 道路pid
+        dic_collections = dict()  # 存放所有数据
+        dic_collections["route"] = route['tableData']
+        dic_collections["listId"] = list_id
+        dic_collections["listRoadName"] = list_roadname
+        dic_collections["listDir"] = list_dir
+        dic_collections["listSpeed"] = list_speed
 
-        return dic
+        return dic_collections
 
     # 某条路实时路况
-    def __realTimeRoad(self, dic, cityCode):
+    def __realtimeroad(self, dic, citycode):
         req = {
             "roadType": 0,
             "timeType": 0,
-            "cityCode": cityCode,
+            "cityCode": citycode,
             'lineCode': ''
 
         }
         url = "https://report.amap.com/ajax/roadDetail.do?" + urlencode(req)
         threadlist = []
         data = []
-        for id, i in zip(dic["listId"],
-                         range(0, (dic["listId"]).__len__())):
-            RoadUrl = url + str(id)
-            t = MulitThread(target=self.__RealTimeRoadData, args=(RoadUrl, i,))  # i表示排名
+        for pid, i in zip(dic["listId"],
+                          range(0, (dic["listId"]).__len__())):
+            roadurl = url + str(pid)
+            t = MulitThread(target=self.__realtime_roaddata, args=(roadurl, i,))  # i表示排名
             t.start()
             threadlist.append(t)
         for t in threadlist:
@@ -128,42 +129,44 @@ class GaodeTraffic(Traffic):
             else:
                 continue
 
-        ##排好序列
+        # 排好序列
         if len(data) > 0:
             sorted(data, key=lambda x: ["num"])
         else:
             return None
         return {"data": data}
 
-    def __RealTimeRoadData(self, RoadUrl, i):
-        data = self.s.get(url=RoadUrl, headers=self.headers)
+    def __realtime_roaddata(self, roadurl, i):
+        data = self.s.get(url=roadurl, headers=self.headers)
         try:
             g = json.loads(data.text)  # 拥堵指数
-        except Exception:
+        except Exception as e:
+            print(e)
             return None
-        l = []  # 拥堵指数
-        t = []  # 时间
+        data = []  # 拥堵指数
+        time_list = []  # 时间
         for item in g:
-            t.append(time.strftime("%H:%M", time.strptime(time.ctime(int(item[0] / 1000 + 3600 * 8)))))
-            l.append(item[1])
+            time_list.append(time.strftime("%H:%M", time.strptime(time.ctime(int(item[0] / 1000 + 3600 * 8)))))
+            data.append(item[1])
         # {排名，时间，交通数据}
-        realData = {"num": i, "time": t, "data": l}
-        return realData
+        realdata = {"num": i, "time": time_list, "data": data}
+        return realdata
 
-    def YearTraffic(self, cityCode:int, year:int=int(time.strftime("%Y",time.localtime())),quarter:int=int(time.strftime("%m",time.localtime()))/3):
-        if quarter-int(quarter)>0:
-            quarter=int(quarter)+1
+    def yeartraffic(self, citycode: int, year: int = int(time.strftime("%Y", time.localtime())),
+                    quarter: int = int(time.strftime("%m", time.localtime())) / 3):
+        if quarter - int(quarter) > 0:
+            quarter = int(quarter) + 1
         print(quarter)
         url = "http://report.amap.com/ajax/cityDailyQuarterly.do?"
 
         # year键表示哪一年 的数据
         req = {
-            "cityCode": cityCode,
+            "cityCode": citycode,
             "year": year,  # 年份
             "quarter": quarter  # 第几季
         }
-        sql = "select   name from MainTrafficInfo where cityCode=" + str(cityCode)+";"
-        cursor=self.db.cursor()
+        sql = "select   name from trafficdatabase.MainTrafficInfo where cityCode=" + str(citycode) + ";"
+        cursor = self.db.cursor()
         try:
             cursor.execute(sql)
             self.db.commit()
@@ -183,4 +186,4 @@ class GaodeTraffic(Traffic):
         data = requests.get(url=url, headers=self.headers)
         g = eval(data.text)
         for date, index in zip(g["categories"], g['serieData']):
-            yield {"date": date, "index": index, "city": city}  #{'date': '2019-01-01', 'index': 1.25, 'city': city}
+            yield {"date": date, "index": index, "city": city}  # {'date': '2019-01-01', 'index': 1.25, 'city': city}

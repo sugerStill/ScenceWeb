@@ -10,7 +10,6 @@ class MulitThread(Thread):
     def run(self):
         self.result = self.func(*self.args)
 
-
     @property
     def get_result(self):
         return self.result

@@ -1,4 +1,6 @@
-import time, csv, pymysql
+import time
+import csv
+import pymysql
 from SpyderTool.Tool.BaiduTraffic import BaiduTraffic
 from SpyderTool.Tool.GaodeTraffic import GaodeTraffic
 from SpyderTool.setting import *
@@ -9,7 +11,8 @@ from concurrent.futures import ThreadPoolExecutor
 class TraffciFunction(object):
     instance = None
 
-    def __initdatabase(self):
+    @staticmethod
+    def initdatabase():
 
         mysql = pymysql.connect(host=host, user=user, password=password, database=trafficdatabase,
                                 port=port)
@@ -45,7 +48,7 @@ class TraffciFunction(object):
         while True:
             if cls.instance is None:
                 cls.instance = super().__new__(cls)
-            cls.instance.__programmerpool(cls.instance.gettraffic, citycodelist)
+            cls.instance.programmerpool(cls.instance.gettraffic, citycodelist)
             time.sleep(500)
 
     def gettraffic(self, citycode: int):
@@ -64,7 +67,7 @@ class TraffciFunction(object):
         t = time.time()
         today = time.strftime('%Y-%m-%d', time.localtime(t))
         yesterday = time.strftime('%Y-%m-%d', time.localtime(t - 3600 * 24))
-        info = traffic.CityTraffic(citycode)
+        info = traffic.citytraffic(citycode)
 
         info = self.__dealwith_daily_traffic(info, citycode, mysql, today, yesterday)
         if info is None:
@@ -105,7 +108,7 @@ class TraffciFunction(object):
         cursor.close()
         # 剔除今天重复的数据
         for item in data:
-            self.__filter(info, item[0], item[1])
+            self.filter(info, item[0], item[1])
         lis.clear()
         # 字典反转回原来样子
         for item in info:
@@ -127,7 +130,8 @@ class TraffciFunction(object):
             g = BaiduTraffic(mysql)
         result = g.RoadData(citycode)
         for item in result:
-            sql = "insert into  trafficdatabase.RoadTraffic(pid_id,date,detailTime,name,direction,speed,data,bounds,flag) " \
+            sql = "insert into  trafficdatabase.RoadTraffic(pid_id,date,detailTime,name,direction," \
+                  "speed,data,bounds,flag) " \
                   "values('%d','%s','%s','%s','%s','%f','%s','%s',%s);" % (
                       citycode, date, detailtime, item['RoadName'], item['Direction'], item['Speed'], item['Data'],
                       item['Bounds'], True)
@@ -182,7 +186,8 @@ class TraffciFunction(object):
         return info[i + 1:]
 
     # 写入数据库
-    def loaddatabase(self, mysql, sql):
+    @staticmethod
+    def loaddatabase(mysql, sql):
 
         cursor = mysql.cursor()
         try:
@@ -198,7 +203,8 @@ class TraffciFunction(object):
         return True
 
     # 性能提升
-    def __programmerpool(self, func, pidlist):
+    @staticmethod
+    def programmerpool(func, pidlist):
         tasklist = []
 
         threadpool = ThreadPoolExecutor(max_workers=6)
@@ -209,7 +215,8 @@ class TraffciFunction(object):
         while [item.done() for item in tasklist].count(False):
             pass
 
-    def get_cursor(self, mysql, sql):
+    @staticmethod
+    def get_cursor(mysql, sql):
 
         cursor = mysql.cursor()
         try:
@@ -223,7 +230,8 @@ class TraffciFunction(object):
         return cursor
 
     # 数据过滤器
-    def __filter(self, info, date, detailtime):
+    @staticmethod
+    def filter(info, date, detailtime):
         for i in range(len(info)):
             if info[i].get(str(date)) and info[i].get(detailtime):
                 info.pop(i)

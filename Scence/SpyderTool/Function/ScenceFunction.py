@@ -1,41 +1,49 @@
+import pymysql
+import time
+import csv
 from SpyderTool.Tool.PeopleFlow import ScencePeopleFlow
 from SpyderTool.Tool.Weather import Weather
 from SpyderTool.Tool.BaiduTraffic import BaiduTraffic
 from SpyderTool.Tool.GaodeTraffic import GaodeTraffic
-import pymysql, time, csv
+
 from concurrent.futures import ThreadPoolExecutor
 from SpyderTool.setting import *
+
+
 class ScenceFunction:
     # 待更改为信号量来实现多线程操作数据库
     instance = None
-    db = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
+    db = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
                          port=port)
 
     # 录入数据库景区数据库信息
-    def __initDatabase(self):
-        mysql = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
-                             port=port)
+    @staticmethod
+    def initdatabase():
+        mysql = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
+                                port=port)
         mysql.connect()
-        cursor=mysql.cursor()
-        with open(Filepath, 'r') as f:
+        cursor = mysql.cursor()
+        with open(scencefilepath, 'r') as f:
             reader = csv.reader(f)
             reader.__next__()  # 跳过表头
             count = 0
             for item in reader:
                 count += 1
                 name = str(item[0]).strip(' ')
-                PeoplePid = int(item[1])
+                peoplepid = int(item[1])
                 bounds_lon = float(item[2])
                 bounds_lat = float(item[3])
-                CityCode = int(item[4])
-                WeatherPid = str(item[5]).strip(" ")
-                PeopleTablePid = count
-                CityTableCode = count
-                WeatherTablePid = count
+                citycode = int(item[4])
+                weatherpid = str(item[5]).strip(" ")
+                peopletablepid = count
+                citytablecode = count
+                weathertablepid = count
 
-                sql = "insert into ScenceInfoData(name,bounds_lon,bounds_lat,PeoplePid,CityCode,WeatherPid,PeopleTablePid,CityTableCode,WeatherTablePid) values ('%s','%f','%f','%d','%d','%s','%d','%d','%d')" % (
-                    name, bounds_lon, bounds_lat, PeoplePid, CityCode, WeatherPid, PeopleTablePid, CityTableCode,
-                    WeatherTablePid)
+                sql = "insert into webdata.ScenceInfoData(name,bounds_lon,bounds_lat,PeoplePid,CityCode,WeatherPid," \
+                      "PeopleTablePid,CityTableCode,WeatherTablePid)" \
+                      " values ('%s','%f','%f','%d','%d','%s','%d','%d','%d')" % (
+                          name, bounds_lon, bounds_lat, peoplepid, citycode, weatherpid, peopletablepid, citytablecode,
+                          weathertablepid)
                 try:
                     cursor.execute(sql)
                     mysql.commit()
@@ -47,42 +55,45 @@ class ScenceFunction:
         return True
 
     @classmethod
-    def PeopleFlow(cls, PeoplePidList):
+    def people_flow(cls, peoplepidlist):
         while True:
             if cls.instance is None:
                 cls.instance = super().__new__(cls)
-            cls.instance.__ProgrammerPool(cls.instance.GetPeopleFlow, PeoplePidList)
+            cls.instance.programmerpool(cls.instance.getpeopleflow, peoplepidlist)
             time.sleep(1800)
-    def GetPeopleFlow(self, PeoplePid):
 
-        mysql = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
-                         port=port)
-        sql = "select PeopleTablePid from ScenceInfoData where  PeoplePid=" + str(PeoplePid) + ";"
+    def getpeopleflow(self, peoplepid):
 
-        cursor = self.GetCursor(mysql, sql)
+        mysql = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
+                                port=port)
+        sql = "select PeopleTablePid from webdata.ScenceInfoData where  PeoplePid=" + \
+              str(peoplepid) + ";"
+
+        cursor = self.get_cursor(mysql, sql)
         if cursor is None:
             return
-        PeopleTablePid = cursor.fetchone()[0]
+        peopletablepid = cursor.fetchone()[0]
         cursor.close()
         date = time.strftime('%Y-%m-%d', time.localtime())
-        flow = ScencePeopleFlow(PeoplePid, mysql)
-        info = flow.PeopleFlowInfo
+        flow = ScencePeopleFlow(peoplepid, mysql)
+        info = flow.peopleflow_info
 
-        info = self.__DealWithPeopleFlow(mysql, info, date, PeopleTablePid)
+        info = self.__dealwith_peopleflow(mysql, info, date, peopletablepid)
         for detailTime, num in info:
-            try:
-                flow.LoadDatabase(PeopleTablePid, date, num, detailTime)
-            except Exception as e:
-                print("error---%s" % e)
+            sql = "insert into peopleFlow(pid_id,date,num,detailTime) values ('%d','%s','%d','%s');" % (
+                peopletablepid, date, num, detailTime)
+            if not self.loaddatabase(mysql, sql):
+                print("插入出错")
+                continue
         print("success")
         mysql.close()
 
     # 检查数据库是否存在部分数据，存在则不再插入
-    def __DealWithPeopleFlow(self, mysql, info, date, PeopleTablePid):
+    def __dealwith_peopleflow(self, mysql, info, date, peopletablepid):
 
-        sql = "select detailTime from peopleFlow where  pid_id=" + str(
-            PeopleTablePid) + " and  date=str_to_date('" + str(date) + "','%Y-%m-%d');"
-        cursor = self.GetCursor(mysql, sql)
+        sql = "select detailTime from webdata.peopleFlow where  pid_id=" + str(
+            peopletablepid) + " and  date=str_to_date('" + str(date) + "','%Y-%m-%d');"
+        cursor = self.get_cursor(mysql, sql)
         if cursor is None:
             return
         data = cursor.fetchall()
@@ -99,53 +110,61 @@ class ScenceFunction:
             yield detailTime, num
 
     @classmethod
-    def Weather(cls, WeatherPidList):
+    def weather(cls, weatherpidlist):
         while True:
             if cls.instance is None:
                 cls.instance = super().__new__(cls)
-            cls.instance.__ProgrammerPool(cls.instance.GetWeather, WeatherPidList)
-            time.sleep(4*3600)
-    def GetWeather(self, WeatherPid):
-        mysql = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
-                         port=port)
-        sql = "select WeatherTablePid from ScenceInfoData where  WeatherPid=" + "'" + WeatherPid + "';"
+            cls.instance.programmerpool(cls.instance.getweather, weatherpidlist)
+            time.sleep(4 * 3600)
 
-        cursor = self.GetCursor(mysql, sql)
+    def getweather(self, weatherpid):
+        mysql = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
+                                port=port)
+        sql = "select WeatherTablePid from webdata.ScenceInfoData where  WeatherPid=" \
+              + "'" + weatherpid + "';"
+
+        cursor = self.get_cursor(mysql, sql)
         if cursor is None:
             return
-        WeatherTablePid = cursor.fetchone()[0]
+        weathertablepid = cursor.fetchone()[0]
         cursor.close()
         weather = Weather(mysql)
-        info = weather.WeatherForcest(WeatherPid)
+        info = weather.weatherforcest(weatherpid)
+
         # 每次爬取都是获取未来7天的数据，所以再次爬取时只需要以此刻为起点，看看数据库存不存在7天后的数据
         date = time.strftime('%Y-%m-%d', time.localtime(
             time.time() + 7 * 3600 * 24))
 
-        info = self.__DealWithWeather(info, mysql, WeatherTablePid, date)
-
+        info = self.__dealwith_weather(info, mysql, weathertablepid, date)
         for item in info:
             date = item['date']
-            detailTime = item['detailTime']
+            detailtime = item['detailTime']
             state = item['state']
             temperature = item['temperature']
             wind = item['wind']
-            weather.LoadDatabase(WeatherTablePid, date, detailTime, state, temperature, wind)
+            sql = "insert into  webdata.weather(pid_id,date,detailTime,state,temperature,wind) " \
+                  "values('%d','%s','%s','%s','%s','%s');" % (
+                      weathertablepid, date, detailtime, state, temperature, wind)
+            if not self.loaddatabase(mysql, sql):
+                print("插入失败！")
+                continue
+
         mysql.close()
         print("success")
 
     '''天气数据去已️存在数据'''
 
-    def __DealWithWeather(self, info, mysql, Pid, date):
+    def __dealwith_weather(self, info, mysql, pid, date):
 
-        sql = "select  date,detailTime from weather where pid_id=" + str(
-            Pid) + " and date =str_to_date('" + date + "','%Y-%m-%d');"
-        cursor = self.GetCursor(mysql, sql)
+        sql = "select  date,detailTime from webdata.weather where pid_id=" + str(
+            pid) + " and date =str_to_date('" + date + "','%Y-%m-%d');"
+        cursor = self.get_cursor(mysql, sql)
         if cursor is None:
             cursor.close()
             return info
         data = cursor.fetchall()
 
-        if len(data)==0:
+        if len(data) == 0:
             cursor.close()
             return info
         lis = []
@@ -155,8 +174,8 @@ class ScenceFunction:
                 continue
             lis.append(dict(zip(item.values(), item.keys())))
         info = lis
-        for Olddata in data:
-            self.__filter(info, Olddata[0], Olddata[1])
+        for olddata in data:
+            self.filter(info, olddata[0], olddata[1])
         lis = []
         for item in info:
             lis.append(dict(zip(item.values(), item.keys())))
@@ -164,40 +183,41 @@ class ScenceFunction:
         return info
 
     @classmethod
-    def Traffic(cls, CityCodeList):
+    def traffic(cls, citycodelist):
         while True:
             if cls.instance is None:
                 cls.instance = super().__new__(cls)
-            cls.instance.__ProgrammerPool(cls.instance.GetTraffic, CityCodeList)
+            cls.instance.programmerpool(cls.instance.gettraffic, citycodelist)
             time.sleep(350)
-    def GetTraffic(self, CityCode):
-        mysql = pymysql.connect(host=host, user=user, password=password, database=Scencedatabase,
-                         port=port)
 
-        sql = "select CityTableCode from ScenceInfoData where  CityCode=" + "'" + str(CityCode) + "';"
+    def gettraffic(self, citycode):
+        mysql = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
+                                port=port)
 
-        cursor = self.GetCursor(mysql, sql)
+        sql = "select CityTableCode from webdata.ScenceInfoData where  CityCode=" + "'" + str(citycode) + "';"
+
+        cursor = self.get_cursor(mysql, sql)
         if cursor is None:
             print("cursor is None")
             return
-        CityTableCode = cursor.fetchone()[0]
+        citytablecode = cursor.fetchone()[0]
         cursor.close()
-        traffic = None
 
-        if CityCode > 1000:
+        if citycode > 1000:
             traffic = GaodeTraffic(mysql)
 
-        elif CityCode > 0 and CityCode < 1000:
-
+        elif 0 < citycode < 1000:
             traffic = BaiduTraffic(mysql)
+
         else:
             return
         t = time.time()
+
         today = time.strftime('%Y-%m-%d', time.localtime(t))
         yesterday = time.strftime('%Y-%m-%d', time.localtime(t - 3600 * 24))
-        info = traffic.CityTraffic(CityCode)
+        info = traffic.citytraffic(citycode)
 
-        info = self.__DealWithTraffic(info, mysql, CityTableCode, today, yesterday)
+        info = self.__dealwith_traffic(info, mysql, citytablecode, today, yesterday)
         if info is None:
             print("Null")
             return None
@@ -205,16 +225,18 @@ class ScenceFunction:
         for item in info:
             date = item['date']
             index = float(item['index'])
-            detailTime = item['detailTime']
-            sql = "insert into  traffic(pid_id,date,TrafficIndex,detailTime) values('%d','%s','%s','%s');" % (
-                CityTableCode, date, index, detailTime)
-            self.LoadDatabase(mysql,sql)
+            detailtime = item['detailTime']
+            sql = "insert into  webdata.traffic(pid_id,date,TrafficIndex,detailTime) " \
+                  "values('%d','%s','%s','%s');" % (
+                      citytablecode, date, index, detailtime)
+            self.loaddatabase(mysql, sql)
 
         print("success")
         mysql.close()
 
-    #写入数据库
-    def LoadDatabase(self,mysql, sql):
+    # 写入数据库
+    @staticmethod
+    def loaddatabase(mysql, sql):
         cursor = mysql.cursor()
         try:
             cursor.execute(sql)
@@ -227,7 +249,8 @@ class ScenceFunction:
             cursor.close()
             return False
         return True
-    def __DealWithTraffic(self, info, mysql, Pid, today, yesterday):
+
+    def __dealwith_traffic(self, info, mysql, pid, today, yesterday):
 
         lis = []
         for item in info:
@@ -239,16 +262,16 @@ class ScenceFunction:
                 info = info[i + 1:]
                 break
 
-        sql = "select  date,detailTime from traffic where pid_id=" + str(
-            Pid) + " and date =str_to_date('" + today + "','%Y-%m-%d');"
-        cursor = self.GetCursor(mysql, sql)
+        sql = "select  date,detailTime from webdata.traffic where pid_id=" + str(
+            pid) + " and date =str_to_date('" + today + "','%Y-%m-%d');"
+        cursor = self.get_cursor(mysql, sql)
         if cursor is None:
             return
         data = cursor.fetchall()
         cursor.close()
         # 剔除今天重复的数据
         for item in data:
-            self.__filter(info, item[0], item[1])
+            self.filter(info, item[0], item[1])
         lis.clear()
         for item in info:
             lis.append(dict(zip(item.values(), item.keys())))
@@ -256,7 +279,8 @@ class ScenceFunction:
         return info
 
     # 处理返回执行smysql返回cursor
-    def GetCursor(self, mysql, sql):
+    @staticmethod
+    def get_cursor(mysql, sql):
 
         cursor = mysql.cursor()
         try:
@@ -269,21 +293,23 @@ class ScenceFunction:
             return None
         return cursor
 
-    def __ProgrammerPool(self, func, PidList):
-        l = []
+    @staticmethod
+    def programmerpool(func, pidlist):
+        tasklist = []
 
-        threadPool = ThreadPoolExecutor(max_workers=6)
+        threadpool = ThreadPoolExecutor(max_workers=6)
 
-        for Pid in PidList:
-            task = threadPool.submit(func, Pid)
-            l.append(task)
-        while [item.done() for item in l].count(False):
+        for pid in pidlist:
+            task = threadpool.submit(func, pid)
+            tasklist.append(task)
+        while [item.done() for item in tasklist].count(False):
             pass
 
     '''过滤器'''
 
-    def __filter(self, info, date, detailTime):
+    @staticmethod
+    def filter(info, date, detailtime):
         for i in range(len(info)):
-            if info[i].get(str(date)) and info[i].get(detailTime):
+            if info[i].get(str(date)) and info[i].get(detailtime):
                 info.pop(i)
                 return
