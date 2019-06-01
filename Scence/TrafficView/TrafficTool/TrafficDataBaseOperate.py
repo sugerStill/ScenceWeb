@@ -1,27 +1,33 @@
-import importlib, json
+import importlib
+import json
+import time
+
+from TrafficView.models import MainCityTrafficDataBase
 
 
 class TrafficDatabaseOperate(object):
     def __init__(self):
-        self.Database = importlib.import_module("Scenic.models")
+        pass
 
     ###-日常数据库操作#####
     # 获取日常数据
-    def CityTrafficData(self, DatabaseList):
-
-        DataName = ''.join(DatabaseList)  # 生成数据库名"
-        Base = getattr(self.Database, DataName)  # 获取数据库类
-        ct = Base.objects.all().values("data", "time").iterator()
-        Time = []
+    def get_citytraffic_data(self, citycode):
+        date = time.strftime("%Y-%m-%d", time.localtime())
+        timelist = []
         data = []
-        for item in ct:
-            Time.append(item['time'])
-            data.append(item['data'])
-        dic = {"Citytraffic": {"data": data, "time": Time}}
+        result = MainCityTrafficDataBase.objects.get(cityCode=citycode). \
+            CityTraffic.filter(date=date).values("detailtime", 'trafficindex'). \
+            iterator()
+        for item in result:
+            timelist.append(item['detailtime'])
+            data.append(item['trafficindex'])
+        dic = {"Citytraffic": {"data": data, "time": timelist}}
         return dic
 
     # 获取道路日常数据
-    def GetRoadTrafficData(self, DatabaseList):
+    def get_roadtraffic_data(self, citycode):
+        date = time.strftime("%Y-%m-%d", time.localtime())
+
         dic = {}
         route = []
 
@@ -29,10 +35,11 @@ class TrafficDatabaseOperate(object):
         listSpeed = []
         data = []
         directions = []
-        DataName = ''.join(DatabaseList)  # 生成数据库名"
-        Base = getattr(self.Database, DataName)  # 获取数据库类
-        cd = Base.objects.all().values("name", "data", "bounds", "speed", 'direction').iterator()
-        for item in cd:
+        result = MainCityTrafficDataBase.objects.get(cityCode=citycode). \
+            RoadTraffic.filter(date=date, flag=True). \
+            values("name", "data", "bounds", "speed", 'direction'). \
+            iterator()
+        for item in result:
             route.append({"coords": json.loads(item['bounds'])['coords']})
             listRoadName.append(item['name'])
             listSpeed.append(item['speed'])
@@ -48,14 +55,16 @@ class TrafficDatabaseOperate(object):
         return response
 
     # 获取季度交通数据
-    def GetYearCityTraffic(self, DatabaseList):
+    def get_yearcitytraffic(self, citycode):
         categories = []
         serieData = []
 
-        DataName = ''.join(DatabaseList)
-        Base = getattr(self.Database, DataName)  # 类
-        all = Base.objects.all().values("date", "index")
+        all = MainCityTrafficDataBase.objects.get(cityCode=citycode). \
+            YearTraffic.filter().values("date", "trafficindex") \
+            .iterator()
         for item in all:
-            categories.append(item['index'])
+            categories.append(item['trafficindex'])
             serieData.append(str(item['date']))
-        return {"data": categories, "time": serieData}
+        data = {"data": categories, "time": serieData}
+        print(data)
+        return data

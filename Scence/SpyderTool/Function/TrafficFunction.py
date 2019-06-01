@@ -14,10 +14,10 @@ class TraffciFunction(object):
     @staticmethod
     def initdatabase():
 
-        mysql = pymysql.connect(host=host, user=user, password=password, database=trafficdatabase,
-                                port=port)
-        mysql.connect()
-        cursor = mysql.cursor()
+        db = pymysql.connect(host=host, user=user, password=password, database=trafficdatabase,
+                             port=port)
+        db.connect()
+        cursor = db.cursor()
         with open(city_file_path, 'r') as f:
 
             read = csv.reader(f)
@@ -33,14 +33,14 @@ class TraffciFunction(object):
 
                 try:
                     cursor.execute(sql)
-                    mysql.commit()
+                    db.commit()
                 except Exception as e:
                     print("error:%s" % e)
                     cursor.close()
-                    mysql.rollback()
+                    db.rollback()
                     break
         cursor.close()
-        mysql.close()
+        db.close()
         return True
 
     @classmethod
@@ -52,16 +52,16 @@ class TraffciFunction(object):
             time.sleep(500)
 
     def gettraffic(self, citycode: int):
-        mysql = pymysql.connect(host=host, user=user, password=password,
-                                database=trafficdatabase,
-                                port=port)
+        db = pymysql.connect(host=host, user=user, password=password,
+                             database=trafficdatabase,
+                             port=port)
 
         if citycode > 1000:
-            traffic = GaodeTraffic(mysql)
+            traffic = GaodeTraffic(db)
 
         elif 0 < citycode < 1000:
 
-            traffic = BaiduTraffic(mysql)
+            traffic = BaiduTraffic(db)
         else:
             return
         t = time.time()
@@ -69,7 +69,7 @@ class TraffciFunction(object):
         yesterday = time.strftime('%Y-%m-%d', time.localtime(t - 3600 * 24))
         info = traffic.citytraffic(citycode)
 
-        info = self.__dealwith_daily_traffic(info, citycode, mysql, today, yesterday)
+        info = self.__dealwith_daily_traffic(info, citycode, db, today, yesterday)
         if info is None:
             print("Null")
             return None
@@ -81,14 +81,14 @@ class TraffciFunction(object):
             sql = "insert into  trafficdatabase.citytraffic(pid_id, date, trafficindex, detailtime)" \
                   " values('%d', '%s', '%s', '%s');" % (
                       citycode, date, index, detailtime)
-            if not self.loaddatabase(mysql, sql):
+            if not self.loaddatabase(db, sql):
                 print("%s插入失败" % item)
                 continue
-        mysql.close()
+        db.close()
         return True
 
     # 重复数据处理
-    def __dealwith_daily_traffic(self, info, pid, mysql, today, yesterday):
+    def __dealwith_daily_traffic(self, info, pid, db, today, yesterday):
 
         lis = []
         for item in info:
@@ -101,7 +101,7 @@ class TraffciFunction(object):
                 break
         sql = "select  date,detailtime from trafficdatabase.CityTraffic where pid_id=" + str(
             pid) + " and date =str_to_date('" + today + "','%Y-%m-%d');"
-        cursor = self.get_cursor(mysql, sql)
+        cursor = self.get_cursor(db, sql)
         if cursor is None:
             return None
         data = cursor.fetchall()
@@ -117,41 +117,48 @@ class TraffciFunction(object):
         return info
 
     def road_manager(self, citycode):
-        mysql = pymysql.connect(host=host, user=user, password=password,
-                                database=trafficdatabase,
-                                port=port)
+        db = pymysql.connect(host=host, user=user, password=password,
+                             database=trafficdatabase,
+                             port=port)
+
         t = time.localtime()
         date = time.strftime("%Y-%m-%d", t)
         detailtime = time.strftime("%H:%M", t)
         g = None
         if citycode > 1000:
-            g = GaodeTraffic(mysql)
+            g = GaodeTraffic(db)
         elif citycode < 1000:
-            g = BaiduTraffic(mysql)
-        result = g.RoadData(citycode)
+            g = BaiduTraffic(db)
+        result = g.roaddata(citycode)
+        if result is None:
+            return None
         for item in result:
             sql = "insert into  trafficdatabase.RoadTraffic(pid_id,date,detailTime,name,direction," \
                   "speed,data,bounds,flag) " \
                   "values('%d','%s','%s','%s','%s','%f','%s','%s',%s);" % (
                       citycode, date, detailtime, item['RoadName'], item['Direction'], item['Speed'], item['Data'],
                       item['Bounds'], True)
-
-            if not self.loaddatabase(mysql, sql):
+            if not self.loaddatabase(db, sql):
                 print("%s写入数据库失败" % item)
                 continue
+        print("success")
+        db.close()
+        return True
 
     def yeartraffic(self, citycode):
-        mysql = pymysql.connect(host=host, user=user, password=password, database=trafficdatabase,
-                                port=port)
+        db = pymysql.connect(host=host, user=user, password=password, database=trafficdatabase,
+                             port=port)
+        yearpid = self.__search_yearpid(citycode, db)
         g = None
-        if citycode > 1000:
-            g = GaodeTraffic(mysql)
-        elif citycode < 1000:
-            g = BaiduTraffic(mysql)
-        result = g.YearTraffic(citycode)
-        result = self.__dealwith_year_traffic(result, citycode, mysql,
+        if yearpid > 1000:
+            g = GaodeTraffic(db)
+        elif yearpid < 1000:
+            g = BaiduTraffic(db)
+        result = g.yeartraffic(yearpid)
+        result = self.__dealwith_year_traffic(result, yearpid, db,
                                               date=time.strftime("%Y-%m-%d",
                                                                  time.localtime(time.time() - 24 * 3600)))
+
         for item in result:
             date = item['date']
             index = item['index']
@@ -159,16 +166,29 @@ class TraffciFunction(object):
             sql = "insert into  trafficdatabase.YearCityTraffic(pid_id,date,city,TrafficIndex) " \
                   "values('%d','%s','%s','%f')" % (
                       citycode, date, city, index)
-            if not self.loaddatabase(mysql, sql):
+            if not self.loaddatabase(db, sql):
                 print("%s写入数据库失败" % item)
                 continue
-        mysql.close()
+        print("success")
+        db.close()
         return True
 
-    def __dealwith_year_traffic(self, info, pid, mysql, date):
+    def __search_yearpid(self, citycode, db):
+        sql = "select yearpid from trafficdatabase.MainTrafficInfo WHERE cityCode=" + str(citycode)
+
+        cursor = self.get_cursor(db, sql)
+        if cursor is None:
+            print("查询失败")
+            return None
+        yearpid = cursor.fetchone()[0]
+        if yearpid == 0:
+            return citycode
+        return yearpid
+
+    def __dealwith_year_traffic(self, info, pid, db, date):
         sql = "select  date  from trafficdatabase.YearCityTraffic where pid_id=" + str(
             pid) + " and date >= '" + date + "'"
-        cursor = self.get_cursor(mysql, sql)
+        cursor = self.get_cursor(db, sql)
         if cursor is None:
             print("年度数据查询日期数据失败！")
             return None
@@ -176,7 +196,7 @@ class TraffciFunction(object):
             result = str(cursor.fetchall()[-1][0])  # 最近的日期
 
         except IndexError:
-            print("在年度数据库里查不到相关重复数据，可以直接写入")
+            print("无相关重复数据，可以直接写入")
             return info
         info = list(info)
         i = 0
@@ -187,17 +207,17 @@ class TraffciFunction(object):
 
     # 写入数据库
     @staticmethod
-    def loaddatabase(mysql, sql):
+    def loaddatabase(db, sql):
 
-        cursor = mysql.cursor()
+        cursor = db.cursor()
         try:
             cursor.execute(sql)
-            mysql.commit()
+            db.commit()
             cursor.close()
         except Exception as e:
 
             print("error:%s" % e)
-            mysql.rollback()
+            db.rollback()
             cursor.close()
             return False
         return True
@@ -216,15 +236,15 @@ class TraffciFunction(object):
             pass
 
     @staticmethod
-    def get_cursor(mysql, sql):
+    def get_cursor(db, sql):
 
-        cursor = mysql.cursor()
+        cursor = db.cursor()
         try:
             cursor.execute(sql)
-            mysql.commit()
+            db.commit()
         except Exception as e:
             print("查询错误%s" % e)
-            mysql.rollback()
+            db.rollback()
             cursor.close()
             return None
         return cursor

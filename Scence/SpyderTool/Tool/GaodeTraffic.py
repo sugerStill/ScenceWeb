@@ -1,4 +1,3 @@
-
 import requests
 import json
 import time
@@ -155,8 +154,10 @@ class GaodeTraffic(Traffic):
     def yeartraffic(self, citycode: int, year: int = int(time.strftime("%Y", time.localtime())),
                     quarter: int = int(time.strftime("%m", time.localtime())) / 3):
         if quarter - int(quarter) > 0:
+
             quarter = int(quarter) + 1
-        print(quarter)
+        else:
+            quarter = int(quarter)
         url = "http://report.amap.com/ajax/cityDailyQuarterly.do?"
 
         # year键表示哪一年 的数据
@@ -165,7 +166,7 @@ class GaodeTraffic(Traffic):
             "year": year,  # 年份
             "quarter": quarter  # 第几季
         }
-        sql = "select   name from trafficdatabase.MainTrafficInfo where cityCode=" + str(citycode) + ";"
+        sql = "select   name from trafficdatabase.MainTrafficInfo where yearPid=" + str(citycode) + ";"
         cursor = self.db.cursor()
         try:
             cursor.execute(sql)
@@ -184,6 +185,10 @@ class GaodeTraffic(Traffic):
             return None
         url = url + urlencode(req)
         data = requests.get(url=url, headers=self.headers)
-        g = eval(data.text)
+        try:
+            g = eval(data.text)
+        except SyntaxError:
+            print("高德地图年度数据请求失败！")
+            return None
         for date, index in zip(g["categories"], g['serieData']):
             yield {"date": date, "index": index, "city": city}  # {'date': '2019-01-01', 'index': 1.25, 'city': city}

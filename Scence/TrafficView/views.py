@@ -15,25 +15,24 @@ def traffic(request):
 
 # 城市交通页面
 def citytraffic(request, pid):
-    name = MainCityTrafficDataBase.objects.filter(cityCode=str(pid)).values('name')[0]['name']
+    name = MainCityTrafficDataBase.objects.get(cityCode=pid).name
     data = City(pid, name)
     return render(request, "Traffic/JiaoTong.html", locals())
 
 
 # 获取城市交通数据库
 def citytraffic_datarequest(reuqest, pid):
-    print(reuqest)
-    dic = TrafficDatabaseOperate().CityTrafficData(['CityCode_', str(pid), '_Traffic'])
+    dic = TrafficDatabaseOperate().get_citytraffic_data(pid)
     return HttpResponse(json.dumps(dic))
 
 
 # 获取道路交通数据
 def roadtraffic(request, pid):
-    response = TrafficDatabaseOperate().GetRoadTrafficData(['CityCode_', str(pid), '_RoadTraffic'])
+    response = TrafficDatabaseOperate().get_roadtraffic_data(pid)
     return HttpResponse(json.dumps(response))
 
 
 # 获取年度数据
 def yeartraffic(request, pid):
-    response = TrafficDatabaseOperate().GetYearCityTraffic(['CityCode_', str(pid), '_YearTraffic'])
+    response = TrafficDatabaseOperate().get_yearcitytraffic(pid)
     return HttpResponse(json.dumps(response))

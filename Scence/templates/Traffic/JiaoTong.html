@@ -54,14 +54,14 @@
                 <div>
                     <a href="{% url 'traffic' %}">交通监测</a></div>
             </li>
-            <li>
-                <div><a href="{% url 'WeatherFirst' %}">天气情况</a></div>
-            </li>
-            <li>
-                <div>
-                    <a href="{% url 'jingqu' %}">景区监测</a>
-                </div>
-            </li>
+{#            <li>#}
+{#                <div><a href="{% url 'WeatherFirst' %}">天气情况</a></div>#}
+{#            </li>#}
+{#            <li>#}
+{#                <div>#}
+{#                    <a href="{% url 'jingqu' %}">景区监测</a>#}
+{#                </div>#}
+{#            </li>#}
 
         </ul>
     </div>
@@ -383,9 +383,9 @@
 
     $(document).ready(function () {
         //全部需要改为数据库请求
-        new request_("{% url 'getRoadTraffic' data.CityCode %}", "roadData", 1);
-        new request_("{% url 'requestCityTrafficData' data.CityCode %}", "Citytraffic", 2);
-        new request_("{% url 'getYearTraffic' data.CityCode %}", "yearData", 3);
+        new request_("{% url 'getRoadTraffic' data.citycode %}", "roadData", 1);
+        new request_("{% url 'requestCityTrafficData' data.citycode %}", "Citytraffic", 2);
+        new request_("{% url 'getYearTraffic' data.citycode %}", "yearData", 3);
 
 
     });

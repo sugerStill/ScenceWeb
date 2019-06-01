@@ -1173,13 +1173,13 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="315" parent="284" name="TrafficIndex">
+    <column id="315" parent="284" name="trafficindex">
       <Position>4</Position>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="316" parent="284" name="detailTime">
+    <column id="316" parent="284" name="detailtime">
       <Position>5</Position>
       <DataType>varchar(16)|0s</DataType>
       <NotNull>1</NotNull>
@@ -1264,7 +1264,7 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="331" parent="286" name="DetailTime">
+    <column id="331" parent="286" name="detailtime">
       <Position>3</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
@@ -1346,7 +1346,7 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="345" parent="287" name="TrafficIndex">
+    <column id="345" parent="287" name="trafficindex">
       <Position>4</Position>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>

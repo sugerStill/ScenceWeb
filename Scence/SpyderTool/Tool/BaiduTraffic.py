@@ -56,7 +56,7 @@ class BaiduTraffic(Traffic):
     def yeartraffic(self, citycode: int, year: int = int(time.strftime("%Y", time.localtime())),
                     quarter: int = int(time.strftime("%m", time.localtime())) / 3):
 
-        sql = "select   name from trafficdatabase.MainTrafficInfo where cityCode="\
+        sql = "select   name from trafficdatabase.MainTrafficInfo where cityCode=" \
               + str(citycode) + ";"
         cursor = self.db.cursor()
         try:
@@ -94,9 +94,8 @@ class BaiduTraffic(Traffic):
             yield {"date": date, "index": index, "city": city}
 
     def roaddata(self, citycode):
-
         dic = self.__roads(citycode)
-        if '参数不合法' in dic['message']:
+        if dic['status'] == 1:
             print("参数不合法")
             return None
         datalist = self.__realtime_road(dic, citycode)

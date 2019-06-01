@@ -27,20 +27,20 @@ class CityTraffic(models.Model):
     pid = models.ForeignKey(to='MainCityTrafficDataBase', on_delete=models.CASCADE,
                             verbose_name='城市交通ip', to_field='cityCode', related_name="CityTraffic")
     date = models.DateField(max_length=32, verbose_name="日期")  # 日期
-    TrafficIndex = models.FloatField(verbose_name="交通拥堵指数")
-    detailTime = models.CharField(max_length=16, verbose_name="时间点")
+    trafficindex = models.FloatField(verbose_name="交通拥堵指数")
+    detailtime = models.CharField(max_length=16, verbose_name="时间点")
 
     class Meta:
         app_label = "TrafficView"
         db_table = 'CityTraffic'
-        ordering = ['detailTime']
+        ordering = ['detailtime']
 
 
 class RoadTraffic(models.Model):
     pid = models.ForeignKey(to='MainCityTrafficDataBase', on_delete=models.CASCADE,
                             verbose_name='城市道路交通ip', to_field='cityCode', related_name="RoadTraffic")
     date = models.DateField()  # 日期
-    DetailTime = models.CharField(max_length=32)  # 挖掘时间
+    detailtime = models.CharField(max_length=32)  # 挖掘时间
     name = models.CharField(max_length=32)  # 路名
     direction = models.TextField()  # 具体道路方向
     speed = models.FloatField()  # 速度
@@ -59,7 +59,7 @@ class YearCityTraffic(models.Model):
                             verbose_name='城市季度交通ip', to_field='cityCode', related_name="YearTraffic")
     date = models.DateField()
     city = models.CharField(max_length=32)
-    TrafficIndex = models.FloatField()
+    trafficindex = models.FloatField()
 
     class Meta:
         app_label = "TrafficView"
