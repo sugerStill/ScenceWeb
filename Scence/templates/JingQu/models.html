@@ -172,7 +172,7 @@
 
 <br/>
 <br/>
-<h1 style="clear: both;color: cyan;text-align: center;padding: 10px">{{ data.JingQuName }}景区检测平台</h1>
+<h1 style="clear: both;color: cyan;text-align: center;padding: 10px">{{ data.jingquname }}景区检测平台</h1>
 
 <h3 style="margin-left: 5%">景区实时客流量</h3>
 <div id="JingQu" style="z-index: 2">
@@ -277,9 +277,9 @@
     $(document).ready(function () {
         //请求客流量监测
         new request_server("{% url  'getdata'   data.pid%}");
-        trafficId ={{data.cityCode }};
+        trafficId ={{data.citycode }};
         if (trafficId > 0) {  //请求交通数据库
-            url = "{% url 'getTrafficData'  data.cityCode %}";
+            url = "{% url 'getTrafficData'  data.citycode %}";
             new RequestTrafficHttp(url, "Citytraffic");
         }
 
@@ -296,8 +296,8 @@
         }, 1000);
     });
     req = new XMLHttpRequest();
-
-    req.open("GET", "{% url 'ForcestWeatherOneDay'  data.WeatherPid %}");
+    console.log({{ data.weatherpid }});
+    req.open("GET", "{% url 'ForcestWeatherOneDay'  data.weatherpid %}");
     req.responseType = "json";
     req.onload = function () {
         dataList = req.response['weather'];
@@ -324,7 +324,7 @@
     req.send();
 
     day7 = new XMLHttpRequest();
-    day7.open("GET", "{% url 'ForcestWeatherLongDay' data.WeatherPid %}");
+    day7.open("GET", "{% url 'ForcestWeatherLongDay' data.weatherpid %}");
     day7.responseType = "json";
     day7.onload = function () {
 

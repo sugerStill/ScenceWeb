@@ -22,7 +22,6 @@ def jingquload(request, pid):
     weatherpid = data['WeatherPid']
     information = Information(pid, name, citycode, weatherpid)
     data = information.getinformation()
-
     url = "JingQu/" + str(pid) + ".html"
     return render(request, url, locals())
 

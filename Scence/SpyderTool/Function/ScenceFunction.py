@@ -19,10 +19,10 @@ class ScenceFunction:
     # 录入数据库景区数据库信息
     @staticmethod
     def initdatabase():
-        mysql = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
+        db = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
                                 port=port)
-        mysql.connect()
-        cursor = mysql.cursor()
+        db.connect()
+        cursor = db.cursor()
         with open(scencefilepath, 'r') as f:
             reader = csv.reader(f)
             reader.__next__()  # 跳过表头
@@ -46,12 +46,12 @@ class ScenceFunction:
                           weathertablepid)
                 try:
                     cursor.execute(sql)
-                    mysql.commit()
+                    db.commit()
                 except Exception as e:
                     print("error:%s" % e)
-                    mysql.rollback()
+                    db.rollback()
         cursor.close()
-        mysql.close()
+        db.close()
         return True
 
     @classmethod
@@ -64,36 +64,36 @@ class ScenceFunction:
 
     def getpeopleflow(self, peoplepid):
 
-        mysql = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
+        db = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
                                 port=port)
         sql = "select PeopleTablePid from webdata.ScenceInfoData where  PeoplePid=" + \
               str(peoplepid) + ";"
 
-        cursor = self.get_cursor(mysql, sql)
+        cursor = self.get_cursor(db, sql)
         if cursor is None:
             return
         peopletablepid = cursor.fetchone()[0]
         cursor.close()
         date = time.strftime('%Y-%m-%d', time.localtime())
-        flow = ScencePeopleFlow(peoplepid, mysql)
+        flow = ScencePeopleFlow(peoplepid, db)
         info = flow.peopleflow_info
 
-        info = self.__dealwith_peopleflow(mysql, info, date, peopletablepid)
+        info = self.__dealwith_peopleflow(db, info, date, peopletablepid)
         for detailTime, num in info:
             sql = "insert into peopleFlow(pid_id,date,num,detailTime) values ('%d','%s','%d','%s');" % (
                 peopletablepid, date, num, detailTime)
-            if not self.loaddatabase(mysql, sql):
+            if not self.loaddatabase(db, sql):
                 print("插入出错")
                 continue
         print("success")
-        mysql.close()
+        db.close()
 
     # 检查数据库是否存在部分数据，存在则不再插入
-    def __dealwith_peopleflow(self, mysql, info, date, peopletablepid):
+    def __dealwith_peopleflow(self, db, info, date, peopletablepid):
 
         sql = "select detailTime from webdata.peopleFlow where  pid_id=" + str(
             peopletablepid) + " and  date=str_to_date('" + str(date) + "','%Y-%m-%d');"
-        cursor = self.get_cursor(mysql, sql)
+        cursor = self.get_cursor(db, sql)
         if cursor is None:
             return
         data = cursor.fetchall()
@@ -118,24 +118,26 @@ class ScenceFunction:
             time.sleep(4 * 3600)
 
     def getweather(self, weatherpid):
-        mysql = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
+        db = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
                                 port=port)
+        
+        
         sql = "select WeatherTablePid from webdata.ScenceInfoData where  WeatherPid=" \
               + "'" + weatherpid + "';"
 
-        cursor = self.get_cursor(mysql, sql)
+        cursor = self.get_cursor(db, sql)
         if cursor is None:
             return
         weathertablepid = cursor.fetchone()[0]
         cursor.close()
-        weather = Weather(mysql)
+        weather = Weather(db)
         info = weather.weatherforcest(weatherpid)
 
         # 每次爬取都是获取未来7天的数据，所以再次爬取时只需要以此刻为起点，看看数据库存不存在7天后的数据
         date = time.strftime('%Y-%m-%d', time.localtime(
             time.time() + 7 * 3600 * 24))
 
-        info = self.__dealwith_weather(info, mysql, weathertablepid, date)
+        info = self.__dealwith_weather(info, db, weathertablepid, date)
         for item in info:
             date = item['date']
             detailtime = item['detailTime']
@@ -145,20 +147,20 @@ class ScenceFunction:
             sql = "insert into  webdata.weather(pid_id,date,detailTime,state,temperature,wind) " \
                   "values('%d','%s','%s','%s','%s','%s');" % (
                       weathertablepid, date, detailtime, state, temperature, wind)
-            if not self.loaddatabase(mysql, sql):
+            if not self.loaddatabase(db, sql):
                 print("插入失败！")
                 continue
 
-        mysql.close()
+        db.close()
         print("success")
 
     '''天气数据去已️存在数据'''
 
-    def __dealwith_weather(self, info, mysql, pid, date):
+    def __dealwith_weather(self, info, db, pid, date):
 
         sql = "select  date,detailTime from webdata.weather where pid_id=" + str(
             pid) + " and date =str_to_date('" + date + "','%Y-%m-%d');"
-        cursor = self.get_cursor(mysql, sql)
+        cursor = self.get_cursor(db, sql)
         if cursor is None:
             cursor.close()
             return info
@@ -191,12 +193,12 @@ class ScenceFunction:
             time.sleep(350)
 
     def gettraffic(self, citycode):
-        mysql = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
+        db = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
                                 port=port)
 
         sql = "select CityTableCode from webdata.ScenceInfoData where  CityCode=" + "'" + str(citycode) + "';"
 
-        cursor = self.get_cursor(mysql, sql)
+        cursor = self.get_cursor(db, sql)
         if cursor is None:
             print("cursor is None")
             return
@@ -204,10 +206,10 @@ class ScenceFunction:
         cursor.close()
 
         if citycode > 1000:
-            traffic = GaodeTraffic(mysql)
+            traffic = GaodeTraffic(db)
 
         elif 0 < citycode < 1000:
-            traffic = BaiduTraffic(mysql)
+            traffic = BaiduTraffic(db)
 
         else:
             return
@@ -217,7 +219,7 @@ class ScenceFunction:
         yesterday = time.strftime('%Y-%m-%d', time.localtime(t - 3600 * 24))
         info = traffic.citytraffic(citycode)
 
-        info = self.__dealwith_traffic(info, mysql, citytablecode, today, yesterday)
+        info = self.__dealwith_traffic(info, db, citytablecode, today, yesterday)
         if info is None:
             print("Null")
             return None
@@ -229,28 +231,28 @@ class ScenceFunction:
             sql = "insert into  webdata.traffic(pid_id,date,TrafficIndex,detailTime) " \
                   "values('%d','%s','%s','%s');" % (
                       citytablecode, date, index, detailtime)
-            self.loaddatabase(mysql, sql)
+            self.loaddatabase(db, sql)
 
         print("success")
-        mysql.close()
+        db.close()
 
     # 写入数据库
     @staticmethod
-    def loaddatabase(mysql, sql):
-        cursor = mysql.cursor()
+    def loaddatabase(db, sql):
+        cursor = db.cursor()
         try:
             cursor.execute(sql)
-            mysql.commit()
+            db.commit()
             cursor.close()
         except Exception as e:
 
             print("error:%s" % e)
-            mysql.rollback()
+            db.rollback()
             cursor.close()
             return False
         return True
 
-    def __dealwith_traffic(self, info, mysql, pid, today, yesterday):
+    def __dealwith_traffic(self, info, db, pid, today, yesterday):
 
         lis = []
         for item in info:
@@ -264,7 +266,7 @@ class ScenceFunction:
 
         sql = "select  date,detailTime from webdata.traffic where pid_id=" + str(
             pid) + " and date =str_to_date('" + today + "','%Y-%m-%d');"
-        cursor = self.get_cursor(mysql, sql)
+        cursor = self.get_cursor(db, sql)
         if cursor is None:
             return
         data = cursor.fetchall()
@@ -278,17 +280,17 @@ class ScenceFunction:
         info = lis
         return info
 
-    # 处理返回执行smysql返回cursor
+    # 处理返回执行sdb返回cursor
     @staticmethod
-    def get_cursor(mysql, sql):
+    def get_cursor(db, sql):
 
-        cursor = mysql.cursor()
+        cursor = db.cursor()
         try:
             cursor.execute(sql)
-            mysql.commit()
+            db.commit()
         except Exception as e:
             print("查询错误%s" % e)
-            mysql.rollback()
+            db.rollback()
             cursor.close()
             return None
         return cursor

@@ -24,8 +24,8 @@ if __name__ == "__main__":
     CityCodeList = list(set(CityCodeList))
     WeatherPidList = list(set(WeatherPidList))
 
-    pool.apply_async(func=d.people_flow, args=(PeoplePidList, ))
+    # pool.apply_async(func=d.people_flow, args=(PeoplePidList, ))
     pool.apply_async(func=d.weather, args=(WeatherPidList,))
-    pool.apply_async(func=d.traffic, args=(CityCodeList,))
+    # pool.apply_async(func=d.traffic, args=(CityCodeList,))
     pool.close()
     pool.join()
