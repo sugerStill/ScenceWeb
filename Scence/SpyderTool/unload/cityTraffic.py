@@ -214,7 +214,6 @@ class BaiduTraffic(object):
 
             }
 
-
     '''数据类型city_coords: "11555387.73,2918272.23"
     citycode: "249"
     cityname: "曲靖"

@@ -1,21 +1,21 @@
 import json
 import requests
-from abc import ABC, abstractmethod
+import  abc
 from urllib.parse import urlencode
 
 
-class Traffic(ABC):
+class Traffic(metaclass=abc.ABCMeta):
 
-    @abstractmethod
+    @abc.abstractmethod
     def citytraffic(self, citycode):
         pass
 
     # 道路数据获取
-    @abstractmethod
+    @abc.abstractmethod
     def roaddata(self, citycode):
         pass
 
-    @abstractmethod
+    @abc.abstractmethod
     def yeartraffic(self, citycode, year, quarter):
         pass
 

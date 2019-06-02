@@ -19,6 +19,6 @@ if __name__ == "__main__":
     result = cursor.fetchall()
     for item in result:
         citycode = item[0]
-        # traffic.gettraffic(citycode)
-        # traffic.yeartraffic(citycode)
+        traffic.gettraffic(citycode)
+        traffic.yeartraffic(citycode)
         traffic.road_manager(citycode)

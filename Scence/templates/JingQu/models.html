@@ -46,13 +46,11 @@
                     <a href="{% url 'jingqu' %}">景区监测</a>
                 </div>
             </li>
-            {#            <li>#}
-            {#                <div>#}
-            {#                    <a href="{% url 'traffic' %}">交通监测</a></div>#}
-            {#            </li>#}
-            {#            <li>#}
-            {#                <div><a href="{% url 'WeatherFirst' %}">天气情况</a></div>#}
-            {#            </li>#}
+            <li>
+                <div>
+                    <a href="{% url 'traffic' %}">交通监测</a></div>
+            </li>
+
 
 
         </ul>
@@ -296,7 +294,6 @@
         }, 1000);
     });
     req = new XMLHttpRequest();
-    console.log({{ data.weatherpid }});
     req.open("GET", "{% url 'ForcestWeatherOneDay'  data.weatherpid %}");
     req.responseType = "json";
     req.onload = function () {
@@ -342,7 +339,6 @@
     });
     //最近8天天气
     $('#day7').click(function () {
-        console.log(day7.response);
 
         $(this).css({'background-color': 'lightskyblue'});
         $("#now").css({'background-color': 'gray'});

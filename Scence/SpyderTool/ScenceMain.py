@@ -1,6 +1,6 @@
 from multiprocessing import Pool
 from SpyderTool.Function.ScenceFunction import ScenceFunction
-import pymysql
+import pymysql,csv
 from SpyderTool.setting import *
 if __name__ == "__main__":
     pool = Pool(processes=3)
@@ -17,15 +17,18 @@ if __name__ == "__main__":
     PeoplePidList = []
     WeatherPidList = []
     CityCodeList = []
+
     for PeoplePid, WeatherPid, CityCode in cursor.fetchall():
         PeoplePidList.append(PeoplePid)
         WeatherPidList.append(WeatherPid)
         CityCodeList.append(CityCode)
     CityCodeList = list(set(CityCodeList))
     WeatherPidList = list(set(WeatherPidList))
-
-    # pool.apply_async(func=d.people_flow, args=(PeoplePidList, ))
+    pool.apply_async(func=d.people_flow, args=(PeoplePidList, ))
     pool.apply_async(func=d.weather, args=(WeatherPidList,))
-    # pool.apply_async(func=d.traffic, args=(CityCodeList,))
+    pool.apply_async(func=d.traffic, args=(CityCodeList,))
     pool.close()
     pool.join()
+
+
+

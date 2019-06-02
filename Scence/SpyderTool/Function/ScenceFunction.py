@@ -20,7 +20,7 @@ class ScenceFunction:
     @staticmethod
     def initdatabase():
         db = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
-                                port=port)
+                             port=port)
         db.connect()
         cursor = db.cursor()
         with open(scencefilepath, 'r') as f:
@@ -60,23 +60,26 @@ class ScenceFunction:
             if cls.instance is None:
                 cls.instance = super().__new__(cls)
             cls.instance.programmerpool(cls.instance.getpeopleflow, peoplepidlist)
-            time.sleep(1800)
+
+            time.sleep(10)
+            cls.instance.f.close()
 
     def getpeopleflow(self, peoplepid):
-
         db = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
-                                port=port)
+                             port=port)
         sql = "select PeopleTablePid from webdata.ScenceInfoData where  PeoplePid=" + \
               str(peoplepid) + ";"
-
         cursor = self.get_cursor(db, sql)
         if cursor is None:
             return
         peopletablepid = cursor.fetchone()[0]
+
         cursor.close()
         date = time.strftime('%Y-%m-%d', time.localtime())
         flow = ScencePeopleFlow(peoplepid, db)
+
         info = flow.peopleflow_info
+
 
         info = self.__dealwith_peopleflow(db, info, date, peopletablepid)
         for detailTime, num in info:
@@ -119,9 +122,8 @@ class ScenceFunction:
 
     def getweather(self, weatherpid):
         db = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
-                                port=port)
-        
-        
+                             port=port)
+
         sql = "select WeatherTablePid from webdata.ScenceInfoData where  WeatherPid=" \
               + "'" + weatherpid + "';"
 
@@ -136,7 +138,6 @@ class ScenceFunction:
         # 每次爬取都是获取未来7天的数据，所以再次爬取时只需要以此刻为起点，看看数据库存不存在7天后的数据
         date = time.strftime('%Y-%m-%d', time.localtime(
             time.time() + 7 * 3600 * 24))
-
         info = self.__dealwith_weather(info, db, weathertablepid, date)
         for item in info:
             date = item['date']
@@ -194,7 +195,7 @@ class ScenceFunction:
 
     def gettraffic(self, citycode):
         db = pymysql.connect(host=host, user=user, password=password, database=scencedatabase,
-                                port=port)
+                             port=port)
 
         sql = "select CityTableCode from webdata.ScenceInfoData where  CityCode=" + "'" + str(citycode) + "';"
 

@@ -16,6 +16,7 @@ def jingquload(request, pid):
     try:
         data = JingQuDatabase.objects.filter(PeoplePid=pid).values("name", "CityCode", 'WeatherPid')[0]
     except Exception as e:
+        print(e)
         raise Http404
     name = data["name"]
     citycode = data["CityCode"]
