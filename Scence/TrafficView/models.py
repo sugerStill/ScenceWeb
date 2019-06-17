@@ -1,12 +1,11 @@
 # Create your models here.
 from django.db import models
-
 '''城市交通数据库'''
 
 
-class DataBaseManager(models.Manager):
-    def get_quertset(self):
-        return super().get_queryset().filter()
+# class DataBaseManager(models.Manager):
+#     def get_quertset(self):
+#         return super().get_queryset().filter()
 
 
 # 城市交通主数据库

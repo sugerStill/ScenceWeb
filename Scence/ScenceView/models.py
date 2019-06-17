@@ -91,27 +91,6 @@ class Weather_Data(models.Model):
         app_label = 'ScenceView'
 
 
-#
-# class ContrastDetail(models.Model):
-#     name = models.CharField(max_length=32)
-#     pid = models.IntegerField()  # pid相同成组
-#     environment = models.IntegerField()  # 环境优美
-#     equipment = models.IntegerField()  # 设备齐全
-#     peopleStream = models.IntegerField()  # 人流拥挤
-#     clean = models.IntegerField()  # 干净整洁
-#     traffic = models.IntegerField()  # 交通方便
-
-#
-# # 特征1
-# class Scenic_Characteristics(models.Model):
-#     pid = models.IntegerField()
-#     name = models.CharField(max_length=32)
-#     environment = models.IntegerField()  # 环境优美
-#     equipment = models.IntegerField()  # 设备齐全
-#     peopleStream = models.IntegerField()  # 人流拥挤
-#     Costperformance = models.IntegerField()  # 性价比
-#     clean = models.IntegerField()  # 干净整洁
-#     traffic = models.IntegerField()  # 交通方便
 
 
 '''上面是创建表总览，下面要具体创建每个景区对应的表---天气，客流量，交通,表名采用 pid+父类名 作为表名'''

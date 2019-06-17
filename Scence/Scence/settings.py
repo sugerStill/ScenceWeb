@@ -24,9 +24,8 @@ SECRET_KEY = '2i@v)tjqty!-!9r*c!8rni_z#4oy5137%9u=#lp!gv(0*me_*0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,7 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ScenceView.apps.ScenceViewConfig',
-    'TrafficView.apps.TrafficviewConfig'
+    'TrafficView.apps.TrafficviewConfig',
+    'weather.apps.WeatherConfig',
+    'internet.apps.InternetConfig',
 ]
 
 MIDDLEWARE = [
@@ -71,9 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Scence.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
 
@@ -81,7 +79,7 @@ DATABASES = {
 
     'webdata': {
         'ENGINE': 'django.db.backends.mysql',
-        "NAME": "WebData",  # 数据库名
+        "NAME": "webdata",  # 数据库名
         'USER': "root",  # 用户
         'PASSWORD': 'lzs87724158',
         'HOST': '',  # 数据库主机，留空默认为localhost
@@ -94,14 +92,25 @@ DATABASES = {
         'PASSWORD': 'lzs87724158',
         'HOST': '',  # 数据库主机，留空默认为localhost
         'PORT': '3306',  # 数据库端口
-    }
+    },
+    'weather': {
+        'ENGINE': 'django.db.backends.mysql',
+        "NAME": "weather",  # 数据库名
+        'USER': "root",  # 用户
+        'PASSWORD': 'lzs87724158',
+        'HOST': '',  # 数据库主机，留空默认为localhost
+        'PORT': '3306',  # 数据库端口
+    },
 
 }
 
-DATABASE_ROUTERS = ['AuthRouter.AuthRouter']
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
-# DATABASE_APPS_MAPPING = []
+DATABASE_ROUTERS = ['Scence.authrouter.AuthRouter']
+DATABASE_APPS_MAPPING = {
+    "ScenceView": "webdata",
+    "TrafficView": "trafficdatabase",
+    "weather": "weather",
+}
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
