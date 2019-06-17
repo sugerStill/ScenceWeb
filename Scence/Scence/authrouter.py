@@ -12,6 +12,8 @@ class AuthRouter:
             return "webdata"
         if model._meta.app_label == "weather":
             return "weather"
+        if model._meta.app_label == "internetdata":
+            return "internetdata"
         return None
 
     def db_for_write(self, model, **hints):
@@ -22,10 +24,12 @@ class AuthRouter:
             return "webdata"
         if model._meta.app_label == "weather":
             return "weather"
+        if model._meta.app_label == "internetdata":
+            return "internetdata"
         return None
 
     def allow_relation(self, obj1, obj2, **hints):
-        db_list = ['trafficdatabase', 'webdata', 'weather']
+        db_list = ['trafficdatabase', 'webdata', 'weather', 'internetdata']
         if obj1._state.db in db_list and obj2._state.db in db_list:
             return True
         return None
@@ -36,9 +40,9 @@ class AuthRouter:
             return 'trafficdatabase ' if db == "trafficdatabase" else False
 
         elif app_label == 'ScenceView':
-
             return 'webdata' if db == "webdata" else False
         elif app_label == 'weather':
             return 'weather' if db == "weather" else False
-
+        elif app_label == "internet":
+            return "internetdata" if db == "internetdata" else False
         return None

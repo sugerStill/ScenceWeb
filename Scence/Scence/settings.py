@@ -102,6 +102,14 @@ DATABASES = {
         'PORT': '3306',  # 数据库端口
     },
 
+    'internetdata': {
+        'ENGINE': 'django.db.backends.mysql',
+        "NAME": "internetdata",  # 数据库名
+        'USER': "root",  # 用户
+        'PASSWORD': 'lzs87724158',
+        'HOST': '',  # 数据库主机，留空默认为localhost
+        'PORT': '3306',  # 数据库端口
+    },
 }
 
 DATABASE_ROUTERS = ['Scence.authrouter.AuthRouter']
@@ -109,6 +117,7 @@ DATABASE_APPS_MAPPING = {
     "ScenceView": "webdata",
     "TrafficView": "trafficdatabase",
     "weather": "weather",
+    'internet':"internetdata"
 }
 
 AUTH_PASSWORD_VALIDATORS = [
