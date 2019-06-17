@@ -2,44 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5bcbdd1d-7e36-49ea-b36e-ccb6d5a2c68f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Scence.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../Scence.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/53348604-ae0a-417e-979c-b24edac4a853.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/53348604-ae0a-417e-979c-b24edac4a853.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthRouter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scence/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scence/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scence/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scence/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScenceView/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ScenceView/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/DataFiles/BaiduCity.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/DataFiles/CityInfomation.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/DataFiles/CityInformation.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/DataFiles/GaodeCity.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/DataFiles/LocationFlowData.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/DataFiles/ScenceData.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/DataFiles/WeatherOfCity.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Function/ScenceFunction.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Function/TrafficFunction.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Function/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/InitDataBase.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/MulThread.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/ScenceMain.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/BaiduTraffic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/GaodeTraffic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/PeopleFlow.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/Traffic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/Weather.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/Tool/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/TrafficMain.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/setting.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/unload/People.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/unload/WeatherForcest.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/unload/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/unload/cityTraffic.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpyderTool/unload/scenicInfo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TrafficView/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/TrafficView/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internet/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/internet/models.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -155,8 +118,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internet/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="379">
+              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
@@ -546,7 +509,7 @@
       <workItem from="1559372887852" duration="5923000" />
       <workItem from="1559411537464" duration="2106000" />
       <workItem from="1559467352112" duration="1377000" />
-      <workItem from="1560729407560" duration="11504000" />
+      <workItem from="1560729407560" duration="14627000" />
     </task>
     <servers />
   </component>
@@ -556,7 +519,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="213251000" />
+    <option name="totallyTimeSpent" value="216374000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -995,8 +958,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/internet/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="379">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
         </state>
       </provider>
     </entry>
