@@ -19,12 +19,21 @@ class City(models.Model):
     pid = models.ForeignKey(to="Province", on_delete=models.CASCADE, to_field="provincepid", related_name="Pid")
     name = models.CharField(max_length=32, verbose_name="城市名")
     citypid = models.IntegerField(unique=True, verbose_name="城市唯一标识")  # 城市id
-    href = models.CharField(max_length=64, verbose_name="城市历史数据入口")
+    href = models.CharField(max_length=128, verbose_name="城市历史数据入口")
 
     class Meta:
         app_label = "weather"
 
         db_table = "city"
+
+
+class HistoryList(models.Model):
+    pid = models.ForeignKey(to="City", on_delete=models.CASCADE, to_field="citypid")
+    href = models.CharField(max_length=64, verbose_name="城市历史数据链接")
+
+    class Meta:
+        app_label = "weather"
+        db_table = "historylist"
 
 
 class WeatherManager(models.Model):
@@ -35,15 +44,6 @@ class WeatherManager(models.Model):
     class Meta:
         app_label = "weather"
         db_table = "weathermanager"
-
-
-class HistoryList(models.Model):
-    pid = models.ForeignKey(to="City", on_delete=models.CASCADE, to_field="citypid")
-    href = models.CharField(max_length=64, verbose_name="城市历史数据链接")
-
-    class Meta:
-        app_label = "weather"
-        db_table = "historylist"
 
 
 class HistoryWeather(models.Model):
