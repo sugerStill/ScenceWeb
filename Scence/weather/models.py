@@ -36,18 +36,18 @@ class HistoryList(models.Model):
         db_table = "historylist"
 
 
-class WeatherManager(models.Model):
-    """"""
-    pid = models.ForeignKey(to="City", on_delete=models.CASCADE, to_field="citypid", related_name="WeatherManager")
-    historypid = models.IntegerField(unique=True, verbose_name="历史天气id")
-
-    class Meta:
-        app_label = "weather"
-        db_table = "weathermanager"
+# class WeatherManager(models.Model):
+#     """"""
+#     pid = models.ForeignKey(to="City", on_delete=models.CASCADE, to_field="citypid", related_name="WeatherManager")
+#     historypid = models.IntegerField(unique=True, verbose_name="历史天气id")
+#
+#     class Meta:
+#         app_label = "weather"
+#         db_table = "weathermanager"
 
 
 class HistoryWeather(models.Model):
-    pid = models.ForeignKey(to="WeatherManager", on_delete=models.CASCADE, to_field="historypid",
+    pid = models.ForeignKey(to="City", on_delete=models.CASCADE, to_field="citypid",
                             related_name="History")
     date = models.DateField(verbose_name="日期")
     state = models.TextField(verbose_name="天气状况")
