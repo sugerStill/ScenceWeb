@@ -1,8 +1,7 @@
 from django.shortcuts import render
+from django.http import Http404
 
-
-# Create your views here.
-def get_mobile_brand_rate(request, startyear, startmonth, endyear, endmonth, brand):
+def get_mobile_brand_rate(request, brand,startyear, startmonth, endyear, endmonth):
     """
     返回手机品牌某段时间的历史占有率
     :param request:
@@ -13,7 +12,6 @@ def get_mobile_brand_rate(request, startyear, startmonth, endyear, endmonth, bra
     :param brand: 品牌名
     :return:list[{'date':,"value":x%}]
         """
-
     pass
 
 
