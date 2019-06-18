@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5bcbdd1d-7e36-49ea-b36e-ccb6d5a2c68f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Scence/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scence/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internet/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/internet/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internet/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/internet/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="5bcbdd1d-7e36-49ea-b36e-ccb6d5a2c68f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internet/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="199" column="27" selection-start-line="199" selection-start-column="23" selection-end-line="199" selection-end-column="27" />
+            <state relative-caret-position="298">
+              <caret line="207" selection-start-line="207" selection-end-line="207" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
                 <element signature="e#456#543#0" />
@@ -112,6 +108,7 @@
                 <element signature="e#3834#4093#0" />
                 <element signature="e#4154#4471#0" />
                 <element signature="e#4456#4460#0" />
+                <element signature="e#4804#4819#0" />
                 <element signature="e#4942#5124#0" />
               </folding>
             </state>
@@ -119,10 +116,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/twts_4_ex/js/main.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internet/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="314">
-              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -233,7 +235,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="22" />
     <option name="width" value="1280" />
     <option name="height" value="710" />
@@ -255,17 +257,20 @@
             <path>
               <item name="Scence" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scence" type="462c0819:PsiDirectoryNode" />
-              <item name="internet" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Scence" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scence" type="462c0819:PsiDirectoryNode" />
-              <item name="Scence" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="twts_4_ex" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Scence" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scence" type="462c0819:PsiDirectoryNode" />
-              <item name="weather" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="twts_4_ex" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -519,7 +524,7 @@
       <workItem from="1560729407560" duration="21547000" />
       <workItem from="1560770060817" duration="1071000" />
       <workItem from="1560782829666" duration="2422000" />
-      <workItem from="1560816304272" duration="8356000" />
+      <workItem from="1560816304272" duration="9896000" />
     </task>
     <servers />
   </component>
@@ -529,7 +534,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235143000" />
+    <option name="totallyTimeSpent" value="236683000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -541,10 +546,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="710" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="22" width="1280" height="710" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49747476" visible="true" weight="0.15912762" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49747476" visible="true" weight="0.15912762" />
       <window_info id="Structure" order="1" sideWeight="0.50252527" side_tool="true" weight="0.30048466" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -558,7 +562,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32847896" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5016155" side_tool="true" weight="0.36893204" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4983845" visible="true" weight="0.27022654" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4983845" visible="true" weight="0.27022654" />
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.329582" />
       <window_info anchor="bottom" id="Python Console" order="13" weight="0.32847896" />
       <window_info anchor="bottom" id="Statistic" order="14" />
@@ -585,7 +589,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SpyderTool/unload/WeatherForcest.py" />
     <entry file="file://$PROJECT_DIR$/SpyderTool/unload/People.py" />
     <entry file="das://53348604-ae0a-417e-979c-b24edac4a853/schema/trafficdatabase/table/CityTraffic">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
@@ -850,10 +853,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/internet/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/internet/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="199" column="27" selection-start-line="199" selection-start-column="23" selection-end-line="199" selection-end-column="27" />
+        <state relative-caret-position="298">
+          <caret line="207" selection-start-line="207" selection-end-line="207" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#456#543#0" />
@@ -870,20 +883,14 @@
             <element signature="e#3834#4093#0" />
             <element signature="e#4154#4471#0" />
             <element signature="e#4456#4460#0" />
+            <element signature="e#4804#4819#0" />
             <element signature="e#4942#5124#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internet/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/templates/twts_4_ex/js/main.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
