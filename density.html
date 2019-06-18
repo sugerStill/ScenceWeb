@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>热力图</title>
+	<link rel="stylesheet" type="text/css" href="density.css">
+</head>
+
+<body>
+<div class="header">
+
+
+</div>
+
+<div class="body">
+	<div class="body1">
+		<div class="block1"></div>
+		<div class="l1">
+			<label>省份</label>
+			<select>
+			  <option value ="volvo">Volvo</option>
+			  <option value ="saab">Saab</option>
+			  <option value="opel">Opel</option>
+			  <option value="audi">Audi</option>
+			</select>
+		</div>
+		
+		<div class="l2">
+			<label>城市</label>
+			<select>
+			  <option value ="volvo">Volvo</option>
+			  <option value ="saab">Saab</option>
+			  <option value="opel">Opel</option>
+			  <option value="audi">Audi</option>
+			</select>
+		</div>
+		
+		<div class="l3">
+			<label>区域</label>
+			<select>
+			  <option value ="volvo">Volvo</option>
+			  <option value ="saab">Saab</option>
+			  <option value="opel">Opel</option>
+			  <option value="audi">Audi</option>
+			</select>
+		</div>
+		
+		<div class="l4">
+			<label>日期</label>
+			<select>
+			  <option value ="volvo">Volvo</option>
+			  <option value ="saab">Saab</option>
+			  <option value="opel">Opel</option>
+			  <option value="audi">Audi</option>
+			</select>
+		</div>
+		
+		<div class="l5">
+			<label>粒度</label>
+			<select>
+			  <option value ="volvo">Volvo</option>
+			  <option value ="saab">Saab</option>
+			  <option value="opel">Opel</option>
+			  <option value="audi">Audi</option>
+			</select>
+		</div>
+	</div>
+	
+	<div id="body2">
+		
+	</div>
+</div>
+
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=I4ABZ-R3BWS-ISHO7-6YJYR-EFTWZ-ENFYF"></script>
+<script>
+    window.onload = function () {
+        function init() {
+            // 创建地图
+            var map = new qq.maps.Map(document.getElementById("body2"), {
+                center: new qq.maps.LatLng(39.916527, 116.397128),      // 地图的中心地理坐标
+                zoom: 8,     // 地图缩放级别
+                mapStyleId: 'style1'  // 该key绑定的style1对应于经典地图样式，若未绑定将弹出无权限提示窗
+            });
+			var cirle = new qq.maps.Circle({
+			    center: new qq.maps.LatLng(39.920, 116.405),
+			    radius: 20000,
+			    map: map
+			});
+        }
+        //调用初始化函数
+        init();
+    }
+</script>
+
+</body>
+</html>
